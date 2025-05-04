@@ -80,16 +80,3 @@ nav button:hover {
   background-color: #374151;
   transform: scale(1.03);
 }
-
-main {
-  padding: 2em;
-  background-color: #f4f4f4;
-}
-
-section {
-  background-color: white;
-  padding: 1.5em;
-  margin-bottom: 1.5em;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0, 0.1);
-}
