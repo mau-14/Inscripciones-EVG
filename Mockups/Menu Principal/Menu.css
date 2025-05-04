@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8f0fe; /* Fondo azul claro */
+    color: #333;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2b6cb0; /* Azul fuerte */
+    padding: 12px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    color: white;
+  }
+  
+  .logo {
+    font-weight: bold;
+    color: white;
+  }
+  
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+  
+  nav a:hover {
+    background-color: #1f4e89;
+  }
+  
+  nav a.active {
+    background-color: #1a3f6e;
+  }
+  
+  .user-info {
+    background: white;
+    color: #2b6cb0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  
+  main {
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h1 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: #2b6cb0;
+  }
+  
+  .section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 50px;
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2b6cb0;
+  }
+  
+  .card p {
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+  
+  .card button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    font-size: 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+    align-self: center;
+  }
+  
+  .card button:hover {
+    background-color: #3a7bd5;
+  }
+  
+  .subtitle {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #2b6cb0;
+  }
+  
