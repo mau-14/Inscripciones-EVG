@@ -77,6 +77,6 @@ nav button {
 }
 
 nav button:hover {
-  background-color: #374151;
+  background-color: lightblue;
   transform: scale(1.03);
 }
