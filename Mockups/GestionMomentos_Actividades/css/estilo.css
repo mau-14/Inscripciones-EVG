@@ -1,0 +1,203 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  }
+  
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    color: #343a40;
+    margin-top: 3%;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+  }
+  
+  .contenedor-momentos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .momento {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 200px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+  
+  .momento:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: #0d6efd;
+  }
+  .actividad{
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  .actividad:hover{
+    background-color: rgb(191, 197, 202);
+  }
+  
+  .nombre-momento {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #212529;
+    margin-bottom: 1rem;
+  }
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  .acciones {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .acciones button {
+    border: none;
+    background: #f1f3f5;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+  }
+  
+  .acciones button:hover {
+    background: #dee2e6;
+  }
+  
+  .añadir {
+    cursor: pointer;
+    justify-content: center;
+    background: #0d6efd;
+    color: white;
+    border: none;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .añadir:hover {
+    background: #0b5ed7;
+    transform: scale(1.05);
+  }
+  
+  .añadir i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .volver{
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 6px;
+    padding: 1%;
+  }
+  .volver:hover{
+    background-color: #bec2c5;
+  }
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-contenido {
+    background-color: #fff;
+    margin: 0% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 320px;
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+  
+  .cerrar {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6c757d;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  form label {
+    text-align: left;
+    font-weight: 600;
+    color: #343a40;
+  }
+  
+  form input {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+  }
+  
+  form button {
+    padding: 0.6rem;
+    font-size: 1rem;
+    background: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  form button:hover {
+    background: #0b5ed7;
+  }
+  
+  .botones-confirmacion {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .btn-confirmar {
+    padding: 5px 5%;
+  }
+  
+  .btn-confirmar:hover {
+    background-color: #bb2d3b;
+  }
+  
+  .btn-cancelar {
+    padding: 5px 5%;
+  }
+  
+  .btn-cancelar:hover {
+    background-color: #5c636a;
+  }
+  

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión Momentos</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="../navbar/nav.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo de la marca">
+    </div>
+    <nav>
+       <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Momentos</a></li>
+            <li><a href="#">Torneo Olimpico</a></li>
+       </ul>            
+    </nav>
+    <a class="btn" href="#"><button>Coordinador</button></a>
+</header>
+
+  <h1>Gestión Momentos</h1>
+  <h2>Seleccione un Momento</h2>
+
+  <div class="contenedor-momentos">
+
+     <!--Lista de Momentos-->
+
+    <div class="momento">
+      <p>Navidad</p>
+      <div class="acciones">
+        <button class="editar"><i class="fas fa-pen"></i></button>
+        <button class="eliminar"><i class="fas fa-trash"></i></button>
+        
+      </div>
+      <a href="gestionActividades.html"><button class="actividad">Actividades</button></a>
+    </div>
+    
+    <div class="momento">
+      <p>Semana Ignaciana</p>
+      <div class="acciones">
+        <button class="editar"><i class="fas fa-pen"></i></button>
+        <button class="eliminar"><i class="fas fa-trash"></i></button>
+      </div>
+      <a href="gestionActividades.html"><button class="actividad">Actividades</button></a>
+    </div>
+
+    <!-- Botón para abrir el formulario -->
+    <div class="momento añadir" id="btnAbrirModal">
+      <i class="fas fa-plus"></i>
+      <p>Añadir Momento</p>
+    </div>
+  </div>
+
+  <!-- Modal para añadir Momento -->
+  <div class="modal" id="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarModal">&times;</span>
+      <h2>Nuevo Momento</h2>
+      <form id="formMomento">
+        <label for="nombre">Nombre del momento:</label>
+        <input type="text" id="nombre" name="nombre">
+
+        <label for="fechaInicio">Fecha de inicio:</label>
+        <input type="date" id="fechaInicio" name="fechaInicio"/>
+
+        <label for="fechaFin">Fecha de fin:</label>
+        <input type="date" id="fechaFin" name="fechaFin"/>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para editar momento -->
+<div class="modal" id="modalEditar">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarEditar">&times;</span>
+      <h2>Editar Momento</h2>
+      <form id="formEditarMomento">
+        <label for="editarNombre">Nombre del momento:</label>
+        <input type="text" id="editarNombre" name="editarNombre">
+  
+        <label for="editarFechaInicio">Fecha de inicio:</label>
+        <input type="date" id="editarFechaInicio" name="editarFechaInicio"/>
+  
+        <label for="editarFechaFin">Fecha de fin:</label>
+        <input type="date" id="editarFechaFin" name="editarFechaFin"/>
+  
+        <button type="submit">Actualizar</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Modal de confirmación para eliminar -->
+<div class="modal" id="modalConfirmar">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
+      <h2>¿Estás seguro?</h2>
+      <div class="botones-confirmacion">
+        <button id="btnConfirmarEliminar" class="btn-confirmar">Sí</button>
+        <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/gestionMomentos.js"></script>
+</body>
+</html>
