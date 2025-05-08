@@ -1,6 +1,10 @@
+html {
+  overflow-x: hidden;
+}
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  position: relative;
   background-color: #e8f0fe;
   padding: 0;
   text-align: center;

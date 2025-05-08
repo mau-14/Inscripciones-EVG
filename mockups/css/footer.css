@@ -4,6 +4,7 @@
   text-align: center;
   padding: 1em;
   font-size: 0.9em;
-  margin-top: 3em;
-  border: none;
+  position: absolute;
+  bottom: -5;
+  width: 100%;
 }

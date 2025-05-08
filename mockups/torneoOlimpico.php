@@ -51,11 +51,14 @@ include $navBar;
         </ul>
       </div>
     </section>
+  </main>
 
 
 
-    <?php include $footer; ?>
+  <?php include $footer; ?>
 
 </body>
+
+
 
 </html>
