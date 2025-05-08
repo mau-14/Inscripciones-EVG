@@ -1,21 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background-color: #e8f0fe;
-  padding: 0;
-  text-align: center;
-}
-
-h1 {
-  margin: 1rem 0;
-}
-
-h1 {
-  font-size: 4em;
-  color: #2c3e50;
-  margin: 1em 1em;
-}
-
 .grid {
   width: 50%;
   background-color: white;
@@ -231,12 +213,4 @@ select:focus {
     transform: translateY(0);
     opacity: 1;
   }
-}
-.footer {
-  background-color: #336699;
-  color: #ecf0f1;
-  text-align: center;
-  padding: 1em;
-  font-size: 0.9em;
-  margin-top: 3em;
 }
