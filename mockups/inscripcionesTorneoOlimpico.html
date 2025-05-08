@@ -19,16 +19,27 @@
     </script>
   </head>
   <body>
-    <nav>
+   <nav>
       <div class="navdiv">
-        <ul>
+        <ul class="main-menu">
           <div class="logo">
             <img src="imagenes/logotipo.png" alt="Logo" />
           </div>
           <li><a href="#sec1">Inicio</a></li>
-          <li><a href="#sec2">Torneo Olímpico</a></li>
-          <li><a href="#sec3">Actividades</a></li>
-          <li><a href="inscripcionesTorneoOlímpico.html">Inscripciones</a></li>
+          <li class="has-submenu">
+            <a href="#sec2">Momento</a>
+            <ul class="submenu">
+              <li><a href="#sub1">Consulta de Actividades</a></li>
+              <li><a href="#sub1">Inscripción Actividades</a></li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+             <a href="#sec3">Torneo Olímpico</a>
+             <ul class="submenu">
+                <li><a href="#sub1">Consulta de Pruebas</a></li>
+                <li><a href="#sub1">Inscripción Torneo</a></li>
+              </ul
+          </li>
         </ul>
         <button><i class="fas fa-user"></i> Tutor</button>
       </div>
