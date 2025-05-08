@@ -23,7 +23,7 @@ include $navBar;
 
 <body>
   <main>
-    <h1>Seleccione una prueba</h1>
+    <h1>Panel gestión de pruebas</h1>
     <section class="grid">
       <div class="prueba">
         <h3>50 metros</h3>

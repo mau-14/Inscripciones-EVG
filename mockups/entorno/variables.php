@@ -3,9 +3,10 @@
 
 // NAVBAR 
 
-$inicioHref = "#sec1";
+$inicioHref = "index.php";
 $momentoHref = "#sec2";
 $consultaActividadesHref = "#sub1";
+$gestionPruebasHref = "gestionPruebasTO.php";
 $inscripcionActividadesHref = "#sub1";
 $torneoOlimpicoHref = "torneoOlimpico.php?tipo=Profesorado";
 $consultaPruebasHref = "#sub1";

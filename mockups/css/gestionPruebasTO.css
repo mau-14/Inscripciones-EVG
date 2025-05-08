@@ -10,6 +10,10 @@
   padding: 2rem;
 }
 
+h1 {
+  font-size: 3em;
+}
+
 .prueba {
   width: 20%;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);

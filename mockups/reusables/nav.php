@@ -21,6 +21,7 @@ $usuarioTipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'Invitado';
         <ul class="submenu">
           <li><a href="<?= $consultaPruebasHref ?>">Consulta de Pruebas</a></li>
           <li><a href="<?= $inscripcionTorneoHref ?>">Inscripción Torneo</a></li>
+          <li><a href="<?= $gestionPruebasHref ?>">Gestión de Pruebas</a></li>
         </ul>
       </li>
     </ul>
