@@ -32,6 +32,7 @@ include $navBar;
 <body>
 
   <main>
+
     <section id="secInscripcion">
       <h1>Panel de Inscripciones</h1>
 

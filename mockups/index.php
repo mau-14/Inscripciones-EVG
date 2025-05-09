@@ -30,8 +30,8 @@ include $navBar;
   <main>
     <section id="sec1">
       <div class="ventana-imagen">
-        <img src="imagenes/logoOlimpiadas.jpg" alt="Logo Olimpiadas" />
-        <h1 class="titulo-imagen">PANEL DE GESTIÓN DOCENTE</h1>
+        <img src="imagenes/EVG.jpg" alt="Logo Olimpiadas" />
+        <h1 class="titulo-imagen">INICIO</h1>
       </div>
 
       <div class="normas">
