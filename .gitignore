@@ -1,0 +1,5 @@
+
+#Ignorar archivos sql
+
+
+*.sql
