@@ -1,0 +1,43 @@
+html {
+  overflow-x: hidden;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  position: relative;
+  background-color: #e8f0fe;
+  padding: 0;
+  text-align: center;
+}
+
+main {
+  padding: 2em;
+  background-color: #e8f0fe;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+section {
+  background-color: white;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+section:hover {
+  transform: translateY(-3px);
+}
+
+#sec2 {
+  width: 60%;
+  margin: 0 auto;
+}
+
+section h1 {
+  font-size: 4em;
+  color: #2c3e50;
+  margin-bottom: 1emgeneral;
+}
