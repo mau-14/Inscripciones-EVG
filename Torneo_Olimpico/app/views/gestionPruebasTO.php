@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestión de pruebas</title>
+
   <base href="/Torneo_Olimpico/">
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/general.css" rel="stylesheet" />
@@ -16,6 +17,8 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
+
+<script type="module" src="js/models/m_obtenerPruebas.js"></script>
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/config/entorno/variables.php';
 include $navBar;

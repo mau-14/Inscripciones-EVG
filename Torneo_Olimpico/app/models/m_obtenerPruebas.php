@@ -18,12 +18,30 @@ class M_obtenerPruebas
 
       // Hace que lance los errores si se producen y así pillarlos con el try/catch
       $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-      echo "✅ Conexión establecida correctamente con la base de datos.";
     } catch (PDOException $e) {
 
       die('Error de conexión: ' . $e->getMessage());
+    }
+  }
+
+
+  public function obtenerPruebas()
+  {
+    try {
+      $query = 'SELECT idPrueba, nombre, categoria, maxParticipantes, fecha, hora, tipo FROM Torneo_Olimpico';
+
+      $stmt = $this->conexion->prepare($query);
+
+      $stmt->execute();
+
+      $pruebas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $pruebasJson = json_encode($pruebas);
+
+      return $pruebasJson;
+    } catch (PDOException $e) {
+      error_log("Error al obtener las pruebas: " . $e->getMessage());
+      return json_encode(["error" => "Ocurrió un error al procesar la solicitud."]);
     }
   }
 }
