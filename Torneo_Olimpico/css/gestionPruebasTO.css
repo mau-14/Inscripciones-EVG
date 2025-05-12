@@ -123,15 +123,16 @@ label {
 
 .inputEspeciales {
   display: flex;
-  flex-direction: row;
-  gap: 10%;
-  width: 100%;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 50%;
 }
 
 input,
 textarea,
 select {
   font-family: Arial, sans-serif;
+  margin: 2%;
   padding: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -146,13 +147,13 @@ input {
 input[type="date"] {
   padding: 0.5rem;
   font-size: 1rem;
-  width: 80%;
+  width: 40%;
 }
 
 input[type="time"] {
   padding: 0.5rem;
   font-size: 1rem;
-  width: 50%;
+  width: 20%;
 }
 
 textarea {
@@ -206,7 +207,62 @@ select:focus {
 .cancelar:hover {
   background-color: #c0392b;
 }
-/* Animaciones suaves */
+
+input.error-input,
+textarea.error-input,
+select.error-input {
+  border: 2px solid red;
+}
+
+span.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.loader-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Estilos para el contenido del spinner */
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-text {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

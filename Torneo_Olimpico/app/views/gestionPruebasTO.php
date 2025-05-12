@@ -22,6 +22,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/config/entorno/variabl
 include $navBar;
 ?>
 
+<script type="module" src="js/controllers/c_obtenerPruebas.js"></script>
+
 <body>
   <main>
     <h1>Panel gestión de pruebas</h1>
@@ -29,6 +31,7 @@ include $navBar;
 
     </section>
   </main>
+
   <!-- MODAL -->
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -36,10 +39,14 @@ include $navBar;
       <form id="modal-form">
         <label>Nombre:
           <input type="text" id="nombrePrueba" placeholder="Nombre de la prueba" required />
+          <span class="error" id="error-nombrePrueba"></span>
         </label>
-        <label>Descripción y normas:
-          <textarea rows="3" placeholder="Detalles..."></textarea>
+
+        <label>Descripción:
+          <textarea rows="3" placeholder="Detalles..." id="bases"></textarea>
+          <span class="error" id="error-bases"></span>
         </label>
+
         <div class="inputEspeciales">
           <label>Participantes:
             <select id="maxParticipantes">
@@ -60,24 +67,33 @@ include $navBar;
               <option value="14">14</option>
               <option value="15">15</option>
             </select>
+            <span class="error" id="error-maxParticipantes"></span>
           </label>
+
           <label>Fecha:
             <input type="date" id="fechaPrueba" />
+            <span class="error" id="error-fechaPrueba"></span>
           </label>
+
           <label>Hora:
             <input type="time" id="horaPrueba" />
+            <span class="error" id="error-horaPrueba"></span>
           </label>
+        </div>
+
+        <div id="loader-modal" class="loader-modal" style="display: none;">
+          <div class="loader-content">
+            <div class="spinner"></div>
+            <span class="spinner-text">Enviando datos...</span>
+          </div>
         </div>
         <div class="botones">
           <button type="submit" class="aceptar">Aceptar</button>
-          <button type="button" class="cancelar" id="btnCancelar">
-            Cancelar
-          </button>
+          <button type="button" class="cancelar" id="btnCancelar">Cancelar</button>
         </div>
       </form>
     </div>
   </div>
-
   <!-- MODAL BORRAR-->
   <div class="modal" id="modalConfirmacion">
     <div class="modal-content">
@@ -93,7 +109,8 @@ include $navBar;
 
 
   <?php include $footer; ?>
-  <script type="module" src="js/controllers/c_obtenerPruebas.js"></script>
+  <script src="js/utils/modalesGestionTO.js" defer></script>
+  <script type="module" src="js/controllers/c_addInscripcionTO.js" defer></script>
 </body>
 
 </html>

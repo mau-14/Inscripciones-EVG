@@ -1,5 +1,5 @@
-<?php include 'entorno/enlacesNav.php' ?>
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . 'Torneo_Olimpico/app/config/entorno/variables.php';
 $usuarioTipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'Invitado';
 ?>
 <nav>

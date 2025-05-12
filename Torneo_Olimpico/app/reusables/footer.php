@@ -1,5 +1,7 @@
 <?php
-include '../entorno/variables.php';
+
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/config/entorno/variables.php';
 ?>
 
 
