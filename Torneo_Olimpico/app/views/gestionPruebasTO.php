@@ -17,83 +17,16 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
-
-<script type="module" src="js/models/m_obtenerPruebas.js"></script>
+<script type="module" src="js/controllers/c_obtenerPruebas.js"></script>
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/config/entorno/variables.php';
 include $navBar;
-
 ?>
 
 <body>
   <main>
     <h1>Panel gestión de pruebas</h1>
     <section class="grid">
-      <div class="prueba">
-        <h3>50 metros</h3>
-        <p><strong>Fecha:</strong> 15/05/2025</p>
-        <p><strong>Hora:</strong> 10:00</p>
-        <p><strong>Descripción:</strong> Carrera de velocidad individual.</p>
-        <div class="acciones">
-          <button onclick="abrirModal('editar')">✏️</button>
-          <button onclick="abrirModal('borrar')">🗑️</button>
-        </div>
-      </div>
-
-      <div class="prueba">
-        <h3>800 metros</h3>
-        <p><strong>Fecha:</strong> 15/05/2025</p>
-        <p><strong>Hora:</strong> 11:00</p>
-        <p><strong>Descripción:</strong> Prueba de resistencia de media distancia.</p>
-        <div class="acciones">
-          <button onclick="abrirModal('editar')">✏️</button>
-          <button onclick="abrirModal('borrar')">🗑️</button>
-        </div>
-      </div>
-
-      <div class="prueba">
-        <h3>4 × 100 metros</h3>
-        <p><strong>Fecha:</strong> 15/05/2025</p>
-        <p><strong>Hora:</strong> 12:00</p>
-        <p><strong>Descripción:</strong> Carrera de relevos por equipos.</p>
-        <div class="acciones">
-          <button onclick="abrirModal('editar')">✏️</button>
-          <button onclick="abrirModal('borrar')">🗑️</button>
-        </div>
-      </div>
-
-      <div class="prueba">
-        <h3>Peso</h3>
-        <p><strong>Fecha:</strong> 16/05/2025</p>
-        <p><strong>Hora:</strong> 09:30</p>
-        <p><strong>Descripción:</strong> Lanzamiento de peso con técnica de rotación.</p>
-        <div class="acciones">
-          <button onclick="abrirModal('editar')">✏️</button>
-          <button onclick="abrirModal('borrar')">🗑️</button>
-        </div>
-      </div>
-
-      <div class="prueba">
-        <h3>Jabalina</h3>
-        <p><strong>Fecha:</strong> 16/05/2025</p>
-        <p><strong>Hora:</strong> 10:45</p>
-        <p><strong>Descripción:</strong> Lanzamiento de jabalina con técnica libre.</p>
-        <div class="acciones">
-          <button onclick="abrirModal('editar')">✏️</button>
-          <button onclick="abrirModal('borrar')">🗑️</button>
-        </div>
-      </div>
-
-      <div class="prueba">
-        <h3>Longitud</h3>
-        <p><strong>Fecha:</strong> 16/05/2025</p>
-        <p><strong>Hora:</strong> 12:00</p>
-        <p><strong>Descripción:</strong> Salto de longitud desde zona delimitada.</p>
-        <div class="acciones">
-          <button onclick="abrirModal('editar')">✏️</button>
-          <button onclick="abrirModal('borrar')">🗑️</button>
-        </div>
-      </div>
 
       <div class="prueba">
         <h3>Añadir una prueba</h3>

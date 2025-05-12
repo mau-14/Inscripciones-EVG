@@ -5,7 +5,7 @@ class M_obtenerPruebas {
 				"/Torneo_Olimpico/app/controllers/c_obtenerPruebas.php",
 			);
 			const data = await response.json();
-			console.log(data);
+			return data;
 		} catch (error) {
 			console.error(error);
 		}
@@ -13,6 +13,3 @@ class M_obtenerPruebas {
 }
 
 export default M_obtenerPruebas;
-
-var obj = new M_obtenerPruebas();
-obj.obtenerPruebas();
