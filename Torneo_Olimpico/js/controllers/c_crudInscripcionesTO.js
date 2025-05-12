@@ -47,13 +47,27 @@ document
 			.getAttribute("data-tipo");
 
 		try {
-			if (tipoAccion === "editar") {
-				ocultarLoaderModal();
-				errorDialog.show("No se ha podido editar");
-			} else {
-				await addInscripciones(pruebaJson);
-				await renderizarPruebas();
-				ocultarLoaderModal();
+			switch (tipoAccion) {
+				case "editar":
+					ocultarLoaderModal();
+					errorDialog.show("No se ha podido editar");
+					break;
+
+				case "añadir":
+					await addInscripciones(pruebaJson);
+					await renderizarPruebas();
+					ocultarLoaderModal();
+					break;
+
+				case "borrar":
+					ocultarLoaderModal();
+					errorDialog.show(tipoAccion);
+					break;
+
+				default:
+					ocultarLoaderModal();
+					errorDialog.show("Acción desconocida");
+					break;
 			}
 		} catch (error) {
 			console.error("Error al insertar/editar las inscripciones", error);

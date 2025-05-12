@@ -31,7 +31,9 @@ async function renderizarPruebas() {
 				);
 			div
 				.querySelector(".btn-borrar")
-				.addEventListener("click", () => abrirModal("borrar", prueba.idPrueba));
+				.addEventListener("click", () =>
+					abrirModal("borrar", prueba.idPrueba, prueba),
+				);
 
 			grid.appendChild(div);
 		});

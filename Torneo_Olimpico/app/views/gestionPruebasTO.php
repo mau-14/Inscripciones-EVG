@@ -92,14 +92,14 @@ include $navBar;
       </form>
     </div>
   </div>
-  <!-- MODAL BORRAR-->
+  <!-- MODAL BORRAR -->
   <div class="modal" id="modalConfirmacion">
     <div class="modal-content">
-      <h3>Eliminar Prueba</h3>
-      <p>¿Estás seguro que quieres eliminarla?</p>
+      <h3 id="modalConfirmacion-title">Eliminar Prueba</h3>
+      <p id="modalConfirmacion-text">¿Estás seguro que quieres eliminarla?</p>
       <div class="botones">
-        <button class="aceptar" id="btnConfirmar" data-tipo="">Sí, borrar</button>
-        <button class="cancelar">Cancelar</button>
+        <button class="aceptar" id="btnConfirmar" data-tipo="borrar">Borrar</button>
+        <button class="cancelar" id="btnCancelar">Cancelar</button>
       </div>
     </div>
   </div>

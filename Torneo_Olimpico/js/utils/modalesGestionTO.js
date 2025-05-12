@@ -7,7 +7,12 @@ function abrirModal(tipo, id, prueba) {
 	try {
 		if (tipo === "borrar") {
 			modalConfirmacion.style.display = "flex";
-			confirmTitle.textContent = `¿Desea eliminar la prueba ${prueba.nombre}?`;
+
+			modalConfirmacion.querySelector("#modalConfirmacion-title").textContent =
+				"Eliminar Prueba";
+			modalConfirmacion.querySelector("#modalConfirmacion-text").textContent =
+				`¿Desea eliminar la prueba ${prueba.nombre}?`;
+			document.querySelector(".aceptar").setAttribute("data-tipo", "borrar");
 		} else {
 			modal.style.display = "flex";
 			if (tipo === "editar") {
@@ -38,16 +43,9 @@ function abrirModal(tipo, id, prueba) {
 function cerrarModal() {
 	try {
 		modal.style.display = "none";
-	} catch (error) {
-		console.error("Error al cerrar el modal:", error);
-	}
-}
-
-function cerrarModalConfirmacion() {
-	try {
 		modalConfirmacion.style.display = "none";
 	} catch (error) {
-		console.error("Error al cerrar el modal de confirmación:", error);
+		console.error("Error al cerrar el modal:", error);
 	}
 }
 
@@ -60,8 +58,13 @@ window.onclick = function (e) {
 	}
 };
 
-// Botón "Cancelar" del moda
-document.getElementById("btnCancelar").addEventListener("click", cerrarModal);
+document.querySelectorAll(".cancelar").forEach((btn) => {
+	btn.addEventListener("click", function () {
+		console.log("Cerrar modal");
+		modalConfirmacion.style.display = "none";
+		modal.style.display = "none";
+	});
+});
 
 // si se usa type module las funciones no están disponibles globalmente y hay que usar window
 window.abrirModal = abrirModal;
