@@ -39,12 +39,10 @@ include $navBar;
       <form id="modal-form">
         <label>Nombre:
           <input type="text" id="nombrePrueba" placeholder="Nombre de la prueba" required />
-          <span class="error" id="error-nombrePrueba"></span>
         </label>
 
         <label>Descripción:
           <textarea rows="3" placeholder="Detalles..." id="bases"></textarea>
-          <span class="error" id="error-bases"></span>
         </label>
 
         <div class="inputEspeciales">
@@ -67,17 +65,14 @@ include $navBar;
               <option value="14">14</option>
               <option value="15">15</option>
             </select>
-            <span class="error" id="error-maxParticipantes"></span>
           </label>
 
           <label>Fecha:
             <input type="date" id="fechaPrueba" />
-            <span class="error" id="error-fechaPrueba"></span>
           </label>
 
           <label>Hora:
             <input type="time" id="horaPrueba" />
-            <span class="error" id="error-horaPrueba"></span>
           </label>
         </div>
 
@@ -87,10 +82,13 @@ include $navBar;
             <span class="spinner-text">Enviando datos...</span>
           </div>
         </div>
+
+        <span id="error-mensajes" class="error"></span>
         <div class="botones">
-          <button type="submit" class="aceptar">Aceptar</button>
+          <button type="submit" class="aceptar" id="aceptar">Aceptar</button>
           <button type="button" class="cancelar" id="btnCancelar">Cancelar</button>
         </div>
+
       </form>
     </div>
   </div>
@@ -100,7 +98,7 @@ include $navBar;
       <h3>Eliminar Prueba</h3>
       <p>¿Estás seguro que quieres eliminarla?</p>
       <div class="botones">
-        <button class="aceptar" id="btnConfirmar">Sí, borrar</button>
+        <button class="aceptar" id="btnConfirmar" data-tipo="">Sí, borrar</button>
         <button class="cancelar">Cancelar</button>
       </div>
     </div>
@@ -110,7 +108,7 @@ include $navBar;
 
   <?php include $footer; ?>
   <script src="js/utils/modalesGestionTO.js" defer></script>
-  <script type="module" src="js/controllers/c_addInscripcionTO.js" defer></script>
+  <script type="module" src="js/controllers/c_crudInscripcionesTO.js" defer></script>
 </body>
 
 </html>

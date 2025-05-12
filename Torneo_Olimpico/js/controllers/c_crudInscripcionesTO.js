@@ -1,13 +1,13 @@
 import M_crudInscripcionesTO from "/Torneo_Olimpico/js/models/m_crudInscripcionesTO.js";
 import { renderizarPruebas } from "/Torneo_Olimpico/js/controllers/c_obtenerPruebas.js";
+import { ErrorDialog } from "/Torneo_Olimpico/js/utils/errorHandler.js";
+
+const errorDialog = new ErrorDialog();
 
 document
 	.querySelector(".aceptar")
 	.addEventListener("click", async function (event) {
 		event.preventDefault();
-
-		// Mostrar el modal de carga (spinner)
-		mostrarLoaderModal();
 
 		// Recoger los datos del formulario
 		const nombrePrueba = document.getElementById("nombrePrueba").value;
@@ -16,6 +16,19 @@ document
 		const fechaPrueba = document.getElementById("fechaPrueba").value;
 		const horaPrueba = document.getElementById("horaPrueba").value;
 
+		if (
+			!nombrePrueba ||
+			!bases ||
+			!maxParticipantes ||
+			maxParticipantes === "0" ||
+			!fechaPrueba ||
+			!horaPrueba
+		) {
+			errorDialog.show("Faltan campos por rellenar.");
+			return;
+		}
+
+		mostrarLoaderModal();
 		// Crear un objeto con los datos del formulario
 		const prueba = {
 			nombre: nombrePrueba,
@@ -27,19 +40,24 @@ document
 
 		console.log(prueba);
 
-		// Convertir el objeto a JSON
 		const pruebaJson = JSON.stringify(prueba);
 
-		try {
-			// Esperar a que se complete la inserción de datos
-			await addInscripciones(pruebaJson);
-			await renderizarPruebas();
-		} catch (error) {
-			console.error("Error al insertar las inscripciones", error);
-		}
+		const tipoAccion = document
+			.querySelector(".aceptar")
+			.getAttribute("data-tipo");
 
-		// Ocultar el modal de carga (spinner) una vez completado
-		ocultarLoaderModal();
+		try {
+			if (tipoAccion === "editar") {
+				ocultarLoaderModal();
+				errorDialog.show("No se ha podido editar");
+			} else {
+				await addInscripciones(pruebaJson);
+				await renderizarPruebas();
+				ocultarLoaderModal();
+			}
+		} catch (error) {
+			console.error("Error al insertar/editar las inscripciones", error);
+		}
 
 		// Cerrar el modal
 		cerrarModal();

@@ -76,8 +76,8 @@ h1 {
   position: fixed;
   z-index: 999;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
   justify-content: center;
   align-items: center;
   animation: fadeIn 0.3s ease;
@@ -87,9 +87,9 @@ h1 {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  width: 90%;
-  max-width: 700px;
+  padding: 2rem 2.5rem;
+  width: 80%;
+  max-width: 500px;
   animation: slideUp 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -98,68 +98,71 @@ h1 {
   margin-top: 0;
   color: #333;
   font-size: 2rem;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .modal-content form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.4rem;
   justify-content: center;
 }
 
 label {
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #444;
   margin-bottom: 0.5rem;
   text-align: left;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10%;
+  gap: 15%;
 }
 
 .inputEspeciales {
   display: flex;
   margin: 0 auto;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
 }
 
 input,
 textarea,
 select {
-  font-family: Arial, sans-serif;
-  margin: 2%;
+  font-family: "Roboto", sans-serif;
+  margin: 1% 0;
   padding: 0.8rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 10px; /* Bordes redondeados */
   font-size: 1rem;
-  transition: border-color 0.2s;
+  transition: border-color 0.3s ease;
 }
 
 input {
-  width: 50%;
+  width: 100%;
 }
 
 input[type="date"] {
-  padding: 0.5rem;
+  padding: 0.8rem;
   font-size: 1rem;
-  width: 40%;
+  width: 100%;
 }
 
 input[type="time"] {
-  padding: 0.5rem;
+  padding: 0.8rem;
   font-size: 1rem;
   width: 20%;
 }
 
 textarea {
-  width: 50%;
+  width: 100%;
   min-height: 120px;
-  max-height: 300px;
+  max-height: 200px;
 }
 
 input:focus,
@@ -172,13 +175,13 @@ select:focus {
 .botones {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 .aceptar,
 .cancelar {
-  padding: 0.8rem 1.4rem;
+  padding: 1rem 1.6rem;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
@@ -208,18 +211,26 @@ select:focus {
   background-color: #c0392b;
 }
 
-input.error-input,
-textarea.error-input,
-select.error-input {
-  border: 2px solid red;
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-span.error {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 2px;
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
-
 .loader-modal {
   position: fixed;
   top: 0;
@@ -261,24 +272,4 @@ span.error {
 .spinner-text {
   margin-top: 10px;
   font-size: 16px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }

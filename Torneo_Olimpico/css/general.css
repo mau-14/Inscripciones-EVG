@@ -41,3 +41,60 @@ section h1 {
   color: #2c3e50;
   margin-bottom: 1emgeneral;
 }
+
+.error-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.error-dialog-content {
+  background-color: #f44336;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(0.8);
+  animation: modalIn 0.3s forwards;
+}
+
+.error-dialog button {
+  background-color: white;
+  color: #f44336;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.error-dialog button:hover {
+  background-color: #e57373;
+}
+
+@keyframes modalIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

@@ -1,5 +1,3 @@
-// LÓGICA DE LOS MODALES
-
 const modal = document.getElementById("modal");
 const modalConfirmacion = document.getElementById("modalConfirmacion");
 const modalTitle = document.getElementById("modal-title");
@@ -13,8 +11,8 @@ function abrirModal(tipo, id, prueba) {
 		} else {
 			modal.style.display = "flex";
 			if (tipo === "editar") {
+				document.querySelector(".aceptar").setAttribute("data-tipo", "editar");
 				modalTitle.textContent = "Editar Prueba";
-				console.log(prueba);
 				document.getElementById("nombrePrueba").value = prueba.nombre;
 				document.getElementById("bases").value = prueba.bases;
 				document.getElementById("fechaPrueba").value = prueba.fecha;
@@ -23,6 +21,7 @@ function abrirModal(tipo, id, prueba) {
 					document.getElementById("maxParticipantes");
 				selectMaxParticipantes.value = prueba.maxParticipantes;
 			} else {
+				document.querySelector(".aceptar").setAttribute("data-tipo", "añadir");
 				modalTitle.textContent = "Añadir Prueba";
 				document.getElementById("nombrePrueba").value = "";
 				document.getElementById("bases").value = "";
