@@ -28,7 +28,10 @@ class M_obtenerPruebas
   public function obtenerPruebas()
   {
     try {
-      $query = 'SELECT idPrueba, nombre, categoria, maxParticipantes, fecha, hora, tipo FROM Torneo_Olimpico';
+      $query = 'SELECT idPrueba, nombre, categoria, maxParticipantes, fecha, hora, tipo 
+      FROM Torneo_Olimpico
+      WHERE categoria = "M";
+      ';
 
       $stmt = $this->conexion->prepare($query);
 
