@@ -17,7 +17,6 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
-<script type="module" src="js/controllers/c_obtenerPruebas.js"></script>
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/config/entorno/variables.php';
 include $navBar;
@@ -28,10 +27,6 @@ include $navBar;
     <h1>Panel gestión de pruebas</h1>
     <section class="grid">
 
-      <div class="prueba">
-        <h3>Añadir una prueba</h3>
-        <button class="btn-mas" onclick="abrirModal('añadir')">➕</button>
-      </div>
     </section>
   </main>
   <!-- MODAL -->
@@ -40,31 +35,42 @@ include $navBar;
       <h3 id="modal-title">Añadir Prueba</h3>
       <form id="modal-form">
         <label>Nombre:
-          <input type="text" placeholder="Nombre de la prueba" required />
+          <input type="text" id="nombrePrueba" placeholder="Nombre de la prueba" required />
         </label>
         <label>Descripción y normas:
           <textarea rows="3" placeholder="Detalles..."></textarea>
         </label>
         <div class="inputEspeciales">
           <label>Participantes:
-            <select>
-              <option selected>0</option>
+            <select id="maxParticipantes">
+              <option value="0" selected>0</option>
               <option value="1">1</option>
               <option value="2">2</option>
+              <option value="3">3</option>
               <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
               <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
             </select>
           </label>
           <label>Fecha:
-            <input type="date" />
+            <input type="date" id="fechaPrueba" />
           </label>
           <label>Hora:
-            <input type="time" />
+            <input type="time" id="horaPrueba" />
           </label>
         </div>
         <div class="botones">
           <button type="submit" class="aceptar">Aceptar</button>
-          <button type="button" class="cancelar" onclick="cerrarModal()">
+          <button type="button" class="cancelar" id="btnCancelar">
             Cancelar
           </button>
         </div>
@@ -79,54 +85,15 @@ include $navBar;
       <p>¿Estás seguro que quieres eliminarla?</p>
       <div class="botones">
         <button class="aceptar" id="btnConfirmar">Sí, borrar</button>
-        <button class="cancelar" id="btnCancelar">Cancelar</button>
+        <button class="cancelar">Cancelar</button>
       </div>
     </div>
   </div>
 
-  <script>
-    const modal = document.getElementById("modal");
-    const modalConfirmacion = document.getElementById("modalConfirmacion");
-    const modalTitle = document.getElementById("modal-title");
-    const confirmTitle = document.getElementById("modalConfirmacion-title");
-
-    function abrirModal(tipo) {
-      if (tipo === "borrar") {
-        modalConfirmacion.style.display = "flex";
-        confirmTitle.textContent = "¿Desea eliminar esta prueba?";
-      } else {
-        modal.style.display = "flex";
-        if (tipo === "editar") {
-          modalTitle.textContent = "Editar Prueba";
-        } else {
-          modalTitle.textContent = "Añadir Prueba";
-        }
-      }
-    }
-
-    function cerrarModal() {
-      modal.style.display = "none";
-    }
-
-    function cerrarModalConfirmacion() {
-      modalConfirmacion.style.display = "none";
-    }
-
-    // Cerrar si hacen clic fuera del contenido de cada modal
-    window.onclick = function(e) {
-      if (e.target === modal) cerrarModal();
-      if (e.target === modalConfirmacion) cerrarModalConfirmacion();
-    };
-
-    // Botón "Cancelar" del modal de confirmación
-    document
-      .getElementById("btnCancelar")
-      .addEventListener("click", cerrarModalConfirmacion);
-  </script>
 
 
   <?php include $footer; ?>
-
+  <script type="module" src="js/controllers/c_obtenerPruebas.js"></script>
 </body>
 
 </html>

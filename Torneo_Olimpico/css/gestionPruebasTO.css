@@ -12,6 +12,12 @@
 
 h1 {
   font-size: 3em;
+  color: #0077cc; /* Color principal */
+  font-weight: bold; /* Hacerlo más destacado */
+  text-align: center; /* Alineación centrada */
+  text-transform: uppercase; /* Convertir a mayúsculas */
+  letter-spacing: 1px; /* Espaciado entre letras */
+  margin-bottom: 1.5rem; /* Espacio debajo del título */
 }
 
 .prueba {
@@ -37,12 +43,28 @@ h1 {
   color: #0077cc;
 }
 
+.btn-mas {
+  transform: scale(2);
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-mas:hover {
+  transform: scale(2.2);
+  color: #ff5733;
+}
+
 .acciones button {
   margin: 0.5rem;
   font-size: 1rem;
 }
 
-.btn-mas {
+.prueba button .btn-mas {
   font-size: 2rem;
   background: none;
   border: none;
