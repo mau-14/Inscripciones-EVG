@@ -72,14 +72,6 @@ header{
     background: #eceff1;
     border: none;
     border-radius: 50px;
-    cursor: pointer;
     transition: all 0.3s ease;
     font-size: 16px;
-}
-
-.btn button:hover{
-    background-color: #e2f1f8;
-    color: #0084ff;
-    transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }

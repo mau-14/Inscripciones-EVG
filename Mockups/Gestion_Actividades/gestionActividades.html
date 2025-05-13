@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión Actividades</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="../navbar/nav.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+        <img src="img/logo.png" alt="Logo del instituto">
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Gestion Momentos</a></li>
+        <li><a href="#">Gestion Torneo</a></li>
+        <li><a href="#">Gestion Actividades Alumnos</a>
+        <li><a href="#">Gestion Actividades Clase</a>
+      </ul>           
+    </nav>
+    <a class="btn" href="#"><button>Coordinador</button></a>
+</header>
+
+  <h1>Actividades de "Momento"</h1>
+  <h2>Seleccione una Actividad</h2>
+
+  <div class="contenedor-momentos">
+
+     <!--Lista de Actividades-->
+
+    <div class="momento">
+      <p>Migas</p>
+      <div class="acciones">
+        <button class="editar"><i class="fas fa-pen"></i></button>
+        <button class="eliminar"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+    
+    <div class="momento">
+      <p>Villancicos</p>
+      <div class="acciones">
+        <button class="editar"><i class="fas fa-pen"></i></button>
+        <button class="eliminar"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+
+    <!-- Botón para abrir el formulario -->
+    <div class="momento añadir" id="btnAbrirModal">
+      <i class="fas fa-plus"></i>
+      <p>Añadir Actividad</p>
+    </div>
+  </div>
+
+  <!-- Modal para añadir Actvidad -->
+  <div class="modal" id="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarModal">&times;</span>
+      <h2>Nuevo Actividad</h2>
+      <form id="formMomento">
+        <label for="nombre">Nombre de la Actividad:</label>
+        <input type="text" id="nombre" name="nombre">
+
+        <label for="NmaximoParticipantes">Numero maximo de Participantes:</label>
+        <input type="number" id="NmaximoParticipantes" name="NmaximoParticipantes">
+
+        <label for="fechaInicio">Fecha y hora donde se lleva a cabo la actividad:</label>
+        <input type="date" id="fechaInicio" name="fechaInicio"/>
+        <input type="time" id="fechaFin" name="fechaFin"/>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+  <a href="elegirMomento.html"><button class="volver">Volver</button></a>
+
+  <!-- Modal para editar Actividad -->
+<div class="modal" id="modalEditar">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarEditar">&times;</span>
+      <h2>Editar Actividad</h2>
+      <form id="formEditarMomento">
+        <label for="editarNombre">Nombre de la actividad:</label>
+        <input type="text" id="editarNombre" name="editarNombre">
+
+        <label for="editarNmaximoParticipantes">Nº maximo de Participantes:</label>
+        <input type="number" id="editarNmaximoParticipantes" name="editarNmaximoParticipantes">
+        
+        <label for="editarFechaInicio">Fecha y hora donde se lleva a cabo la actividad:</label>
+        <input type="date" id="editarFechaInicio" name="editarFechaInicio"/>
+        <input type="time" id="editarFechaFin" name="editarFechaFin"/>
+  
+        <button type="submit">Actualizar</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Modal de confirmación para eliminar -->
+<div class="modal" id="modalConfirmar">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
+      <h2>¿Estás seguro?</h2>
+      <div class="botones-confirmacion">
+        <button id="btnConfirmarEliminar" class="btn-confirmar">Sí</button>
+        <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/gestionActividades.js"></script>
+</body>
+</html>
