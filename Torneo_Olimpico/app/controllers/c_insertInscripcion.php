@@ -31,6 +31,6 @@ if ($datos !== null) {
   $resultado = $obj->insertarInscripcion();
   echo $resultado;
 } else {
-  http_response_code(400); // Bad Request
+  http_response_code(400);
   echo json_encode(["status" => "error", "message" => "Datos JSON inválidos"]);
 }
