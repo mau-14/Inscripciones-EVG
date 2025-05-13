@@ -1,4 +1,4 @@
-import M_crudInscripcionesTO from "/Torneo_Olimpico/js/models/m_crudInscripcionesTO.js";
+import M_crudPruebasTO from "/Torneo_Olimpico/js/models/m_crudPruebasTO.js";
 import { renderizarPruebas } from "/Torneo_Olimpico/js/controllers/c_obtenerPruebas.js";
 import { ErrorDialog } from "/Torneo_Olimpico/js/utils/errorHandler.js";
 
@@ -13,9 +13,14 @@ btnAceptar?.addEventListener("click", async function (event) {
 
 	const tipoAccion = btnAceptar.getAttribute("data-tipo");
 
+	const modelo = new M_crudPruebasTO();
+
 	switch (tipoAccion) {
 		case "añadir":
 		case "editar":
+			const idPruebaM = document.getElementById("idPruebaM")?.value ?? "";
+			const idPruebaF = document.getElementById("idPruebaF")?.value ?? "";
+
 			const nombrePrueba = document.getElementById("nombrePrueba").value;
 			const bases = document.getElementById("bases").value;
 			const maxParticipantes =
@@ -36,22 +41,31 @@ btnAceptar?.addEventListener("click", async function (event) {
 			}
 
 			const prueba = {
+				idPruebaM: idPruebaM,
+				idPruebaF: idPruebaF,
 				nombre: nombrePrueba,
 				bases: bases,
 				maxParticipantes: maxParticipantes,
 				fecha: fechaPrueba,
 				hora: horaPrueba,
 			};
+			console.log(prueba);
 
 			mostrarLoaderModal();
 
 			try {
 				if (tipoAccion === "añadir") {
-					const modelo = new M_crudPruebasTO();
-					await modelo.insertPrueba(JSON.stringify(prueba));
-					await renderizarPruebas();
+					const resultado = await modelo.insertPrueba(JSON.stringify(prueba));
+					if (!resultado.error) {
+						await renderizarPruebas();
+					}
 				} else if (tipoAccion === "editar") {
-					errorDialog.show("No se ha podido editar");
+					const resultado = await modelo.modificarPrueba(
+						JSON.stringify(prueba),
+					);
+					if (!resultado.error) {
+						await renderizarPruebas();
+					}
 				}
 			} catch (error) {
 				console.error("Error al insertar/editar las inscripciones", error);
@@ -71,32 +85,22 @@ btnAceptar?.addEventListener("click", async function (event) {
 btnConfirmar?.addEventListener("click", async function (event) {
 	event.preventDefault();
 	console.log("Borrar confirmado");
-
-	const idPrueba = btnConfirmar.getAttribute("data-id");
-	const jsonId = JSON.stringify({ idPrueba: idPrueba });
-
-	console.log(jsonId);
+	const idPruebaM = document.getElementById("idPruebaM")?.value ?? "";
+	const idPruebaF = document.getElementById("idPruebaF")?.value ?? "";
+	const jsonIds = JSON.stringify({ idPruebaM, idPruebaF });
+	console.log(jsonIds);
 	try {
-		const modelo = new M_crudInscripcionesTO();
-		await modelo.borrarPrueba(idPrueba);
-		await renderizarPruebas();
+		const modelo = new M_crudPruebasTO();
+		const resultado = await modelo.borrarPrueba(jsonIds);
+		if (!resultado.error) {
+			await renderizarPruebas();
+		}
 	} catch (error) {
-		console.error("Error al borrar la prueba", error);
-		errorDialog.show("No se pudo borrar la prueba");
+		errorDialog.show(error);
 	} finally {
 		cerrarModalConfirmacion();
 	}
 });
-
-// FUNCIONES AUXILIARES
-async function addInscripciones(data) {
-	try {
-		const modelo = new M_crudInscripcionesTO();
-		await modelo.insertPrueba(data);
-	} catch (error) {
-		console.error(error);
-	}
-}
 
 function mostrarLoaderModal() {
 	document.getElementById("loader-modal").style.display = "flex";

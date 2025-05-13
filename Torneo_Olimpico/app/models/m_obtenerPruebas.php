@@ -29,8 +29,7 @@ class M_obtenerPruebas
   {
     try {
       $query = "SELECT idPrueba, nombre, categoria, maxParticipantes, fecha, DATE_FORMAT(hora, '%H:%i') AS hora, tipo, bases
-          FROM Torneo_Olimpico
-          WHERE categoria = 'M'";
+          FROM Torneo_Olimpico";
 
       $stmt = $this->conexion->prepare($query);
 

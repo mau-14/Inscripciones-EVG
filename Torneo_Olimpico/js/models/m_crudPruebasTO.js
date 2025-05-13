@@ -6,7 +6,7 @@ class M_crudPruebasTO {
 	async insertPrueba(datos) {
 		try {
 			const response = await fetch(
-				"/Torneo_Olimpico/app/controllers/c_insertPruebaTO.php",
+				"/Torneo_Olimpico/app/controllers/c_insertPruebasTO.php",
 				{
 					method: "POST",
 					headers: {
@@ -22,9 +22,11 @@ class M_crudPruebasTO {
 				errorDialog.show(data.error);
 			} else {
 				errorDialog.show(data.success, true);
+				return data;
 			}
 		} catch (error) {
 			console.error("Error al añadir prueba:", error);
+			throw error;
 		}
 	}
 
@@ -42,14 +44,15 @@ class M_crudPruebasTO {
 			);
 
 			const data = await response.json();
-
 			if (data.error) {
 				errorDialog.show(data.error);
 			} else {
 				errorDialog.show(data.success, true);
+				return data;
 			}
 		} catch (error) {
 			console.error("Error al borrar prueba:", error);
+			throw error;
 		}
 	}
 
@@ -72,9 +75,11 @@ class M_crudPruebasTO {
 				errorDialog.show(data.error);
 			} else {
 				errorDialog.show(data.success, true);
+				return data;
 			}
 		} catch (error) {
 			console.error("Error al modificar prueba:", error);
+			throw error;
 		}
 	}
 }

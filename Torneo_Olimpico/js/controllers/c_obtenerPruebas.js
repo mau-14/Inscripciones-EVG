@@ -8,16 +8,24 @@ async function renderizarPruebas() {
 		const pruebas = await modelo.obtenerPruebas();
 		const grid = document.querySelector("section.grid");
 		grid.innerHTML = "";
-		// Crear las pruebas
-		pruebas.forEach((prueba) => {
+
+		// Filtrar las pruebas por categoría M y agrupar por nombre
+		const pruebasFiltradas = pruebas.filter((p) => p.categoria === "M");
+
+		pruebasFiltradas.forEach((pruebaM) => {
+			// Buscar su equivalente femenina
+			const pruebaF = pruebas.find(
+				(p) => p.nombre === pruebaM.nombre && p.categoria === "F",
+			);
+
 			const div = document.createElement("div");
 			div.classList.add("prueba");
 
 			div.innerHTML = `
-  <h3>${prueba.nombre}</h3>
-  <p><strong>Fecha:</strong> ${formatearFecha(prueba.fecha)}</p>
-  <p><strong>Hora:</strong> ${prueba.hora.slice(0, 5)}</p>
-  <p><strong>Descripción:</strong> ${prueba.bases}</p>
+<h3>${pruebaM.nombre}</h3>
+  <p><strong>Fecha:</strong> ${formatearFecha(pruebaM.fecha)}</p>
+  <p><strong>Hora:</strong> ${pruebaM.hora.slice(0, 5)}</p>
+  <p><strong>Descripción:</strong> ${pruebaM.bases}</p>
   <div class="acciones">
     <button class="btn-editar">✏️</button>
     <button class="btn-borrar">🗑️</button>
@@ -27,18 +35,19 @@ async function renderizarPruebas() {
 			div
 				.querySelector(".btn-editar")
 				.addEventListener("click", () =>
-					abrirModal("editar", prueba.idPrueba, prueba),
+					abrirModal("editar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
 				);
+
 			div
 				.querySelector(".btn-borrar")
 				.addEventListener("click", () =>
-					abrirModal("borrar", prueba.idPrueba, prueba),
+					abrirModal("borrar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
 				);
 
 			grid.appendChild(div);
 		});
 
-		// Añadir el botón "Añadir prueba" al final
+		// Botón "Añadir prueba"
 		const addPruebaDiv = document.createElement("div");
 		addPruebaDiv.classList.add("prueba");
 

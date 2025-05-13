@@ -1,6 +1,6 @@
 <?php
 
-class C_borrarPuebasTO
+class C_borrarPruebasTO
 {
   private $obj;
   private $dato;
@@ -24,7 +24,7 @@ $datos = json_decode(file_get_contents("php://input"), true);
 
 // Verificar que llegaron datos válidos
 if ($datos !== null) {
-  $obj = new C_borrarPuebasTO($datos);
+  $obj = new C_borrarPruebasTO($datos);
   $resultado = $obj->deleteInscripcion(); // ← ejecutamos y guardamos el resultado
   echo $resultado; // ← devolvemos la respuesta al JS
 } else {

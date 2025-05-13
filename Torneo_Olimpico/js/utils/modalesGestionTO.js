@@ -4,17 +4,33 @@ const modalTitle = document.getElementById("modal-title");
 const confirmTitle = document.getElementById("modalConfirmacion-title");
 
 //EL QUERY SELECTOR SOLO ME COGE EL PRIMERO, O SEA EL MODAL DE EDITAR/AÑADIR
-function abrirModal(tipo, id, prueba) {
+function abrirModal(tipo, idM, prueba, idF) {
 	try {
+		//Borrar los input anteriores
+		modal.querySelectorAll('input[type="hidden"]').forEach((el) => el.remove());
+		modalConfirmacion
+			.querySelectorAll('input[type="hidden"]')
+			.forEach((el) => el.remove());
 		if (tipo === "borrar") {
 			modalConfirmacion.style.display = "flex";
 			modalConfirmacion.querySelector("#modalConfirmacion-title").textContent =
 				"Eliminar Prueba";
 			modalConfirmacion.querySelector("#modalConfirmacion-text").textContent =
 				`¿Desea eliminar la prueba ${prueba.nombre}?`;
+			const hiddenIdM = document.createElement("input");
+			hiddenIdM.type = "hidden";
+			hiddenIdM.id = "idPruebaM";
+			hiddenIdM.name = "idPruebaM";
+			hiddenIdM.value = idM;
 
-			const btnConfirmar = document.getElementById("btnConfirmar");
-			btnConfirmar.setAttribute("data-id", id);
+			const hiddenIdF = document.createElement("input");
+			hiddenIdF.type = "hidden";
+			hiddenIdF.id = "idPruebaF";
+			hiddenIdF.name = "idPruebaF";
+			hiddenIdF.value = idF;
+
+			modalConfirmacion.appendChild(hiddenIdM);
+			modalConfirmacion.appendChild(hiddenIdF);
 		} else {
 			modal.style.display = "flex";
 			if (tipo === "editar") {
@@ -27,6 +43,20 @@ function abrirModal(tipo, id, prueba) {
 				const selectMaxParticipantes =
 					document.getElementById("maxParticipantes");
 				selectMaxParticipantes.value = prueba.maxParticipantes;
+				const hiddenIdM = document.createElement("input");
+				hiddenIdM.type = "hidden";
+				hiddenIdM.id = "idPruebaM";
+				hiddenIdM.name = "idPruebaM";
+				hiddenIdM.value = idM;
+
+				const hiddenIdF = document.createElement("input");
+				hiddenIdF.type = "hidden";
+				hiddenIdF.id = "idPruebaF";
+				hiddenIdF.name = "idPruebaF";
+				hiddenIdF.value = idF;
+
+				modal.appendChild(hiddenIdM);
+				modal.appendChild(hiddenIdF);
 			} else {
 				document.querySelector(".aceptar").setAttribute("data-tipo", "añadir");
 				modalTitle.textContent = "Añadir Prueba";

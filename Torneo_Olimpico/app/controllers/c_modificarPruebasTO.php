@@ -1,7 +1,7 @@
 <?php
 
 
-class C_insertPruebaTO
+class C_modificarPruebasTO
 {
 
   private $obj;
@@ -19,7 +19,7 @@ class C_insertPruebaTO
   {
 
     $this->obj = new M_crudPruebasTO();
-    return $this->obj->inscribir($this->dato);
+    return $this->obj->modificar($this->dato);
   }
 }
 
@@ -27,7 +27,7 @@ class C_insertPruebaTO
 $datos = json_decode(file_get_contents("php://input"), true);
 
 if ($datos !== null) {
-  $obj = new C_insertPruebaTO($datos);
+  $obj = new C_modificarPruebasTO($datos);
   $resultado = $obj->insertarInscripcion();
   echo $resultado;
 } else {
