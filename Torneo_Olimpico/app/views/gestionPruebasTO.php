@@ -74,6 +74,13 @@ include $navBar;
           <label>Hora:
             <input type="time" id="horaPrueba" />
           </label>
+
+          <label>Tipo:
+            <select id="tipoPrueba">
+              <option value="C">4X100 o similar</option>
+              <option value="P">Otra</option>
+            </select>
+          </label>
         </div>
 
         <div id="loader-modal" class="loader-modal" style="display: none;">

@@ -43,6 +43,8 @@ function abrirModal(tipo, idM, prueba, idF) {
 				const selectMaxParticipantes =
 					document.getElementById("maxParticipantes");
 				selectMaxParticipantes.value = prueba.maxParticipantes;
+				const selectTipo = document.getElementById("tipoPrueba");
+				selectTipo.value = prueba.tipo;
 				const hiddenIdM = document.createElement("input");
 				hiddenIdM.type = "hidden";
 				hiddenIdM.id = "idPruebaM";
