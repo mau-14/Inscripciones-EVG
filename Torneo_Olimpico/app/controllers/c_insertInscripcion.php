@@ -19,7 +19,7 @@ class C_insertInscripcion
   {
 
     $this->obj = new M_crudInscripciones();
-    $this->obj->inscribir($this->dato);
+    return $this->obj->inscribir($this->dato);
   }
 }
 
@@ -28,7 +28,8 @@ $datos = json_decode(file_get_contents("php://input"), true);
 
 if ($datos !== null) {
   $obj = new C_insertInscripcion($datos);
-  $obj->insertarInscripcion();
+  $resultado = $obj->insertarInscripcion();
+  echo $resultado;
 } else {
   http_response_code(400); // Bad Request
   echo json_encode(["status" => "error", "message" => "Datos JSON inválidos"]);

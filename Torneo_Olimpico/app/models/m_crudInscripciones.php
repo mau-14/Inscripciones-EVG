@@ -56,4 +56,26 @@ class M_crudInscripciones
       return json_encode(["error" => "Error al insertar prueba."]);
     }
   }
+
+
+  public function borrar($datos)
+  {
+    try {
+      $sql = "DELETE FROM Torneo_Olimpico WHERE idPrueba = :idPrueba";
+      $stmt = $this->conexion->prepare($sql);
+
+      $stmt->bindParam(':idPrueba', $datos, PDO::PARAM_INT);
+
+      $stmt->execute();
+
+      if ($stmt->rowCount() > 0) {
+        return json_encode(["success" => "Prueba eliminada correctamente."]);
+      } else {
+        return json_encode(["error" => "No se eliminó ninguna fila."]);
+      }
+    } catch (PDOException $e) {
+      error_log("Error al eliminar: " . $e->getMessage());
+      return json_encode(["error" => "Error al eliminar prueba."]);
+    }
+  }
 }

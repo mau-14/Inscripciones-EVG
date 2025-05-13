@@ -4,92 +4,112 @@ import { ErrorDialog } from "/Torneo_Olimpico/js/utils/errorHandler.js";
 
 const errorDialog = new ErrorDialog();
 
-document
-	.querySelector(".aceptar")
-	.addEventListener("click", async function (event) {
-		event.preventDefault();
+const btnAceptar = document.getElementById("aceptar");
+const btnConfirmar = document.getElementById("btnConfirmar");
 
-		// Recoger los datos del formulario
-		const nombrePrueba = document.getElementById("nombrePrueba").value;
-		const bases = document.getElementById("bases").value;
-		const maxParticipantes = document.getElementById("maxParticipantes").value;
-		const fechaPrueba = document.getElementById("fechaPrueba").value;
-		const horaPrueba = document.getElementById("horaPrueba").value;
+// AÑADIR / EDITAR
+btnAceptar?.addEventListener("click", async function (event) {
+	event.preventDefault();
 
-		if (
-			!nombrePrueba ||
-			!bases ||
-			!maxParticipantes ||
-			maxParticipantes === "0" ||
-			!fechaPrueba ||
-			!horaPrueba
-		) {
-			errorDialog.show("Faltan campos por rellenar.");
-			return;
-		}
+	const tipoAccion = btnAceptar.getAttribute("data-tipo");
 
-		mostrarLoaderModal();
-		// Crear un objeto con los datos del formulario
-		const prueba = {
-			nombre: nombrePrueba,
-			bases: bases,
-			maxParticipantes: maxParticipantes,
-			fecha: fechaPrueba,
-			hora: horaPrueba,
-		};
+	switch (tipoAccion) {
+		case "añadir":
+		case "editar":
+			const nombrePrueba = document.getElementById("nombrePrueba").value;
+			const bases = document.getElementById("bases").value;
+			const maxParticipantes =
+				document.getElementById("maxParticipantes").value;
+			const fechaPrueba = document.getElementById("fechaPrueba").value;
+			const horaPrueba = document.getElementById("horaPrueba").value;
 
-		console.log(prueba);
-
-		const pruebaJson = JSON.stringify(prueba);
-
-		const tipoAccion = document
-			.querySelector(".aceptar")
-			.getAttribute("data-tipo");
-
-		try {
-			switch (tipoAccion) {
-				case "editar":
-					ocultarLoaderModal();
-					errorDialog.show("No se ha podido editar");
-					break;
-
-				case "añadir":
-					await addInscripciones(pruebaJson);
-					await renderizarPruebas();
-					ocultarLoaderModal();
-					break;
-
-				case "borrar":
-					ocultarLoaderModal();
-					errorDialog.show(tipoAccion);
-					break;
-
-				default:
-					ocultarLoaderModal();
-					errorDialog.show("Acción desconocida");
-					break;
+			if (
+				!nombrePrueba ||
+				!bases ||
+				!maxParticipantes ||
+				maxParticipantes === "0" ||
+				!fechaPrueba ||
+				!horaPrueba
+			) {
+				errorDialog.show("Faltan campos por rellenar.");
+				return;
 			}
-		} catch (error) {
-			console.error("Error al insertar/editar las inscripciones", error);
-		}
 
-		// Cerrar el modal
-		cerrarModal();
-	});
+			const prueba = {
+				nombre: nombrePrueba,
+				bases: bases,
+				maxParticipantes: maxParticipantes,
+				fecha: fechaPrueba,
+				hora: horaPrueba,
+			};
 
+			mostrarLoaderModal();
+
+			try {
+				if (tipoAccion === "añadir") {
+					await addInscripciones(JSON.stringify(prueba));
+					await renderizarPruebas();
+				} else if (tipoAccion === "editar") {
+					errorDialog.show("No se ha podido editar");
+				}
+			} catch (error) {
+				console.error("Error al insertar/editar las inscripciones", error);
+			} finally {
+				ocultarLoaderModal();
+				cerrarModal();
+			}
+			break;
+
+		default:
+			errorDialog.show("Acción desconocida");
+			break;
+	}
+});
+
+// BORRAR
+btnConfirmar?.addEventListener("click", async function (event) {
+	event.preventDefault();
+	console.log("Borrar confirmado");
+
+	const idPrueba = btnConfirmar.getAttribute("data-id");
+	const jsonId = JSON.stringify({ idPrueba: idPrueba });
+
+	console.log(jsonId);
+	try {
+		const modelo = new M_crudInscripcionesTO();
+		await modelo.borrarInscripcion(idPrueba);
+		await renderizarPruebas();
+	} catch (error) {
+		console.error("Error al borrar la prueba", error);
+		errorDialog.show("No se pudo borrar la prueba");
+	} finally {
+		cerrarModalConfirmacion();
+	}
+});
+
+// FUNCIONES AUXILIARES
 async function addInscripciones(data) {
 	try {
 		const modelo = new M_crudInscripcionesTO();
-		await modelo.insertInscripciones(data); // Esperar que la inserción se complete
+		await modelo.insertInscripciones(data);
 	} catch (error) {
 		console.error(error);
 	}
 }
 
 function mostrarLoaderModal() {
-	document.getElementById("loader-modal").style.display = "flex"; // Mostrar modal
+	document.getElementById("loader-modal").style.display = "flex";
 }
 
 function ocultarLoaderModal() {
-	document.getElementById("loader-modal").style.display = "none"; // Ocultar modal
+	document.getElementById("loader-modal").style.display = "none";
+}
+
+// Estas funciones deben estar definidas en tu archivo o importadas:
+function cerrarModal() {
+	document.getElementById("modal").style.display = "none";
+}
+
+function cerrarModalConfirmacion() {
+	document.getElementById("modalConfirmacion").style.display = "none";
 }

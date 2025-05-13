@@ -98,7 +98,7 @@ include $navBar;
       <h3 id="modalConfirmacion-title">Eliminar Prueba</h3>
       <p id="modalConfirmacion-text">¿Estás seguro que quieres eliminarla?</p>
       <div class="botones">
-        <button class="aceptar" id="btnConfirmar" data-tipo="borrar">Borrar</button>
+        <button type="submit" class="aceptar" id="btnConfirmar">Borrar</button>
         <button class="cancelar" id="btnCancelar">Cancelar</button>
       </div>
     </div>

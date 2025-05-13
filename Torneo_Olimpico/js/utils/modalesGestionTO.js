@@ -3,16 +3,18 @@ const modalConfirmacion = document.getElementById("modalConfirmacion");
 const modalTitle = document.getElementById("modal-title");
 const confirmTitle = document.getElementById("modalConfirmacion-title");
 
+//EL QUERY SELECTOR SOLO ME COGE EL PRIMERO, O SEA EL MODAL DE EDITAR/AÑADIR
 function abrirModal(tipo, id, prueba) {
 	try {
 		if (tipo === "borrar") {
 			modalConfirmacion.style.display = "flex";
-
 			modalConfirmacion.querySelector("#modalConfirmacion-title").textContent =
 				"Eliminar Prueba";
 			modalConfirmacion.querySelector("#modalConfirmacion-text").textContent =
 				`¿Desea eliminar la prueba ${prueba.nombre}?`;
-			document.querySelector(".aceptar").setAttribute("data-tipo", "borrar");
+
+			const btnConfirmar = document.getElementById("btnConfirmar");
+			btnConfirmar.setAttribute("data-id", id);
 		} else {
 			modal.style.display = "flex";
 			if (tipo === "editar") {
