@@ -1,7 +1,7 @@
 <?php
 
 
-class C_insertInscripcion
+class C_insertPruebaTO
 {
 
   private $obj;
@@ -10,7 +10,7 @@ class C_insertInscripcion
   public function __construct($datos)
   {
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/models/m_crudInscripciones.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/models/m_crudPruebasTO.php';
     $this->dato = $datos;
   }
 
@@ -18,7 +18,7 @@ class C_insertInscripcion
   public function insertarInscripcion()
   {
 
-    $this->obj = new M_crudInscripciones();
+    $this->obj = new M_crudPruebasTO();
     return $this->obj->inscribir($this->dato);
   }
 }
@@ -27,7 +27,7 @@ class C_insertInscripcion
 $datos = json_decode(file_get_contents("php://input"), true);
 
 if ($datos !== null) {
-  $obj = new C_insertInscripcion($datos);
+  $obj = new C_insertPruebaTO($datos);
   $resultado = $obj->insertarInscripcion();
   echo $resultado;
 } else {

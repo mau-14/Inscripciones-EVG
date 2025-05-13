@@ -47,7 +47,8 @@ btnAceptar?.addEventListener("click", async function (event) {
 
 			try {
 				if (tipoAccion === "añadir") {
-					await addInscripciones(JSON.stringify(prueba));
+					const modelo = new M_crudPruebasTO();
+					await modelo.insertPrueba(JSON.stringify(prueba));
 					await renderizarPruebas();
 				} else if (tipoAccion === "editar") {
 					errorDialog.show("No se ha podido editar");
@@ -77,7 +78,7 @@ btnConfirmar?.addEventListener("click", async function (event) {
 	console.log(jsonId);
 	try {
 		const modelo = new M_crudInscripcionesTO();
-		await modelo.borrarInscripcion(idPrueba);
+		await modelo.borrarPrueba(idPrueba);
 		await renderizarPruebas();
 	} catch (error) {
 		console.error("Error al borrar la prueba", error);
@@ -91,7 +92,7 @@ btnConfirmar?.addEventListener("click", async function (event) {
 async function addInscripciones(data) {
 	try {
 		const modelo = new M_crudInscripcionesTO();
-		await modelo.insertInscripciones(data);
+		await modelo.insertPrueba(data);
 	} catch (error) {
 		console.error(error);
 	}

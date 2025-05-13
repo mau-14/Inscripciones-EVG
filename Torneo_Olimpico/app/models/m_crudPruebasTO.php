@@ -1,7 +1,7 @@
 <?php
 
 
-class M_crudInscripciones
+class M_crudPruebasTO
 {
 
 

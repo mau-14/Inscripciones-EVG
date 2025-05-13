@@ -1,19 +1,19 @@
 <?php
 
-class C_deleteInscripciones
+class C_borrarPuebasTO
 {
   private $obj;
   private $dato;
 
   public function __construct($datos)
   {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/models/m_crudInscripciones.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/models/m_crudPruebasTO.php';
     $this->dato = $datos;
   }
 
   public function deleteInscripcion()
   {
-    $this->obj = new M_crudInscripciones();
+    $this->obj = new M_crudPruebasTO();
     // Captura y devuelve el resultado de borrar()
     return $this->obj->borrar($this->dato);
   }
@@ -24,7 +24,7 @@ $datos = json_decode(file_get_contents("php://input"), true);
 
 // Verificar que llegaron datos válidos
 if ($datos !== null) {
-  $obj = new C_deleteInscripciones($datos);
+  $obj = new C_borrarPuebasTO($datos);
   $resultado = $obj->deleteInscripcion(); // ← ejecutamos y guardamos el resultado
   echo $resultado; // ← devolvemos la respuesta al JS
 } else {
