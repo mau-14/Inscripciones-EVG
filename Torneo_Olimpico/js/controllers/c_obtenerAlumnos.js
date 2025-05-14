@@ -26,7 +26,7 @@ async function rellenarSelectsConAlumnos() {
 		function actualizarSelects() {
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
-				const esTipoC = select.name.includes("-C");
+				const esTipoC = select.name === "C";
 
 				options.forEach((option) => {
 					const alumnoId = option.value;
@@ -78,7 +78,7 @@ async function rellenarSelectsConAlumnos() {
 			select.addEventListener("change", (event) => {
 				const actual = event.target.value;
 				const anterior = anteriores.get(select);
-				const esTipoC = select.name.includes("-C");
+				const esTipoC = select.name === "C";
 
 				// Eliminar anterior si existía
 				if (anterior) {

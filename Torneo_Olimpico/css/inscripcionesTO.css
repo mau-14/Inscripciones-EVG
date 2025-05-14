@@ -85,3 +85,73 @@ h2 {
   background-color: white;
   color: #333;
 }
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px); /* Más desenfoque */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 2.5em;
+  border-radius: 15px;
+  max-width: 500px; /* Más ancho */
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-size: 2em;
+  color: #0077cc;
+}
+
+.modal-content p {
+  font-size: 1.3em;
+  margin: 1.5em 0;
+}
+
+.modal .botones {
+  display: flex;
+  justify-content: center;
+  gap: 0.8em; /* Botones más cerca */
+  margin-top: 1em;
+}
+
+.modal .botones button {
+  padding: 0.7em 2em;
+  font-size: 1.05em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.modal .aceptar {
+  background-color: #28a745;
+  color: white;
+}
+
+.modal .aceptar:hover {
+  background-color: #218838;
+}
+
+.modal .cancelar {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.modal .cancelar:hover {
+  background-color: #d5d5d5;
+}

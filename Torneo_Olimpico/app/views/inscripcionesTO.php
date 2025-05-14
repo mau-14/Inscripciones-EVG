@@ -36,6 +36,7 @@
     })();
   </script>
 
+  <script type="module" src="js/controllers/c_inscribirAlumnosTO.js" defer></script>
 </head>
 
 <?php
@@ -51,11 +52,7 @@ include $navBar;
 
     <section id="secInscripcion">
       <h1>Panel de Inscripciones</h1>
-
-
-
-
-      <form action="procesar_inscripcion.php" method="POST" class="formulario-inscripciones">
+      <form class="formulario-inscripciones">
         <div class="categoria-container">
           <!-- Categoría Masculina -->
 
@@ -77,7 +74,7 @@ include $navBar;
 
         <!-- Botones -->
         <div class="botones-formulario">
-          <button type="submit">Inscribir</button>
+          <button type="submit" id="inscripcionAlumnos">Inscribir</button>
           <button type="reset">Limpiar</button>
         </div>
       </form>

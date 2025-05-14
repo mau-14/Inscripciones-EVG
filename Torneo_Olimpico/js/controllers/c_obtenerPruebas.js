@@ -104,12 +104,13 @@ async function crearCamposPorPrueba() {
 
 			const label = document.createElement("label");
 			label.textContent = prueba.nombre;
+			label.id = prueba.idPrueba;
 			divCampo.appendChild(label);
 
 			// Crear los selects según la cantidad máxima de participantes
 			for (let i = 1; i <= prueba.maxParticipantes; i++) {
 				const select = document.createElement("select");
-				select.name = `${prueba.idPrueba}-${prueba.tipo}`;
+				select.name = `${prueba.tipo}`;
 				select.innerHTML = `<option value="">Selecciona</option>`;
 				divCampo.appendChild(select);
 			}
