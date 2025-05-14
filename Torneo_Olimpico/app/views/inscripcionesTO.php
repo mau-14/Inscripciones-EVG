@@ -15,13 +15,23 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <script>
-    window.addEventListener("scroll", function() {
-      const imagen = document.querySelector(".ventana-imagen img");
-      const scrolled = window.scrollY;
-      imagen.style.transform = `translateY(${-scrolled * 0.3}px)`;
-    });
+
+  <script type="module">
+    import {
+      crearCamposPorPrueba
+    } from "./js/controllers/c_obtenerPruebas.js";
+
+    import {
+      rellenarSelectsConAlumnos
+    } from "./js/controllers/c_obtenerAlumnos.js";
+
+
+    (async () => {
+      await crearCamposPorPrueba();
+      await rellenarSelectsConAlumnos();
+    })();
   </script>
+
 </head>
 
 <?php
@@ -38,136 +48,27 @@ include $navBar;
     <section id="secInscripcion">
       <h1>Panel de Inscripciones</h1>
 
+
+
+
       <form action="procesar_inscripcion.php" method="POST" class="formulario-inscripciones">
         <div class="categoria-container">
           <!-- Categoría Masculina -->
-          <div class="categoria">
-            <h2>Categoría Masculina</h2>
-            <div class="grid-pruebas">
-              <div class="campo">
-                <label>50 metros</label>
-                <select>
-                  <option>High-speed</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>Jabalina</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>800 metros</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>Longitud</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
 
-              <div class="campo">
-                <label>Peso</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>100 metros</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
+          <div class="categoria">
+            <h2>Categoria Masculina</h2>
+            <div class="grid-pruebas" id="camposPruebasMasculina">
             </div>
           </div>
           <div class="linea-separadora"></div>
           <!-- Categoría Femenina -->
           <div class="categoria">
-            <h2>Categoría Femenina</h2>
-            <div class="grid-pruebas">
-              <div class="campo">
-                <label>50 metros</label>
-                <select>
-                  <option>Input prueba</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>Jabalina</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>800 metros</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>Longitud</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>Peso</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
-              <div class="campo">
-                <label>100 metros</label>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-                <select>
-                  <option>Selecciona</option>
-                </select>
-              </div>
+
+            <h2>Categoria Femenina</h2>
+            <div class="grid-pruebas" id="camposPruebasFemenina">
             </div>
           </div>
         </div>
-        <div class="categoriaMixta">
-          <h2>Categoría Mixta</h2>
-          <div class="campo">
-            <label>4 * 100 metros</label>
-            <select>
-              <option>Selecciona</option>
-            </select>
-            <select>
-              <option>Selecciona</option>
-            </select>
-            <select>
-              <option>Selecciona</option>
-            </select>
-            <select>
-              <option>Selecciona</option>
-            </select>
-          </div>
         </div>
 
         <!-- Botones -->

@@ -22,7 +22,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/Torneo_Olimpico/app/config/entorno/variabl
 include $navBar;
 ?>
 
-<script type="module" src="js/controllers/c_obtenerPruebas.js"></script>
+<script type="module">
+  import {
+    renderizarPruebas
+  } from "./js/controllers/c_obtenerPruebas.js";
+
+  await renderizarPruebas();
+</script>
 
 <body>
   <main>

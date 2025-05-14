@@ -1,47 +1,56 @@
+/**
+ * Clase para mostrar un diálogo de errores o mensajes de éxito en pantalla.
+ * Crea dinámicamente un modal y lo gestiona desde JavaScript puro.
+ */
 export class ErrorDialog {
 	constructor() {
-		// Crear el contenedor del modal
+		/** @type {HTMLDivElement} */
 		this.dialog = document.createElement("div");
 		this.dialog.id = "error-dialog";
 		this.dialog.classList.add("error-dialog");
-		this.dialog.style.display = "none"; // Iniciar oculto
+		this.dialog.style.display = "none"; // Oculto por defecto
 
-		// Crear el contenido del modal
+		/** @type {HTMLDivElement} */
 		this.content = document.createElement("div");
 		this.content.classList.add("error-dialog-content");
 
-		// Crear el título del modal (Éxito/Error)
+		/** @type {HTMLHeadingElement} */
 		this.title = document.createElement("h2");
 		this.title.style.marginTop = "0";
 		this.content.appendChild(this.title);
 
-		// Crear el mensaje
+		/** @type {HTMLSpanElement} */
 		this.message = document.createElement("span");
 		this.content.appendChild(this.message);
 
-		// Crear el botón de cerrar
+		/** @type {HTMLButtonElement} */
 		this.closeButton = document.createElement("button");
 		this.closeButton.textContent = "Cerrar";
-		this.closeButton.onclick = () => this.hide(); // Cerrar el modal
+		this.closeButton.onclick = () => this.hide(); // Cierra el modal
 		this.content.appendChild(this.closeButton);
 
-		// Añadir el contenido al contenedor
+		// Añadir el contenido al contenedor del modal
 		this.dialog.appendChild(this.content);
 
-		// Agregar al body
+		// Insertar el modal al final del body
 		document.body.appendChild(this.dialog);
 	}
 
-	// Mostrar el diálogo con título y color según éxito/error
+	/**
+	 * Muestra el diálogo con un mensaje y color dependiendo de si es éxito o error.
+	 *
+	 * @param {string} message - Mensaje a mostrar.
+	 * @param {boolean} [isSuccess=false] - Si es `true`, se mostrará como mensaje de éxito (verde).
+	 */
 	show(message, isSuccess = false) {
 		this.title.textContent = isSuccess ? "Éxito" : "Error";
 		this.message.textContent = message;
 
 		if (isSuccess) {
-			this.content.style.backgroundColor = "#4CAF50"; // Verde brillante
+			this.content.style.backgroundColor = "#4CAF50"; // Verde
 			this.title.style.color = "white";
 		} else {
-			this.content.style.backgroundColor = "#f44336"; // Rojo estándar
+			this.content.style.backgroundColor = "#f44336"; // Rojo
 			this.title.style.color = "white";
 		}
 
@@ -49,7 +58,9 @@ export class ErrorDialog {
 		this.dialog.style.display = "flex";
 	}
 
-	// Ocultar el diálogo
+	/**
+	 * Oculta el diálogo.
+	 */
 	hide() {
 		this.dialog.style.display = "none";
 	}

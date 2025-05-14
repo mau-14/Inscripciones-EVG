@@ -2,12 +2,16 @@ import M_crudPruebasTO from "/Torneo_Olimpico/js/models/m_crudPruebasTO.js";
 import { renderizarPruebas } from "/Torneo_Olimpico/js/controllers/c_obtenerPruebas.js";
 import { ErrorDialog } from "/Torneo_Olimpico/js/utils/errorHandler.js";
 
+/** @type {ErrorDialog} */
 const errorDialog = new ErrorDialog();
 
 const btnAceptar = document.getElementById("aceptar");
 const btnConfirmar = document.getElementById("btnConfirmar");
 
-// AÑADIR / EDITAR
+/**
+ * Evento para añadir o editar una prueba.
+ * @param {MouseEvent} event - Evento del clic en el botón aceptar.
+ */
 btnAceptar?.addEventListener("click", async function (event) {
 	event.preventDefault();
 
@@ -18,7 +22,10 @@ btnAceptar?.addEventListener("click", async function (event) {
 	switch (tipoAccion) {
 		case "añadir":
 		case "editar":
+			/** @type {string} */
 			const idPruebaM = document.getElementById("idPruebaM")?.value ?? "";
+
+			/** @type {string} */
 			const idPruebaF = document.getElementById("idPruebaF")?.value ?? "";
 
 			const nombrePrueba = document.getElementById("nombrePrueba").value;
@@ -41,18 +48,22 @@ btnAceptar?.addEventListener("click", async function (event) {
 				return;
 			}
 
+			/**
+			 * Objeto que representa una prueba.
+			 * @type {{ idPruebaM: string, idPruebaF: string, nombre: string, bases: string, tipo: string, maxParticipantes: string, fecha: string, hora: string }}
+			 */
 			const prueba = {
-				idPruebaM: idPruebaM,
-				idPruebaF: idPruebaF,
+				idPruebaM,
+				idPruebaF,
 				nombre: nombrePrueba,
-				bases: bases,
-				tipo: tipo,
-				maxParticipantes: maxParticipantes,
+				bases,
+				tipo,
+				maxParticipantes,
 				fecha: fechaPrueba,
 				hora: horaPrueba,
 			};
-			console.log(prueba);
 
+			console.log(prueba);
 			mostrarLoaderModal();
 
 			try {
@@ -83,14 +94,23 @@ btnAceptar?.addEventListener("click", async function (event) {
 	}
 });
 
-// BORRAR
+/**
+ * Evento para confirmar el borrado de una prueba.
+ * @param {MouseEvent} event - Evento del clic en el botón confirmar.
+ */
 btnConfirmar?.addEventListener("click", async function (event) {
 	event.preventDefault();
 	console.log("Borrar confirmado");
+
+	/** @type {string} */
 	const idPruebaM = document.getElementById("idPruebaM")?.value ?? "";
+
+	/** @type {string} */
 	const idPruebaF = document.getElementById("idPruebaF")?.value ?? "";
+
 	const jsonIds = JSON.stringify({ idPruebaM, idPruebaF });
 	console.log(jsonIds);
+
 	try {
 		const modelo = new M_crudPruebasTO();
 		const resultado = await modelo.borrarPrueba(jsonIds);
@@ -104,19 +124,34 @@ btnConfirmar?.addEventListener("click", async function (event) {
 	}
 });
 
+/**
+ * Muestra el modal con el loader (indicador de carga).
+ * @function
+ */
 function mostrarLoaderModal() {
 	document.getElementById("loader-modal").style.display = "flex";
 }
 
+/**
+ * Oculta el modal con el loader.
+ * @function
+ */
 function ocultarLoaderModal() {
 	document.getElementById("loader-modal").style.display = "none";
 }
 
-// Estas funciones deben estar definidas en tu archivo o importadas:
+/**
+ * Cierra el modal principal.
+ * @function
+ */
 function cerrarModal() {
 	document.getElementById("modal").style.display = "none";
 }
 
+/**
+ * Cierra el modal de confirmación.
+ * @function
+ */
 function cerrarModalConfirmacion() {
 	document.getElementById("modalConfirmacion").style.display = "none";
 }

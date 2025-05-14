@@ -2,7 +2,21 @@ import { ErrorDialog } from "/Torneo_Olimpico/js/utils/errorHandler.js";
 
 const errorDialog = new ErrorDialog();
 
+/**
+ * Modelo para realizar operaciones CRUD (crear, borrar, modificar)
+ * sobre las pruebas del Torneo Olímpico mediante peticiones `fetch`
+ * a controladores PHP en el servidor.
+ */
 class M_crudPruebasTO {
+	/**
+	 * Inserta una nueva prueba en el sistema.
+	 *
+	 * @async
+	 * @method insertPrueba
+	 * @param {string} datos - Cuerpo de la solicitud en formato JSON.
+	 * @returns {Promise<Object|undefined>} La respuesta del servidor si es exitosa.
+	 * @throws {Error} Si ocurre un error de red o procesamiento.
+	 */
 	async insertPrueba(datos) {
 		try {
 			const response = await fetch(
@@ -30,6 +44,15 @@ class M_crudPruebasTO {
 		}
 	}
 
+	/**
+	 * Elimina una prueba del sistema.
+	 *
+	 * @async
+	 * @method borrarPrueba
+	 * @param {string} datos - Cuerpo de la solicitud en formato JSON.
+	 * @returns {Promise<Object|undefined>} La respuesta del servidor si es exitosa.
+	 * @throws {Error} Si ocurre un error de red o procesamiento.
+	 */
 	async borrarPrueba(datos) {
 		try {
 			const response = await fetch(
@@ -56,6 +79,15 @@ class M_crudPruebasTO {
 		}
 	}
 
+	/**
+	 * Modifica una prueba existente en el sistema.
+	 *
+	 * @async
+	 * @method modificarPrueba
+	 * @param {string} datos - Cuerpo de la solicitud en formato JSON.
+	 * @returns {Promise<Object|undefined>} La respuesta del servidor si es exitosa.
+	 * @throws {Error} Si ocurre un error de red o procesamiento.
+	 */
 	async modificarPrueba(datos) {
 		try {
 			const response = await fetch(

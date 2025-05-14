@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/c_obtenerPruebas.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/c_obtenerPruebas.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import M_obtenerPruebas from "/Torneo_Olimpico/js/models/m_obtenerPruebas.js";
+
+/**
+ * Controlador que obtiene las pruebas desde el modelo y las renderiza en la vista.
+ * Agrupa las pruebas masculinas y busca su equivalente femenina por nombre.
+ * Crea elementos HTML dinámicamente y añade eventos a botones de edición y borrado.
+ * También añade un botón para insertar nuevas pruebas.
+ *
+ * @async
+ * @function renderizarPruebas
+ * @returns {Promise&lt;void>}
+ */
+async function renderizarPruebas() {
+	try {
+		const modelo = new M_obtenerPruebas();
+		const pruebas = await modelo.obtenerPruebas();
+		const grid = document.querySelector("section.grid");
+		grid.innerHTML = "";
+
+		// Filtrar las pruebas por categoría M y agrupar por nombre
+		const pruebasFiltradas = pruebas.filter((p) => p.categoria === "M");
+
+		pruebasFiltradas.forEach((pruebaM) => {
+			// Buscar su equivalente femenina
+			const pruebaF = pruebas.find(
+				(p) => p.nombre === pruebaM.nombre &amp;&amp; p.categoria === "F",
+			);
+
+			const div = document.createElement("div");
+			div.classList.add("prueba");
+
+			div.innerHTML = `
+&lt;h3>${pruebaM.nombre}&lt;/h3>
+  &lt;p>&lt;strong>Fecha:&lt;/strong> ${formatearFecha(pruebaM.fecha)}&lt;/p>
+  &lt;p>&lt;strong>Hora:&lt;/strong> ${pruebaM.hora.slice(0, 5)}&lt;/p>
+  &lt;p>&lt;strong>Descripción:&lt;/strong> ${pruebaM.bases}&lt;/p>
+  &lt;div class="acciones">
+    &lt;button class="btn-editar">✏️&lt;/button>
+    &lt;button class="btn-borrar">🗑️&lt;/button>
+
+  /**
+  * El botón editar y el botón borrar tienen que pasar como parámetro 
+  * el id de la prueba en la categoria masculina y el id en la categoria femenina.
+  * Ya que luego a la hora de hacer la consulta necesitaré ambos
+  */
+  &lt;/div>
+`;
+
+			div
+				.querySelector(".btn-editar")
+				.addEventListener("click", () =>
+					abrirModal("editar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
+				);
+
+			div
+				.querySelector(".btn-borrar")
+				.addEventListener("click", () =>
+					abrirModal("borrar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
+				);
+
+			grid.appendChild(div);
+		});
+
+		// Botón "Añadir prueba"
+		const addPruebaDiv = document.createElement("div");
+		addPruebaDiv.classList.add("prueba");
+
+		addPruebaDiv.innerHTML = `
+      &lt;h3>AÑADIR PRUEBA&lt;/h3>
+      &lt;div class="acciones">
+        &lt;button class="btn-mas" onclick="abrirModal('añadir')">➕&lt;/button>
+      &lt;/div>
+    `;
+
+		grid.appendChild(addPruebaDiv);
+	} catch (error) {
+		console.error("Error al renderizar las pruebas:", error);
+	}
+}
+
+/**
+ * Formatea una fecha en formato 'YYYY-MM-DD' a 'DD/MM/YYYY'.
+ *
+ * @function formatearFecha
+ * @param {string} fecha - La fecha en formato ISO (YYYY-MM-DD).
+ * @returns {string} La fecha formateada como 'DD/MM/YYYY'.
+ */
+function formatearFecha(fecha) {
+	try {
+		const [year, month, day] = fecha.split("-");
+		return `${day}/${month}/${year}`;
+	} catch (error) {
+		console.error("Error al formatear la fecha:", error);
+		return fecha;
+	}
+}
+
+// Ejecutar al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+	try {
+		renderizarPruebas();
+	} catch (error) {
+		console.error("Error al ejecutar renderizarPruebas:", error);
+	}
+});
+
+export { renderizarPruebas };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ErrorDialog.html">ErrorDialog</a></li><li><a href="M_crudPruebasTO.html">M_crudPruebasTO</a></li><li><a href="M_obtenerPruebas.html">M_obtenerPruebas</a></li></ul><h3>Global</h3><ul><li><a href="global.html#abrirModal">abrirModal</a></li><li><a href="global.html#borrarPrueba">borrarPrueba</a></li><li><a href="global.html#cerrarModal">cerrarModal</a></li><li><a href="global.html#cerrarModalConfirmacion">cerrarModalConfirmacion</a></li><li><a href="global.html#errorDialog">errorDialog</a></li><li><a href="global.html#formatearFecha">formatearFecha</a></li><li><a href="global.html#insertPrueba">insertPrueba</a></li><li><a href="global.html#modificarPrueba">modificarPrueba</a></li><li><a href="global.html#mostrarLoaderModal">mostrarLoaderModal</a></li><li><a href="global.html#obtenerPruebas">obtenerPruebas</a></li><li><a href="global.html#ocultarLoaderModal">ocultarLoaderModal</a></li><li><a href="global.html#renderizarPruebas">renderizarPruebas</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed May 14 2025 08:53:09 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

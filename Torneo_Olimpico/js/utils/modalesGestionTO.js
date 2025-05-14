@@ -1,22 +1,34 @@
+// Referencias a los elementos modales del DOM
 const modal = document.getElementById("modal");
 const modalConfirmacion = document.getElementById("modalConfirmacion");
 const modalTitle = document.getElementById("modal-title");
 const confirmTitle = document.getElementById("modalConfirmacion-title");
 
-//EL QUERY SELECTOR SOLO ME COGE EL PRIMERO, O SEA EL MODAL DE EDITAR/AÑADIR
+/**
+ * Abre un modal dependiendo del tipo: editar, añadir o borrar.
+ *
+ * @param {"añadir" | "editar" | "borrar"} tipo - Tipo de acción a realizar.
+ * @param {string | number} idM - ID masculino de la prueba.
+ * @param {Object} prueba - Objeto con los datos de la prueba.
+ * @param {string | number} idF - ID femenino de la prueba.
+ */
 function abrirModal(tipo, idM, prueba, idF) {
 	try {
-		//Borrar los input anteriores
+		// Eliminar inputs ocultos anteriores (para evitar duplicados)
 		modal.querySelectorAll('input[type="hidden"]').forEach((el) => el.remove());
 		modalConfirmacion
 			.querySelectorAll('input[type="hidden"]')
 			.forEach((el) => el.remove());
+
 		if (tipo === "borrar") {
+			// Mostrar el modal de confirmación para eliminar
 			modalConfirmacion.style.display = "flex";
 			modalConfirmacion.querySelector("#modalConfirmacion-title").textContent =
 				"Eliminar Prueba";
 			modalConfirmacion.querySelector("#modalConfirmacion-text").textContent =
 				`¿Desea eliminar la prueba ${prueba.nombre}?`;
+
+			// Crear inputs ocultos con los IDs necesarios
 			const hiddenIdM = document.createElement("input");
 			hiddenIdM.type = "hidden";
 			hiddenIdM.id = "idPruebaM";
@@ -32,19 +44,24 @@ function abrirModal(tipo, idM, prueba, idF) {
 			modalConfirmacion.appendChild(hiddenIdM);
 			modalConfirmacion.appendChild(hiddenIdF);
 		} else {
+			// Mostrar el modal para añadir o editar
 			modal.style.display = "flex";
+			const aceptarBtn = document.querySelector(".aceptar");
+
 			if (tipo === "editar") {
-				document.querySelector(".aceptar").setAttribute("data-tipo", "editar");
+				aceptarBtn.setAttribute("data-tipo", "editar");
 				modalTitle.textContent = "Editar Prueba";
+
+				// Rellenar campos del formulario con los datos de la prueba
 				document.getElementById("nombrePrueba").value = prueba.nombre;
 				document.getElementById("bases").value = prueba.bases;
 				document.getElementById("fechaPrueba").value = prueba.fecha;
 				document.getElementById("horaPrueba").value = prueba.hora;
-				const selectMaxParticipantes =
-					document.getElementById("maxParticipantes");
-				selectMaxParticipantes.value = prueba.maxParticipantes;
-				const selectTipo = document.getElementById("tipoPrueba");
-				selectTipo.value = prueba.tipo;
+				document.getElementById("maxParticipantes").value =
+					prueba.maxParticipantes;
+				document.getElementById("tipoPrueba").value = prueba.tipo;
+
+				// Añadir inputs ocultos con los IDs
 				const hiddenIdM = document.createElement("input");
 				hiddenIdM.type = "hidden";
 				hiddenIdM.id = "idPruebaM";
@@ -60,13 +77,16 @@ function abrirModal(tipo, idM, prueba, idF) {
 				modal.appendChild(hiddenIdM);
 				modal.appendChild(hiddenIdF);
 			} else {
-				document.querySelector(".aceptar").setAttribute("data-tipo", "añadir");
+				// Para añadir, limpiar los campos
+				aceptarBtn.setAttribute("data-tipo", "añadir");
 				modalTitle.textContent = "Añadir Prueba";
+
 				document.getElementById("nombrePrueba").value = "";
 				document.getElementById("bases").value = "";
 				document.getElementById("fechaPrueba").value = "";
 				document.getElementById("horaPrueba").value = "";
 				document.getElementById("maxParticipantes").value = "";
+				document.getElementById("tipoPrueba").value = "";
 			}
 		}
 	} catch (error) {
@@ -74,6 +94,9 @@ function abrirModal(tipo, idM, prueba, idF) {
 	}
 }
 
+/**
+ * Cierra ambos modales (editar/añadir y confirmación).
+ */
 function cerrarModal() {
 	try {
 		modal.style.display = "none";
@@ -83,15 +106,20 @@ function cerrarModal() {
 	}
 }
 
+/**
+ * Cierra el modal si se hace clic fuera del contenido del modal.
+ * @param {MouseEvent} e - Evento del clic.
+ */
 window.onclick = function (e) {
 	try {
 		if (e.target === modal) cerrarModal();
-		if (e.target === modalConfirmacion) cerrarModalConfirmacion();
+		if (e.target === modalConfirmacion) cerrarModal();
 	} catch (error) {
 		console.error("Error al hacer clic en el modal:", error);
 	}
 };
 
+// Asignar evento a todos los botones con clase "cancelar"
 document.querySelectorAll(".cancelar").forEach((btn) => {
 	btn.addEventListener("click", function () {
 		console.log("Cerrar modal");
@@ -100,6 +128,6 @@ document.querySelectorAll(".cancelar").forEach((btn) => {
 	});
 });
 
-// si se usa type module las funciones no están disponibles globalmente y hay que usar window
+// Hacer que las funciones estén disponibles globalmente si se usa type="module"
 window.abrirModal = abrirModal;
 window.cerrarModal = cerrarModal;
