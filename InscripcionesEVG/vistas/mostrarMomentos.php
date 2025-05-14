@@ -1,0 +1,90 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión Momentos</title>
+  <link rel="stylesheet" href="<?php echo CSS ?>estilo.css">
+  <link rel="stylesheet" href="<?php echo CSS ?>nav.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <h1>Gestión Momentos</h1>
+  <h2>Seleccione un Momento</h2>
+
+  <div class="contenedor-momentos">
+
+     <!--Lista de Momentos-->
+    <?php foreach ($dataToView["data"] as $momento){
+      echo '<div class="momento">';
+        echo '<p>'.$momento['nombre'].'</p>';
+        echo '<p>'.$momento['fecha_inicio'].'</p>';
+        echo '<p>'.$momento['fecha_fin'].'</p>';
+        echo '<div class="acciones">';
+          echo '<button class="editar"><i class="fas fa-pen"></i></button>';
+          echo '<button class="eliminar"><i class="fas fa-trash"></i></button>';
+        echo '</div>';
+        echo '</div>';
+    } ?>
+    <!-- Botón para abrir el formulario -->
+    <div class="momento añadir" id="btnAbrirModal">
+      <i class="fas fa-plus"></i>
+      <p>Añadir Momento</p>
+    </div>
+  </div>
+
+  <!-- Modal para añadir Momento -->
+  <div class="modal" id="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarModal">&times;</span>
+      <h2>Nuevo Momento</h2>
+      <form id="formMomento">
+        <label for="nombre">Nombre del momento:</label>
+        <input type="text" id="nombre" name="nombre">
+
+        <label for="fechaInicio">Fecha de inicio:</label>
+        <input type="date" id="fechaInicio" name="fechaInicio"/>
+
+        <label for="fechaFin">Fecha de fin:</label>
+        <input type="date" id="fechaFin" name="fechaFin"/>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para editar momento -->
+<div class="modal" id="modalEditar">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarEditar">&times;</span>
+      <h2>Editar Momento</h2>
+      <form id="formEditarMomento">
+        <label for="editarNombre">Nombre del momento:</label>
+        <input type="text" id="editarNombre" name="editarNombre">
+  
+        <label for="editarFechaInicio">Fecha de inicio del momento:</label>
+        <input type="date" id="editarFechaInicio" name="editarFechaInicio"/>
+  
+        <label for="editarFechaFin">Fecha de fin del momento:</label>
+        <input type="date" id="editarFechaFin" name="editarFechaFin"/>
+  
+        <button type="submit">Actualizar</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Modal de confirmación para eliminar -->
+<div class="modal" id="modalConfirmar">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
+      <h2>¿Estás seguro?</h2>
+      <div class="botones-confirmacion">
+        <button id="btnConfirmarEliminar" class="btn-confirmar">Sí</button>
+        <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="<?php echo JS ?>gestionMomentos.js"></script>
+</body>
+</html>
