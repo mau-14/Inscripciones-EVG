@@ -20,15 +20,19 @@
     import {
       crearCamposPorPrueba
     } from "./js/controllers/c_obtenerPruebas.js";
-
     import {
       rellenarSelectsConAlumnos
     } from "./js/controllers/c_obtenerAlumnos.js";
 
-
     (async () => {
-      await crearCamposPorPrueba();
-      await rellenarSelectsConAlumnos();
+      try {
+        // Primero se crean los campos de las pruebas
+        await crearCamposPorPrueba();
+        // Luego se rellenan los selects con los alumnos
+        await rellenarSelectsConAlumnos();
+      } catch (error) {
+        console.error("Error al cargar los campos o alumnos:", error);
+      }
     })();
   </script>
 
