@@ -4,7 +4,7 @@ class C_obtenerAlumnos
 {
   public function __construct()
   {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/models/m_obtenerAlumnos.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/models/m_obtenerAlumnos.php';
   }
 
   public function obtenerAlumnos()
@@ -16,6 +16,3 @@ class C_obtenerAlumnos
     echo $alumnosJson;
   }
 }
-
-$obj = new C_obtenerAlumnos();
-$obj->obtenerAlumnos();

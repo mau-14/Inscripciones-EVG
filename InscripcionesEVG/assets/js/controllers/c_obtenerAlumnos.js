@@ -1,4 +1,4 @@
-import M_obtenerAlumnos from "/InscripcionesEVG/js/models/m_obtenerAlumnos.js";
+import M_obtenerAlumnos from "/InscripcionesEVG/assets/js/models/m_obtenerAlumnos.js";
 
 async function rellenarSelectsConAlumnos() {
 	try {

@@ -1,6 +1,6 @@
-import M_crudPruebasTO from "/InscripcionesEVG/js/models/m_crudPruebasTO.js";
-import { renderizarPruebas } from "/InscripcionesEVG/js/controllers/c_obtenerPruebas.js";
-import { ErrorDialog } from "/InscripcionesEVG/js/utils/errorHandler.js";
+import M_crudPruebasTO from "/InscripcionesEVG/assets/js/models/m_crudPruebasTO.js";
+import { renderizarPruebas } from "/InscripcionesEVG/assets/js/controllers/c_obtenerPruebas.js";
+import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
 
 /** @type {ErrorDialog} */
 const errorDialog = new ErrorDialog();

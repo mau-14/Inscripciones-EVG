@@ -13,7 +13,7 @@ class M_obtenerPruebas {
 	async obtenerPruebas() {
 		try {
 			const response = await fetch(
-				"/InscripcionesEVG/app/controllers/c_obtenerPruebas.php",
+				"/InscripcionesEVG/index.php?controlador=obtenerPruebas&accion=obtenerPruebas",
 			);
 			const data = await response.json();
 			return data;

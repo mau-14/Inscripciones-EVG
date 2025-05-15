@@ -10,7 +10,7 @@ class M_obtenerAlumnos
 
   public function __construct()
   {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/config/configDB.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/configDB.php';
 
     try {
       DSN . SERVIDOR . ';dbname=' . BBDD . ';charset=utf8';
@@ -41,11 +41,11 @@ class M_obtenerAlumnos
 
       $stmt->execute();
 
-      $pruebas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $alumnos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      $pruebasJson = json_encode($pruebas);
+      $alumnosJson = json_encode($alumnos);
 
-      return $pruebasJson;
+      return $alumnosJson;
     } catch (PDOException $e) {
       error_log("Error al obtener los alumnos: " . $e->getMessage());
       return json_encode(["error" => "Ocurrió un error al procesar la solicitud de obtener alumnos."]);

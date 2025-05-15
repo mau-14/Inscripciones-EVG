@@ -10,7 +10,7 @@ class M_crudPruebasTO
 
   public function __construct()
   {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/config/configDB.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/configDB.php';
 
     try {
       DSN . SERVIDOR . ';dbname=' . BBDD . ';charset=utf8';

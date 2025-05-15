@@ -1,4 +1,4 @@
-import M_obtenerPruebas from "/InscripcionesEVG/js/models/m_obtenerPruebas.js";
+import M_obtenerPruebas from "/InscripcionesEVG/assets/js/models/m_obtenerPruebas.js";
 
 /**
  * Controlador que obtiene las pruebas desde el modelo y las renderiza en la vista.

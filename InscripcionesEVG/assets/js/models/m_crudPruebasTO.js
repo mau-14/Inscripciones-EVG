@@ -1,4 +1,4 @@
-import { ErrorDialog } from "/InscripcionesEVG/js/utils/errorHandler.js";
+import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
 
 const errorDialog = new ErrorDialog();
 
@@ -20,7 +20,7 @@ class M_crudPruebasTO {
 	async insertPrueba(datos) {
 		try {
 			const response = await fetch(
-				"/InscripcionesEVG/app/controllers/c_insertPruebasTO.php",
+				"/InscripcionesEVG/index.php?controlador=insertPruebasTO&accion=insertarInscripcion&j=1",
 				{
 					method: "POST",
 					headers: {
@@ -31,6 +31,7 @@ class M_crudPruebasTO {
 			);
 
 			const data = await response.json();
+			console.log(data.error);
 
 			if (data.error) {
 				errorDialog.show(data.error);
@@ -56,7 +57,7 @@ class M_crudPruebasTO {
 	async borrarPrueba(datos) {
 		try {
 			const response = await fetch(
-				"/InscripcionesEVG/app/controllers/c_borrarPruebasTO.php",
+				"/InscripcionesEVG/index.php?controlador=borrarPruebasTO&accion=deleteInscripcion&j=1",
 				{
 					method: "POST",
 					headers: {
@@ -91,7 +92,7 @@ class M_crudPruebasTO {
 	async modificarPrueba(datos) {
 		try {
 			const response = await fetch(
-				"/InscripcionesEVG/app/controllers/c_modificarPruebasTO.php",
+				"/InscripcionesEVG/index.php?controlador=modificarPruebasTO&accion=modificarPrueba&j=1",
 				{
 					method: "POST",
 					headers: {

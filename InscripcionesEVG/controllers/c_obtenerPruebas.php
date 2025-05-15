@@ -4,7 +4,7 @@ class C_obtenerPruebas
 {
   public function __construct()
   {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/models/m_obtenerPruebas.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/models/m_obtenerPruebas.php';
   }
 
   public function obtenerPruebas()
@@ -16,6 +16,3 @@ class C_obtenerPruebas
     echo $pruebasJson;
   }
 }
-
-$obj = new C_obtenerPruebas();
-$obj->obtenerPruebas();

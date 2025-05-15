@@ -1,4 +1,4 @@
-import { ModalConfirmacion } from "/InscripcionesEVG/js/utils/modalConfirmacion.js";
+import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 
 const boton = document.getElementById("inscripcionAlumnos");
 

@@ -85,7 +85,6 @@ function abrirModal(tipo, idM, prueba, idF) {
 				document.getElementById("fechaPrueba").value = "";
 				document.getElementById("horaPrueba").value = "";
 				document.getElementById("maxParticipantes").value = "";
-				document.getElementById("tipoPrueba").value = "";
 			}
 		}
 	} catch (error) {

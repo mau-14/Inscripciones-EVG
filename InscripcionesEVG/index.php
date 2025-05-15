@@ -1,33 +1,39 @@
 <?php
 require_once 'config/config.php';
 
+$controladorNombre = $_GET["controlador"] ?? DEFAULT_CONTROLADOR;
+$accion = $_GET["accion"] ?? DEFAULT_ACCION;
 
-
-if (!isset($_GET["controlador"])) {
-  $_GET["controlador"] = DEFAULT_CONTROLADOR;
-}
-if (!isset($_GET["accion"])) {
-  $_GET["accion"] = DEFAULT_ACCION;
-}
-
-$rutaControlador = CONTROLADORES . 'c_' . $_GET["controlador"] . '.php';
-
+$rutaControlador = CONTROLADORES . 'c_' . $controladorNombre . '.php';
 if (!file_exists($rutaControlador)) {
-  $rutaControlador = CONTROLADORES . 'c_' . DEFAULT_CONTROLADOR . '.php';
+  $controladorNombre = DEFAULT_CONTROLADOR;
+  $rutaControlador = CONTROLADORES . 'c_' . $controladorNombre . '.php';
 }
 
 require_once $rutaControlador;
+$nombreControlador = 'C_' . $controladorNombre;
 
-$nombreControlador = 'C_' . $_GET["controlador"];
+$isJson = isset($_GET['j']);
 
-//TODO poner aqui lo de recibir datos 
-$controlador = new $nombreControlador();
+if ($isJson) {
+  $json = file_get_contents('php://input');
+  $datos = json_decode($json, true) ?? [];
 
-if (method_exists($controlador, $_GET["accion"])) {
-  $dataToView["data"] = $controlador->{$_GET["accion"]}();
-}
+  $controlador = new $nombreControlador($datos);
 
-if (isset($controlador->vista) && !empty($controlador->vista)) {
-  include 'reusables/nav.php';
-  require_once 'views/' . $controlador->vista . '.php';
+  if (method_exists($controlador, $accion)) {
+    $controlador->{$accion}();
+    error_log('ENTRA AQUII');
+  }
+} else {
+  $controlador = new $nombreControlador();
+
+  if (method_exists($controlador, $accion)) {
+    $dataToView["data"] = $controlador->{$accion}();
+  }
+
+  if (isset($controlador->vista) && !empty($controlador->vista)) {
+    include 'reusables/nav.php';
+    require_once 'views/' . $controlador->vista . '.php';
+  }
 }
