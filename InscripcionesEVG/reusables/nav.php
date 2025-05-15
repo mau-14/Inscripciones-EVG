@@ -13,7 +13,7 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
 <script type="module">
   import {
     ModalConfirmacion
-  } from "./assets/js/utils/modalConfirmacion.js";
+  } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 
   function cerrarSesion() {
     console.log('NETRA')
