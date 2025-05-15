@@ -31,7 +31,7 @@ class M_crudPruebasTO
       $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
 
       $categorias = ['M', 'F'];
-      $tipo = $datos['tipo'];  // Usar el tipo recibido en los datos
+      $tipo = 'P';
 
       // Insertar en la tabla Torneo_Olimpico
       $sql = "INSERT INTO Torneo_Olimpico (nombre, bases, maxParticipantes, fecha, hora, categoria, tipo)
@@ -52,20 +52,10 @@ class M_crudPruebasTO
         // Obtener el ID de la última inserción de Torneo_Olimpico
         $idTorneo = $this->conexion->lastInsertId();
 
-        // Dependiendo del tipo, insertar en la tabla correspondiente
-        if ($tipo === 'C') {
-          // Insertar en la tabla 4X100
-          $sql_4x100 = "INSERT INTO 4X100 (idPrueba) VALUES (:idPrueba)";
-          $stmt_4x100 = $this->conexion->prepare($sql_4x100);
-          $stmt_4x100->bindParam(':idPrueba', $idTorneo);
-          $stmt_4x100->execute();
-        } elseif ($tipo === 'P') {
-          // Insertar en la tabla Pruebas_Olimpicas
-          $sql_pruebas = "INSERT INTO Pruebas_Olimpicas (idPrueba) VALUES (:idPrueba)";
-          $stmt_pruebas = $this->conexion->prepare($sql_pruebas);
-          $stmt_pruebas->bindParam(':idPrueba', $idTorneo);
-          $stmt_pruebas->execute();
-        }
+        $sql_pruebas = "INSERT INTO Pruebas_Olimpicas (idPrueba) VALUES (:idPrueba)";
+        $stmt_pruebas = $this->conexion->prepare($sql_pruebas);
+        $stmt_pruebas->bindParam(':idPrueba', $idTorneo);
+        $stmt_pruebas->execute();
       }
 
       $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
@@ -115,51 +105,29 @@ class M_crudPruebasTO
     try {
       $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
 
-      // Borrar el registro en la tabla padre (Torneo_Olimpico)
+      $tipo = 'P';
 
-      $sql_delete = "DELETE FROM Torneo_Olimpico WHERE idPrueba = :idPruebaM OR idPrueba = :idPruebaF";
-      $stmt_delete = $this->conexion->prepare($sql_delete);
-      $stmt_delete->bindParam(':idPruebaM', $datos['idPruebaM'], PDO::PARAM_INT);
-      $stmt_delete->bindParam(':idPruebaF', $datos['idPruebaF'], PDO::PARAM_INT);
+      $sql_update = "UPDATE Torneo_Olimpico
+                    SET nombre = :nombre,
+                        bases = :bases,
+                        maxParticipantes = :max_participantes,
+                        fecha = :fecha,
+                        hora = :hora,
+                        tipo = :tipo
+                    WHERE idPrueba = :idPruebaM OR idPrueba = :idPruebaF;";
 
-      $stmt_delete->execute();
+      $stmt = $this->conexion->prepare($sql_update);
 
-      $categorias = ['M', 'F'];
-      $tipo = $datos['tipo'];
 
-      $sql_insert = "INSERT INTO Torneo_Olimpico (nombre, bases, maxParticipantes, fecha, hora, categoria, tipo)
-            VALUES (:nombre, :bases, :max_participantes, :fecha, :hora, :categoria, :tipo)";
-
-      $stmt = $this->conexion->prepare($sql_insert);
-
-      foreach ($categorias as $categoria) {
-        $stmt->bindParam(':nombre', $datos['nombre']);
-        $stmt->bindParam(':bases', $datos['bases']);
-        $stmt->bindParam(':max_participantes', $datos['maxParticipantes']);
-        $stmt->bindParam(':fecha', $datos['fecha']);
-        $stmt->bindParam(':hora', $datos['hora']);
-        $stmt->bindParam(':categoria', $categoria);
-        $stmt->bindParam(':tipo', $tipo);
-        $stmt->execute();
-
-        // Obtener el ID de la última inserción de Torneo_Olimpico
-        $idTorneo = $this->conexion->lastInsertId();
-
-        // Dependiendo del tipo, insertar en la tabla correspondiente
-        if ($tipo === 'C') {
-          // Insertar en la tabla 4X100
-          $sql_4x100 = "INSERT INTO 4X100 (idPrueba) VALUES (:idPrueba)";
-          $stmt_4x100 = $this->conexion->prepare($sql_4x100);
-          $stmt_4x100->bindParam(':idPrueba', $idTorneo);
-          $stmt_4x100->execute();
-        } elseif ($tipo === 'P') {
-          // Insertar en la tabla Pruebas_Olimpicas
-          $sql_pruebas = "INSERT INTO Pruebas_Olimpicas (idPrueba) VALUES (:idPrueba)";
-          $stmt_pruebas = $this->conexion->prepare($sql_pruebas);
-          $stmt_pruebas->bindParam(':idPrueba', $idTorneo);
-          $stmt_pruebas->execute();
-        }
-      }
+      $stmt->bindParam(':nombre', $datos['nombre']);
+      $stmt->bindParam(':bases', $datos['bases']);
+      $stmt->bindParam(':max_participantes', $datos['maxParticipantes']);
+      $stmt->bindParam(':fecha', $datos['fecha']);
+      $stmt->bindParam(':hora', $datos['hora']);
+      $stmt->bindParam(':idPruebaM', $datos['idPruebaM'], PDO::PARAM_INT);
+      $stmt->bindParam(':idPruebaF', $datos['idPruebaF'], PDO::PARAM_INT);
+      $stmt->bindParam(':tipo', $tipo);
+      $stmt->execute();
 
       $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
       return json_encode(["success" => "Prueba modificada correctamente."]);

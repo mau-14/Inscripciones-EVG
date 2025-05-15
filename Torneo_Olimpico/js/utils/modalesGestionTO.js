@@ -59,7 +59,6 @@ function abrirModal(tipo, idM, prueba, idF) {
 				document.getElementById("horaPrueba").value = prueba.hora;
 				document.getElementById("maxParticipantes").value =
 					prueba.maxParticipantes;
-				document.getElementById("tipoPrueba").value = prueba.tipo;
 
 				// Añadir inputs ocultos con los IDs
 				const hiddenIdM = document.createElement("input");

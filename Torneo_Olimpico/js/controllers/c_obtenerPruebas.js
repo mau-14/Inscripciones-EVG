@@ -29,15 +29,15 @@ async function renderizarPruebas() {
 			div.classList.add("prueba");
 
 			div.innerHTML = `
-				<h3>${pruebaM.nombre}</h3>
-				<p><strong>Fecha:</strong> ${formatearFecha(pruebaM.fecha)}</p>
-				<p><strong>Hora:</strong> ${pruebaM.hora.slice(0, 5)}</p>
-				<p><strong>Descripción:</strong> ${pruebaM.bases}</p>
-				<div class="acciones">
-					<button class="btn-editar">✏️</button>
-					<button class="btn-borrar">🗑️</button>
-				</div>
-			`;
+		<h3>${pruebaM.nombre}</h3>
+		<p><strong>Fecha:</strong> ${formatearFecha(pruebaM.fecha)}</p>
+		<p><strong>Hora:</strong> ${pruebaM.hora.slice(0, 5)}</p>
+		<p><strong>Descripción:</strong> ${pruebaM.bases}</p>
+		<div class="acciones">
+			<button class="btn-editar">✏️</button>
+			${pruebaM.tipo !== "C" ? '<button class="btn-borrar">🗑️</button>' : ""}
+		</div>
+	`;
 
 			div
 				.querySelector(".btn-editar")
@@ -45,15 +45,16 @@ async function renderizarPruebas() {
 					abrirModal("editar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
 				);
 
-			div
-				.querySelector(".btn-borrar")
-				.addEventListener("click", () =>
-					abrirModal("borrar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
-				);
+			if (pruebaM.tipo !== "C") {
+				div
+					.querySelector(".btn-borrar")
+					.addEventListener("click", () =>
+						abrirModal("borrar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
+					);
+			}
 
 			grid.appendChild(div);
 		});
-
 		// Botón "Añadir prueba"
 		const addPruebaDiv = document.createElement("div");
 		addPruebaDiv.classList.add("prueba");

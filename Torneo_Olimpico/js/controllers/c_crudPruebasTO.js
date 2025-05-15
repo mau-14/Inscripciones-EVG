@@ -32,7 +32,6 @@ btnAceptar?.addEventListener("click", async function (event) {
 			const bases = document.getElementById("bases").value;
 			const maxParticipantes =
 				document.getElementById("maxParticipantes").value;
-			const tipo = document.getElementById("tipoPrueba").value;
 			const fechaPrueba = document.getElementById("fechaPrueba").value;
 			const horaPrueba = document.getElementById("horaPrueba").value;
 
@@ -57,7 +56,6 @@ btnAceptar?.addEventListener("click", async function (event) {
 				idPruebaF,
 				nombre: nombrePrueba,
 				bases,
-				tipo,
 				maxParticipantes,
 				fecha: fechaPrueba,
 				hora: horaPrueba,
