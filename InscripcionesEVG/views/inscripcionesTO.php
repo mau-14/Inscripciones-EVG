@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inscripciones Torneo Olímpico</title>
-  <base href="/InscripcionesEVG/">
+  <base href="/InscripcionesEVG/assets/">
   <link href="css/general.css" rel="stylesheet" />
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/inscripcionesTO.css" rel="stylesheet" />
@@ -41,7 +41,7 @@
 
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/config/entorno/variables.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 include $navBar;
 
 ?>

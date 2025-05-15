@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Torneo Olímpico</title>
-  <base href="/InscripcionesEVG/">
+  <base href="/InscripcionesEVG/assets/">
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/general.css" rel="stylesheet" />
@@ -24,7 +24,7 @@
 </head>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/config/entorno/variables.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 include $navBar;
 ?>
 
@@ -32,7 +32,7 @@ include $navBar;
   <main>
     <section id="sec1">
       <div class="ventana-imagen">
-        <img src="imagenes/logoOlimpiadas.jpg" alt="Logo Olimpiadas" />
+        <img src="img/logoOlimpiadas.jpg" alt="Logo Olimpiadas" />
         <h1 class="titulo-imagen">TORNEO OLÍMPICO</h1>
       </div>
       <div class="normas">

@@ -2,7 +2,7 @@ class M_obtenerAlumnos {
 	async obtenerAlumnos() {
 		try {
 			const response = await fetch(
-				"/InscripcionesEVG/app/controllers/c_obtenerAlumnos.php",
+				"/InscripcionesEVG/index.php?controlador=obtenerAlumnos&accion=obtenerAlumnos",
 			);
 			const data = await response.json();
 			return data;
