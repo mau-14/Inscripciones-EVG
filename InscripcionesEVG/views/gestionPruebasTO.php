@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestión de pruebas</title>
 
-  <base href="/InscripcionesEVG/">
+  <base href="/InscripcionesEVG/assets/">
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/general.css" rel="stylesheet" />
   <link href="css/gestionPruebasTO.css" rel="stylesheet" />
@@ -18,7 +18,7 @@
 </head>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/app/config/entorno/variables.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 include $navBar;
 ?>
 

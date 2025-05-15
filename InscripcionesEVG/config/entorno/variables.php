@@ -5,10 +5,10 @@
 // PHP 
 
 $root = $_SERVER['DOCUMENT_ROOT'];
-$vistas = '/InscripcionesEVG/app/views/';
-$controladores = '/InscripcionesEVG/app/controllers/';
+$vistas = '/InscripcionesEVG/views/';
+$controladores = '/InscripcionesEVG/controllers/';
 
-$inicioHref = "index.php";
+$inicioHref = "/InscripcionesEVG/index.php";
 $momentoHref = "#sec2";
 $consultaActividadesHref = "#sub1";
 $gestionPruebasHref = $vistas . "gestionPruebasTO.php";
@@ -23,7 +23,7 @@ $inscripcionTorneoHref = $vistas . "inscripcionesTO.php?tipo=Tutor";
 $parrafoFooter = 'COPYRIGHT © 2019 FUNDACIÓN LOYOLA. TODOS LOS DERECHOS RESERVADOS.';
 //RUTAS
 
-$reusables = $root . '/InscripcionesEVG/app/reusables';
+$reusables = $root . '/InscripcionesEVG/reusables';
 
 
 $navBar = $reusables . '/nav.php';

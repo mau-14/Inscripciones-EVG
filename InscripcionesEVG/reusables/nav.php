@@ -1,12 +1,12 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'InscripcionesEVG/app/config/entorno/variables.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'InscripcionesEVG/config/entorno/variables.php';
 $usuarioTipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'Invitado';
 ?>
 <nav>
   <div class="navdiv">
     <ul class="main-menu">
       <div class="logo">
-        <img src="imagenes/logotipo.png" alt="Logo" />
+        <img src="/InscripcionesEVG/assets/img/logotipo.png" alt="Logo" />
       </div>
       <li><a href="<?= $inicioHref ?>">Inicio</a></li>
       <li class="has-submenu">

@@ -1,70 +1,33 @@
-<!doctype html>
-<html lang="es">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inicio</title>
-  <link href="css/navbar.css" rel="stylesheet" />
-  <link href="css/general.css" rel="stylesheet" />
-  <link href="css/index.css" rel="stylesheet" />
-  <link href="css/footer.css" rel="stylesheet" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script>
-    window.addEventListener("scroll", function() {
-      const imagen = document.querySelector(".ventana-imagen img");
-      const scrolled = window.scrollY;
-      imagen.style.transform = `translateY(${-scrolled * 0.3}px)`;
-    });
-  </script>
-</head>
-
 <?php
-include 'app/config/entorno/variables.php';
-include $navBar;
-?>
-
-<body>
-  <main>
-    <section id="sec1">
-      <div class="ventana-imagen">
-        <img src="imagenes/EVG.jpg" alt="Logo Olimpiadas" />
-        <h1 class="titulo-imagen">INICIO</h1>
-      </div>
-
-      <div class="normas">
-        <h2>Bienvenido, Profesor</h2>
-        <p>
-          Esta plataforma le permite gestionar de forma eficiente las actividades escolares.
-          Aquí podrá revisar, organizar y supervisar las tareas asignadas a sus estudiantes.
-        </p>
-        <ul class="normas-lista">
-          <li>
-            📋 <strong>Consultar actividades:</strong> Revise todas las actividades programadas por asignatura o fecha.
-          </li>
-          <li>
-            📝 <strong>Crear nueva actividad:</strong> Programe tareas o eventos personalizados para sus clases.
-          </li>
-          <li>
-            ✏️ <strong>Editar o eliminar actividades:</strong> Modifique o retire actividades ya existentes.
-          </li>
-          <li>
-            🧑‍🏫 <strong>Asignar tareas por grupo:</strong> Seleccione cursos específicos para cada actividad.
-          </li>
-          <li>
-            📊 <strong>Ver estadísticas:</strong> Revise el estado de cumplimiento y participación del alumnado.
-          </li>
-        </ul>
-      </div>
-    </section>
-  </main>
+require_once 'config/config.php';
 
 
 
-  <?php include $footer; ?>
+if (!isset($_GET["controlador"])) {
+  $_GET["controlador"] = DEFAULT_CONTROLADOR;
+}
+if (!isset($_GET["accion"])) {
+  $_GET["accion"] = DEFAULT_ACCION;
+}
 
-</body>
+$rutaControlador = CONTROLADORES . 'c_' . $_GET["controlador"] . '.php';
 
-</html>
+if (!file_exists($rutaControlador)) {
+  $rutaControlador = CONTROLADORES . 'c_' . DEFAULT_CONTROLADOR . '.php';
+}
+
+require_once $rutaControlador;
+
+$nombreControlador = 'C_' . $_GET["controlador"];
+
+//TODO poner aqui lo de recibir datos 
+$controlador = new $nombreControlador();
+
+if (method_exists($controlador, $_GET["accion"])) {
+  $dataToView["data"] = $controlador->{$_GET["accion"]}();
+}
+
+if (isset($controlador->vista) && !empty($controlador->vista)) {
+  include 'reusables/nav.php';
+  require_once 'views/' . $controlador->vista . '.php';
+}
