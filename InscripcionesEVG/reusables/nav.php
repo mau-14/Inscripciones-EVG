@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . 'InscripcionesEVG/config/entorno/variab
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-  header("Location: index.php?controlador=auth&accion=login");
+  header("Location: ../index.php?controlador=auth&accion=login");
   exit;
 }
 $usuarioTipo = $_SESSION['usuario'] ?? '';
@@ -16,7 +16,6 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
   } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 
   function cerrarSesion() {
-    console.log('NETRA')
     new ModalConfirmacion({
       titulo: "Cerrar sesión",
       mensaje: "¿Seguro que quieres cerrar sesión?",
