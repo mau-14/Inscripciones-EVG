@@ -28,35 +28,36 @@ class M_alumnosSeleccionados
   public function comprobar($idClase)
   {
     try {
-      $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
-
+      $this->conexion->beginTransaction();
       // ¿Hay alumnos de esta clase en pruebas individuales?
       $sql_individuales = "SELECT 1
-                         FROM Pruebas_olimpicas_alumnos poa
-                         JOIN Alumnos a ON poa.idAlumno = a.idAlumno
-                         WHERE a.idClase = :idClase
-                         LIMIT 1";
+                       FROM Pruebas_olimpicas_alumnos poa
+                       JOIN Alumnos a ON poa.idAlumno = a.idAlumno
+                       WHERE a.idClase = :idClase
+                       LIMIT 1";
       $stmt_individuales = $this->conexion->prepare($sql_individuales);
-      $stmt_individuales->bindParam(':idClase', $idClase);
+      $stmt_individuales->bindParam(':idClase', $idClase['idClase']);
       $stmt_individuales->execute();
       $hay_individuales = $stmt_individuales->fetch() !== false;
 
       // ¿Hay alumnos de esta clase en 4x100?
       $sql_4x100 = "SELECT 1
-                  FROM 4x100_Alumnos rel
-                  JOIN Alumnos a ON 
-                      rel.idAlumno1 = a.idAlumno OR
-                      rel.idAlumno2 = a.idAlumno OR
-                      rel.idAlumno3 = a.idAlumno OR
-                      rel.idAlumno4 = a.idAlumno
-                  WHERE a.idClase = :idClase
-                  LIMIT 1";
+                FROM 4x100_Alumnos rel
+                JOIN Alumnos a ON 
+                    rel.idAlumno1 = a.idAlumno OR
+                    rel.idAlumno2 = a.idAlumno OR
+                    rel.idAlumno3 = a.idAlumno OR
+                    rel.idAlumno4 = a.idAlumno
+                WHERE a.idClase = :idClase
+                LIMIT 1";
       $stmt_4x100 = $this->conexion->prepare($sql_4x100);
       $stmt_4x100->bindParam(':idClase', $idClase);
       $stmt_4x100->execute();
       $hay_4x100 = $stmt_4x100->fetch() !== false;
 
-      $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
+      $this->conexion->commit();
+
+      error_log("Individuales: " . ($hay_individuales ? 'true' : 'false') . " - 4x100: " . ($hay_4x100 ? 'true' : 'false'));
 
       if ($hay_individuales || $hay_4x100) {
         return json_encode(["success" => true, "mensaje" => "La clase tiene inscripciones."]);
@@ -64,12 +65,11 @@ class M_alumnosSeleccionados
         return json_encode(["success" => false, "mensaje" => "La clase no tiene inscripciones."]);
       }
     } catch (PDOException $e) {
-      $this->conexion->rollBack(); // DESHACER TODO SI FALLA
+      $this->conexion->rollBack();
       error_log("Error al comprobar inscripciones: " . $e->getMessage());
       return json_encode(["error" => "Error al comprobar inscripciones."]);
     }
   }
-
 
   public function extraer($idClase)
   {
@@ -87,7 +87,7 @@ class M_alumnosSeleccionados
                         WHERE a.idClase = :idClase";
 
       $stmt_ind = $this->conexion->prepare($sql_individuales);
-      $stmt_ind->bindParam(':idClase', $idClase);
+      $stmt_individuales->bindParam(':idClase', $idClase['idClase']);
       $stmt_ind->execute();
 
       while ($row = $stmt_ind->fetch(PDO::FETCH_ASSOC)) {

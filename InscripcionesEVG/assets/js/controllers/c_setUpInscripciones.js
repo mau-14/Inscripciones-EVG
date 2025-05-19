@@ -60,13 +60,31 @@ export async function setUpInscripciones() {
 				}
 			});
 		},
-		onAceptar: () => {
+		onAceptar: async () => {
 			const etapa = document.getElementById("select-etapa").value;
 			const clase = document.getElementById("select-clase").value;
 
 			if (!etapa || !clase) {
 				errorDialog.show("Debes seleccionar ambos campos");
 				return false;
+			}
+			console.log(clase);
+
+			try {
+				const response = await fetch(
+					"/InscripcionesEVG/index.php?controlador=alumnosSeleccionados&accion=comprobar&j=1",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ idClase: clase }),
+					},
+				);
+				const data = await response.json();
+				console.log(data);
+			} catch (error) {
+				console.error(error);
 			}
 
 			// sessionStorage.setItem("etapaSeleccionada", etapa);
