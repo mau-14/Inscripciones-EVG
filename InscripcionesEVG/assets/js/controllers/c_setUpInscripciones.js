@@ -1,33 +1,73 @@
 import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
+import M_obtenerEtapasYClases from "/InscripcionesEVG/assets/js/models/m_obtenerEtapasYClases.js";
+import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
 
 const esCoordinador = window.configUsuario?.esCoordinador;
+const errorDialog = new ErrorDialog();
 
 if (esCoordinador) {
+	const obj = new M_obtenerEtapasYClases();
+	const datos = await obj.obtenerEtapasYClases();
+
+	const opcionesEtapas = datos
+		.map(
+			(etapa) =>
+				`<option value="${etapa.idEtapa}">${etapa.nombreEtapa}</option>`,
+		)
+		.join("");
+
 	const modal = new ModalConfirmacion({
-		titulo: "Selecciona Curso y Clase",
+		titulo: "Selecciona Etapa y Clase",
 		contenidoPersonalizado: `
-      <label>Curso:
-        <select id="select-curso">
-          <option value="">Selecciona un curso</option>
-          <option value="1ESO">1º ESO</option>
-          <option value="2ESO">2º ESO</option>
-        </select>
-      </label>
-      <label>Clase:
-        <select id="select-clase">
-          <option value="">Selecciona una clase</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-        </select>
-      </label>
-    `,
+    <label>Etapa:
+      <select id="select-curso">
+        <option value="">Selecciona una etapa</option>
+        ${opcionesEtapas}
+      </select>
+    </label>
+    <label>Clase:
+      <select id="select-clase" disabled>
+        <option value="">Selecciona una clase</option>
+      </select>
+    </label>
+  `,
+		onMostrar: () => {
+			const selectCurso = document.getElementById("select-curso");
+			const selectClase = document.getElementById("select-clase");
+
+			selectCurso.addEventListener("change", () => {
+				const etapaSeleccionada = selectCurso.value;
+
+				selectClase.innerHTML = `<option value="">Selecciona una clase</option>`;
+
+				if (!etapaSeleccionada) {
+					selectClase.disabled = true;
+					return;
+				}
+
+				const etapa = datos.find((e) => e.idEtapa == etapaSeleccionada);
+
+				if (etapa && etapa.clases.length > 0) {
+					etapa.clases.forEach((clase) => {
+						const option = document.createElement("option");
+						option.value = clase.idClase;
+						option.textContent = clase.nombre;
+						selectClase.appendChild(option);
+					});
+					selectClase.disabled = false;
+				} else {
+					selectClase.disabled = true;
+				}
+			});
+		},
 		onAceptar: () => {
 			const curso = document.getElementById("select-curso").value;
 			const clase = document.getElementById("select-clase").value;
+			console.log(curso, clase);
 
 			if (!curso || !clase) {
-				alert("Debes seleccionar ambos campos.");
-				return;
+				errorDialog.show("Debes seleccionar ambos campos");
+				return false;
 			}
 
 			sessionStorage.setItem("cursoSeleccionado", curso);
@@ -36,8 +76,5 @@ if (esCoordinador) {
 		onCancelar: () => {
 			window.location.href = "/InscripcionesEVG/index.php";
 		},
-		bloquearCierre: true,
 	});
-
-	modal.mostrar();
 }

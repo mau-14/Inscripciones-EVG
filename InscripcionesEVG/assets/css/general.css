@@ -172,3 +172,21 @@ section h1 {
 .modalUniversal .cancelar:hover {
   background-color: #d5d5d5;
 }
+
+.modalUniversal select {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #fff;
+  margin: 1%;
+  color: #333;
+  min-width: 150px;
+  transition: border-color 0.3s;
+}
+
+.modalUniversal select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
