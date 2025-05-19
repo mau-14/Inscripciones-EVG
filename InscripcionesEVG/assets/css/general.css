@@ -103,7 +103,7 @@ section h1 {
   }
 }
 
-.modal {
+.modalUniversal {
   display: none;
   position: fixed;
   z-index: 999;
@@ -117,7 +117,7 @@ section h1 {
   align-items: center;
 }
 
-.modal-content {
+.modalUniversal-content {
   background-color: #ffffff;
   padding: 2.5em;
   border-radius: 15px;
@@ -128,25 +128,25 @@ section h1 {
   transition: all 0.3s ease-in-out;
 }
 
-.modal-content h3 {
+.modalUniversal-content h3 {
   margin-top: 0;
   font-size: 2em;
   color: #0077cc;
 }
 
-.modal-content p {
+.modalUniversal-content p {
   font-size: 1.3em;
   margin: 1.5em 0;
 }
 
-.modal .botones {
+.modalUniversal .botones {
   display: flex;
   justify-content: center;
   gap: 0.8em; /* Botones más cerca */
   margin-top: 1em;
 }
 
-.modal .botones button {
+.modalUniversal .botones button {
   padding: 0.7em 2em;
   font-size: 1.05em;
   border: none;
@@ -155,20 +155,20 @@ section h1 {
   transition: background-color 0.2s ease-in-out;
 }
 
-.modal .aceptar {
+.modalUniversal .aceptar {
   background-color: #28a745;
   color: white;
 }
 
-.modal .aceptar:hover {
+.modalUniversal .aceptar:hover {
   background-color: #218838;
 }
 
-.modal .cancelar {
+.modalUniversal .cancelar {
   background-color: #e0e0e0;
   color: #333;
 }
 
-.modal .cancelar:hover {
+.modalUniversal .cancelar:hover {
   background-color: #d5d5d5;
 }

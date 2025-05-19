@@ -11,11 +11,11 @@ export class ModalConfirmacion {
 	crearModal() {
 		// Crear elementos
 		this.modal = document.createElement("div");
-		this.modal.className = "modal";
+		this.modal.className = "modalUniversal";
 		this.modal.style.display = "flex";
 
 		const contenido = document.createElement("div");
-		contenido.className = "modal-content";
+		contenido.className = "modalUniversal-content";
 
 		const h3 = document.createElement("h3");
 		h3.textContent = this.titulo;
