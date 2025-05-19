@@ -16,28 +16,6 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 
-  <script type="module" src="js/controllers/c_setUpInscripciones.js"></script>
-  <script type="module">
-    import {
-      crearCamposPorPrueba
-    } from "./js/controllers/c_obtenerPruebas.js";
-    import {
-      rellenarSelectsConAlumnos
-    } from "./js/controllers/c_obtenerAlumnos.js";
-
-    (async () => {
-      try {
-        // Primero se crean los campos de las pruebas
-        await crearCamposPorPrueba();
-        // Luego se rellenan los selects con los alumnos
-        await rellenarSelectsConAlumnos();
-      } catch (error) {
-        console.error("Error al cargar los campos o alumnos:", error);
-      }
-    })();
-  </script>
-
-  <script type="module" src="js/controllers/c_inscribirAlumnosTO.js" defer></script>
 </head>
 
 <?php
@@ -52,6 +30,38 @@ $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordi
     esCoordinador: <?= json_encode($isCoordinador); ?>
   };
 </script>
+
+<script type="module" src="js/controllers/c_setUpInscripciones.js"></script>
+<script type="module">
+  import {
+    crearCamposPorPrueba
+  } from "./js/controllers/c_obtenerPruebas.js";
+  import {
+    rellenarSelectsConAlumnos
+  } from "./js/controllers/c_obtenerAlumnos.js";
+  import {
+    setUpInscripciones
+  } from "./js/controllers/c_setUpInscripciones.js"
+
+  (async () => {
+    try {
+      // Primero se crean los campos de las pruebas
+      await crearCamposPorPrueba();
+      // Luego se rellenan los selects con los alumnos
+      const esCoordinador = window.configUsuario?.esCoordinador;
+      console.log(esCoordinador);
+      if (esCoordinador) {
+        await setUpInscripciones();
+      } else {
+        await rellenarSelectsConAlumnos();
+      }
+    } catch (error) {
+      console.error("Error al cargar los campos o alumnos:", error);
+    }
+  })();
+</script>
+
+<script type="module" src="js/controllers/c_inscribirAlumnosTO.js" defer></script>
 
 <body>
 

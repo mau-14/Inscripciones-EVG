@@ -23,6 +23,7 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
       titulo: "Cerrar sesión",
       mensaje: "¿Seguro que quieres cerrar sesión?",
       onAceptar: () => {
+        sessionStorage.clear();
         fetch('/InscripcionesEVG/index.php?controlador=auth&accion=logout', {
             method: 'POST',
             credentials: 'same-origin',

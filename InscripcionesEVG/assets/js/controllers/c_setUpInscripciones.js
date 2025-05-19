@@ -1,11 +1,11 @@
 import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 import M_obtenerEtapasYClases from "/InscripcionesEVG/assets/js/models/m_obtenerEtapasYClases.js";
 import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
+import { rellenarSelectsConAlumnos } from "/InscripcionesEVG/assets/js/controllers/c_obtenerAlumnos.js";
 
-const esCoordinador = window.configUsuario?.esCoordinador;
 const errorDialog = new ErrorDialog();
 
-if (esCoordinador) {
+export async function setUpInscripciones() {
 	const obj = new M_obtenerEtapasYClases();
 	const datos = await obj.obtenerEtapasYClases();
 
@@ -20,7 +20,7 @@ if (esCoordinador) {
 		titulo: "Selecciona Etapa y Clase",
 		contenidoPersonalizado: `
     <label>Etapa:
-      <select id="select-curso">
+      <select id="select-etapa">
         <option value="">Selecciona una etapa</option>
         ${opcionesEtapas}
       </select>
@@ -32,11 +32,11 @@ if (esCoordinador) {
     </label>
   `,
 		onMostrar: () => {
-			const selectCurso = document.getElementById("select-curso");
+			const selectEtapa = document.getElementById("select-etapa");
 			const selectClase = document.getElementById("select-clase");
 
-			selectCurso.addEventListener("change", () => {
-				const etapaSeleccionada = selectCurso.value;
+			selectEtapa.addEventListener("change", () => {
+				const etapaSeleccionada = selectEtapa.value;
 
 				selectClase.innerHTML = `<option value="">Selecciona una clase</option>`;
 
@@ -61,17 +61,16 @@ if (esCoordinador) {
 			});
 		},
 		onAceptar: () => {
-			const curso = document.getElementById("select-curso").value;
+			const etapa = document.getElementById("select-etapa").value;
 			const clase = document.getElementById("select-clase").value;
-			console.log(curso, clase);
 
-			if (!curso || !clase) {
+			if (!etapa || !clase) {
 				errorDialog.show("Debes seleccionar ambos campos");
 				return false;
 			}
 
-			sessionStorage.setItem("cursoSeleccionado", curso);
-			sessionStorage.setItem("claseSeleccionada", clase);
+			// sessionStorage.setItem("etapaSeleccionada", etapa);
+			// sessionStorage.setItem("claseSeleccionada", clase);
 		},
 		onCancelar: () => {
 			window.location.href = "/InscripcionesEVG/index.php";
