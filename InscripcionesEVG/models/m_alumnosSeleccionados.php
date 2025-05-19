@@ -59,10 +59,9 @@ class M_alumnosSeleccionados
       $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
 
       if ($hay_individuales || $hay_4x100) {
-        //  return json_encode(["success" => true, "mensaje" => "La clase tiene inscripciones."]);
+        return json_encode(["success" => true, "mensaje" => "La clase tiene inscripciones."]);
       } else {
-        // return json_encode(["success" => false, "mensaje" => "La clase no tiene inscripciones."]);
-        error_log('No hay');
+        return json_encode(["success" => false, "mensaje" => "La clase no tiene inscripciones."]);
       }
     } catch (PDOException $e) {
       $this->conexion->rollBack(); // DESHACER TODO SI FALLA
@@ -110,7 +109,7 @@ class M_alumnosSeleccionados
                   JOIN Alumnos a2 ON r.idAlumno2 = a2.idAlumno
                   JOIN Alumnos a3 ON r.idAlumno3 = a3.idAlumno
                   JOIN Alumnos a4 ON r.idAlumno4 = a4.idAlumno
-                  WHERE a.idClase = :idClase";
+                  WHERE a1.idClase = :idClase";
 
       $stmt_4x100 = $this->conexion->prepare($sql_4x100);
       $stmt_4x100->bindParam(':idClase', $idClase);
@@ -132,8 +131,7 @@ class M_alumnosSeleccionados
 
       $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
 
-      // return json_encode($resultado, JSON_PRETTY_PRINT); // bonito para leer
-      var_dump($resultado);
+      return json_encode($resultado, JSON_PRETTY_PRINT); // bonito para leer
     } catch (PDOException $e) {
       $this->conexion->rollBack(); // DESHACER TODO SI FALLA
       error_log("Error al extraer pruebas: " . $e->getMessage());
@@ -141,7 +139,3 @@ class M_alumnosSeleccionados
     }
   }
 }
-
-
-$obj = new M_alumnosSeleccionados();
-$obj->comprobar(1);
