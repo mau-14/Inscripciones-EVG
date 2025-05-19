@@ -10,6 +10,9 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
 ?>
 
 
+
+<!-- TODO SACAR ESTO A UN SCRIPT APARTE -->
+
 <script type="module">
   import {
     ModalConfirmacion

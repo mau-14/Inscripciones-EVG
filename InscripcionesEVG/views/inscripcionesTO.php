@@ -16,6 +16,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 
+  <script type="module" src="js/controllers/c_setUpInscripciones.js"></script>
   <script type="module">
     import {
       crearCamposPorPrueba
@@ -43,8 +44,14 @@
 
 include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 include $navBar;
-
+$isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordinador';
 ?>
+
+<script>
+  window.configUsuario = {
+    esCoordinador: <?= json_encode($isCoordinador); ?>
+  };
+</script>
 
 <body>
 
