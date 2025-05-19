@@ -87,7 +87,7 @@ class M_alumnosSeleccionados
                         WHERE a.idClase = :idClase";
 
       $stmt_ind = $this->conexion->prepare($sql_individuales);
-      $stmt_individuales->bindParam(':idClase', $idClase['idClase']);
+      $stmt_ind->bindParam(':idClase', $idClase['idClase']);
       $stmt_ind->execute();
 
       while ($row = $stmt_ind->fetch(PDO::FETCH_ASSOC)) {
