@@ -23,11 +23,14 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 include $navBar;
 $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordinador';
+
+$isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
 ?>
 
 <script>
   window.configUsuario = {
-    esCoordinador: <?= json_encode($isCoordinador); ?>
+    esCoordinador: <?= json_encode($isCoordinador); ?>,
+    esTutor: <?= json_encode($isTutor); ?>
   };
 </script>
 
@@ -37,7 +40,8 @@ $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordi
     crearCamposPorPrueba
   } from "./js/controllers/c_obtenerPruebas.js";
   import {
-    rellenarSelectsConAlumnos
+    rellenarSelectsConAlumnos,
+    rellenarSelectsConSeleccionados
   } from "./js/controllers/c_obtenerAlumnos.js";
   import {
     setUpInscripciones
@@ -49,10 +53,18 @@ $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordi
       await crearCamposPorPrueba();
       // Luego se rellenan los selects con los alumnos
       const esCoordinador = window.configUsuario?.esCoordinador;
+      const esTutor = window.configUsuario?.esTutor;
       if (esCoordinador) {
         await setUpInscripciones();
-      } else {
-        await rellenarSelectsConAlumnos();
+      } else if (esTutor) {
+        const form = document.getElementById("formIns");
+
+        const h2 = document.createElement("h2");
+        h2.style.display = "block";
+
+        h2.textContent = '1DAW';
+        form.parentNode.insertBefore(h2, form);
+        await rellenarSelectsConSeleccionados(1);
       }
     } catch (error) {
       console.error("Error al cargar los campos o alumnos:", error);
