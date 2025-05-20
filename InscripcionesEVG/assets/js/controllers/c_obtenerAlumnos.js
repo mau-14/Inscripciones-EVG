@@ -161,6 +161,7 @@ async function rellenarSelectsConSeleccionados(idClase) {
 			}
 		}
 		function rellenarSelect(select, sexo) {
+			console.log("Rellenando select", select.name, "Sexo:", sexo);
 			const tipo = select.name;
 			const esTipoC = tipo === "C";
 

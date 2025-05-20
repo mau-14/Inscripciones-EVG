@@ -49,7 +49,6 @@ $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordi
       await crearCamposPorPrueba();
       // Luego se rellenan los selects con los alumnos
       const esCoordinador = window.configUsuario?.esCoordinador;
-      console.log(esCoordinador);
       if (esCoordinador) {
         await setUpInscripciones();
       } else {
@@ -69,7 +68,8 @@ $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordi
 
     <section id="secInscripcion">
       <h1>Panel de Inscripciones</h1>
-      <form class="formulario-inscripciones">
+
+      <form id="formIns" class="formulario-inscripciones">
         <div class="categoria-container">
           <!-- Categoría Masculina -->
 

@@ -66,11 +66,23 @@ export async function setUpInscripciones() {
 		onAceptar: async () => {
 			const etapa = document.getElementById("select-etapa").value;
 			const clase = document.getElementById("select-clase").value;
+			const selectClase = document.getElementById("select-clase");
+
+			const claseTexto = selectClase.options[selectClase.selectedIndex].text;
 
 			if (!etapa || !clase) {
 				errorDialog.show("Debes seleccionar ambos campos");
 				return false;
 			}
+
+			const form = document.getElementById("formIns");
+
+			const h2 = document.createElement("h2");
+			h2.style.display = "block";
+
+			h2.textContent = claseTexto;
+			form.parentNode.insertBefore(h2, form);
+
 			console.log(clase);
 
 			try {
