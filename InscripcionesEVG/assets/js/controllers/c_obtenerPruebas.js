@@ -112,6 +112,8 @@ async function crearCamposPorPrueba() {
 			for (let i = 1; i <= prueba.maxParticipantes; i++) {
 				const select = document.createElement("select");
 				select.name = `${prueba.tipo}`;
+				select.setAttribute("data-idprueba", prueba.idPrueba);
+				select.setAttribute("data-index", i);
 				select.innerHTML = `<option value="">Selecciona</option>`;
 				divCampo.appendChild(select);
 			}
