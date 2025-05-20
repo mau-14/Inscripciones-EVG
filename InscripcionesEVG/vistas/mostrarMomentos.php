@@ -16,15 +16,16 @@
 
      <!--Lista de Momentos-->
     <?php foreach ($dataToView["data"] as $momento){
-      echo '<div class="momento">';
-        echo '<p>'.$momento['nombre'].'</p>';
-        echo '<p>'.$momento['fecha_inicio'].'</p>';
-        echo '<p>'.$momento['fecha_fin'].'</p>';
+      echo '<form action="./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento" method="POST" style="display: inline;">';
+      echo '<input type="hidden" name="momento" value="'.$momento['idMomento'].'">';
+      echo '<div class="momento" onclick="this.parentElement.submit()">';
+        echo '<h3>'.$momento['nombre'].'</h3>';
         echo '<div class="acciones">';
-          echo '<button class="editar"><i class="fas fa-pen"></i></button>';
-          echo '<button class="eliminar"><i class="fas fa-trash"></i></button>';
+          echo '<button type="button" class="editar" data-id="'.$momento['idMomento'].'" data-nombre="'.$momento['nombre'].'" data-fechaInicio="'.$momento['fecha_inicio'].'" data-fechaFin="'.$momento['fecha_fin'].'"><i class="fas fa-pen"></i></button>';
+          echo '<button type="button" class="eliminar" data-id="'.$momento['idMomento'].'"><i class="fas fa-trash"></i></button>';
         echo '</div>';
-        echo '</div>';
+      echo '</div>';
+      echo '</form>';
     } ?>
     <!-- Botón para abrir el formulario -->
     <div class="momento añadir" id="btnAbrirModal">
@@ -38,7 +39,7 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarModal">&times;</span>
       <h2>Nuevo Momento</h2>
-      <form id="formMomento">
+      <form id="formMomento"action="./index.php?controlador=momentos&accion=cInsertarMomento" method="POST">
         <label for="nombre">Nombre del momento:</label>
         <input type="text" id="nombre" name="nombre">
 
@@ -48,7 +49,7 @@
         <label for="fechaFin">Fecha de fin:</label>
         <input type="date" id="fechaFin" name="fechaFin"/>
 
-        <button type="submit">Guardar</button>
+        <input type="submit" value="Enviar">
       </form>
     </div>
   </div>
@@ -58,32 +59,36 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarEditar">&times;</span>
       <h2>Editar Momento</h2>
-      <form id="formEditarMomento">
+      <form id="formEditarMomento" action="./index.php?controlador=momentos&accion=cEditarMomento" method="POST">
+        <input type="hidden" id="editarId" name="idMomento"> <!-- ID oculto -->
+        
         <label for="editarNombre">Nombre del momento:</label>
-        <input type="text" id="editarNombre" name="editarNombre">
-  
+        <input type="text" id="editarNombre" name="nombre">
+
         <label for="editarFechaInicio">Fecha de inicio del momento:</label>
-        <input type="date" id="editarFechaInicio" name="editarFechaInicio"/>
-  
+        <input type="date" id="editarFechaInicio" name="fechaInicio"/>
+
         <label for="editarFechaFin">Fecha de fin del momento:</label>
-        <input type="date" id="editarFechaFin" name="editarFechaFin"/>
-  
+        <input type="date" id="editarFechaFin" name="fechaFin"/>
+
         <button type="submit">Actualizar</button>
       </form>
+
     </div>
   </div>
   
-  <!-- Modal de confirmación para eliminar -->
+<!-- Modal de confirmación -->
 <div class="modal" id="modalConfirmar">
-    <div class="modal-contenido">
-      <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
-      <h2>¿Estás seguro?</h2>
-      <div class="botones-confirmacion">
-        <button id="btnConfirmarEliminar" class="btn-confirmar">Sí</button>
-        <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
-      </div>
+  <div class="modal-contenido">
+    <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
+    <h2>¿Estás seguro?</h2>
+    <div class="botones-confirmacion">
+      <a id="btnConfirmarEliminar" class="btn-confirmar">Sí</a>
+      <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
     </div>
   </div>
+</div>
+
 
   <script src="<?php echo JS ?>gestionMomentos.js"></script>
 </body>

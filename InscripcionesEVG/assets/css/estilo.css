@@ -51,6 +51,7 @@
     align-items: center;
     text-align: center;
     border: 2px solid transparent;
+    cursor: pointer;
   }
   
   .momento:hover {
@@ -201,13 +202,30 @@
     margin-top: 1.5rem;
   }
   
-  .btn-confirmar,
-  .btn-cancelar {
-    padding: 5px 5%;
+  .btn-confirmar {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
   }
   
   .btn-confirmar:hover {
     background-color: #bb2d3b;
+  }
+  
+  .btn-cancelar {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
   }
   
   .btn-cancelar:hover {

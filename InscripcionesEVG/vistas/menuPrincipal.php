@@ -31,7 +31,7 @@
       <div class="card">
         <h3>Alumno</h3>
         <p>Gestiona Actividades de Alumnos.</p>
-        <button>Acceder</button>
+        <a href="index.php?controlador=momentos&accion=cMostrarMomentosActividades"><button>Acceder</button></a>
       </div>
       <div class="card">
         <h3>De Clase</h3>
