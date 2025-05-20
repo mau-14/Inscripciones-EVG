@@ -143,11 +143,38 @@ async function rellenarSelectsConSeleccionados(idClase) {
 		const seleccionadosTipoC = new Set();
 		const anteriores = new Map();
 
+		function actualizarSelects() {
+			// Recorrer todos los selects, tanto masculinos como femeninos
+			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
+				const options = select.querySelectorAll("option");
+				const esTipoC = select.name === "C";
+
+				options.forEach((option) => {
+					const alumnoId = option.value;
+					if (!alumnoId) return; // salto opciones sin value
+
+					if (esTipoC) {
+						// Si es tipo C, sólo deshabilitamos si ya está seleccionado en otro select distinto (pero para tipo C)
+						option.disabled =
+							seleccionadosTipoC.has(alumnoId) &&
+							anteriores.get(select) !== alumnoId;
+					} else {
+						// Para los otros tipos, deshabilitamos si el alumno está seleccionado en cualquier otro select (salvo en el actual)
+						// es decir, no puede estar en dos pruebas distintas ni en el mismo tipo distinto.
+						option.disabled =
+							seleccionadosGenerales.has(alumnoId) &&
+							anteriores.get(select) !== alumnoId;
+					}
+				});
+			});
+		}
+
 		// Función para rellenar selects y seleccionar los alumnos que ya estaban
 		function rellenarSelects(selects, sexo) {
-			const usadosPorPrueba = new Map(); // idPrueba => Set de alumnos usados
+			// Registro global de alumnos usados por idPrueba + tipo
+			const usadosPorPruebaTipo = new Map(); // key: `${idPrueba}_${tipo}` -> Set de idsAlumno
 
-			// Primero agrupamos selects por data-idprueba para repartir alumnos
+			// Agrupamos selects por data-idprueba
 			const selectsPorPrueba = new Map();
 
 			selects.forEach((select) => {
@@ -158,14 +185,8 @@ async function rellenarSelectsConSeleccionados(idClase) {
 				selectsPorPrueba.get(idPrueba).push(select);
 			});
 
-			// Ahora para cada prueba hacemos la asignación con data-index
 			selectsPorPrueba.forEach((selectsPrueba, idPrueba) => {
-				// Obtenemos los alumnos seleccionados para esta prueba y sexo
-				// Nota: asegurarse que seleccionados[sexo][tipo][idPrueba] existe antes de usar
-				// Pero aquí los selects pueden tener diferente tipo (P, C), asumimos el mismo tipo en un grupo?
-				// Para simplificar, vamos a hacer el reparto para cada tipo por separado.
-
-				// Mejor agrupamos por tipo dentro de selectsPrueba
+				// Agrupamos por tipo
 				const selectsPorTipo = new Map();
 				selectsPrueba.forEach((sel) => {
 					const tipo = sel.name;
@@ -174,6 +195,13 @@ async function rellenarSelectsConSeleccionados(idClase) {
 				});
 
 				selectsPorTipo.forEach((selectsTipo, tipo) => {
+					// Key única para controlar usados en prueba+tipo
+					const keyPruebaTipo = `${idPrueba}_${tipo}`;
+					if (!usadosPorPruebaTipo.has(keyPruebaTipo)) {
+						usadosPorPruebaTipo.set(keyPruebaTipo, new Set());
+					}
+					const usados = usadosPorPruebaTipo.get(keyPruebaTipo);
+
 					// Alumnos seleccionados para este sexo, tipo, idPrueba
 					const idsSeleccionados =
 						(seleccionados[sexo] &&
@@ -181,31 +209,24 @@ async function rellenarSelectsConSeleccionados(idClase) {
 							seleccionados[sexo][tipo][idPrueba]) ||
 						[];
 
-					// Set para marcar alumnos usados en esta prueba y tipo
-					if (!usadosPorPrueba.has(idPrueba + tipo)) {
-						usadosPorPrueba.set(idPrueba + tipo, new Set());
-					}
-					const usados = usadosPorPrueba.get(idPrueba + tipo);
-
-					// Ordenamos selectsTipo por data-index para repartir alumnos
+					// Ordenamos selects por data-index
 					selectsTipo.sort(
 						(a, b) =>
 							parseInt(a.getAttribute("data-index") || "0") -
 							parseInt(b.getAttribute("data-index") || "0"),
 					);
 
-					// Repartimos alumnos seleccionados entre los selects por índice
 					selectsTipo.forEach((select, idx) => {
 						select.innerHTML = `<option value="">Selecciona</option>`;
 
-						// Si hay alumno seleccionado para ese índice, lo añadimos y seleccionamos
+						// Intentamos asignar alumno seleccionado en posición idx
 						const idSel = idsSeleccionados[idx];
-						if (idSel) {
+						if (idSel && !usados.has(idSel.toString())) {
 							const alumno = alumnos.find(
 								(a) =>
 									a.idAlumno.toString() === idSel.toString() && a.sexo === sexo,
 							);
-							if (alumno && !usados.has(idSel.toString())) {
+							if (alumno) {
 								const option = document.createElement("option");
 								option.value = alumno.idAlumno;
 								option.textContent = alumno.nombre;
@@ -213,7 +234,7 @@ async function rellenarSelectsConSeleccionados(idClase) {
 								select.appendChild(option);
 								usados.add(idSel.toString());
 
-								// Registrar en sets generales
+								// Registro generales
 								if (tipo === "C") {
 									seleccionadosTipoC.add(idSel.toString());
 								} else {
@@ -222,13 +243,13 @@ async function rellenarSelectsConSeleccionados(idClase) {
 								anteriores.set(select, idSel.toString());
 							}
 						} else {
-							// No hay seleccionado para ese índice, poner valor vacío
+							// No seleccionado previamente
 							if (!anteriores.has(select)) {
 								anteriores.set(select, "");
 							}
 						}
 
-						// Añadir resto de alumnos que no están usados en esta prueba+tipo
+						// Añadir resto alumnos que no estén usados en esta prueba+tipo
 						alumnos
 							.filter(
 								(a) => a.sexo === sexo && !usados.has(a.idAlumno.toString()),
