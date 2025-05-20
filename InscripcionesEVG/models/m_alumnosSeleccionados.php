@@ -103,13 +103,18 @@ class M_alumnosSeleccionados
       }
 
       // Pruebas 4x100 (tipo C)
-      $sql_4x100 = "SELECT r.idPrueba, a1.idAlumno AS a1, a1.sexo AS sexo
-                  FROM 4x100_Alumnos r
-                  JOIN Alumnos a1 ON r.idAlumno1 = a1.idAlumno
-                  JOIN Alumnos a2 ON r.idAlumno2 = a2.idAlumno
-                  JOIN Alumnos a3 ON r.idAlumno3 = a3.idAlumno
-                  JOIN Alumnos a4 ON r.idAlumno4 = a4.idAlumno
-                  WHERE a1.idClase = :idClase";
+      $sql_4x100 = "SELECT r.idPrueba,
+                           a1.idAlumno AS a1,
+                           a2.idAlumno AS a2,
+                           a3.idAlumno AS a3,
+                           a4.idAlumno AS a4,
+                           a1.sexo AS sexo
+                    FROM 4x100_Alumnos r
+                    JOIN Alumnos a1 ON r.idAlumno1 = a1.idAlumno
+                    JOIN Alumnos a2 ON r.idAlumno2 = a2.idAlumno
+                    JOIN Alumnos a3 ON r.idAlumno3 = a3.idAlumno
+                    JOIN Alumnos a4 ON r.idAlumno4 = a4.idAlumno
+                    WHERE a1.idClase = :idClase;";
 
       $stmt_4x100 = $this->conexion->prepare($sql_4x100);
       $stmt_4x100->bindParam(':idClase', $idClase);

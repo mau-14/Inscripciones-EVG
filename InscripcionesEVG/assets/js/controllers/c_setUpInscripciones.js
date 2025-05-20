@@ -1,7 +1,10 @@
 import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 import M_obtenerEtapasYClases from "/InscripcionesEVG/assets/js/models/m_obtenerEtapasYClases.js";
 import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
-import { rellenarSelectsConAlumnos } from "/InscripcionesEVG/assets/js/controllers/c_obtenerAlumnos.js";
+import {
+	rellenarSelectsConAlumnos,
+	rellenarSelectsConSeleccionados,
+} from "/InscripcionesEVG/assets/js/controllers/c_obtenerAlumnos.js";
 
 const errorDialog = new ErrorDialog();
 
@@ -82,7 +85,11 @@ export async function setUpInscripciones() {
 					},
 				);
 				const data = await response.json();
-				console.log(data);
+				if (data.success) {
+					await rellenarSelectsConSeleccionados(clase);
+				} else {
+					await rellenarSelectsConAlumnos();
+				}
 			} catch (error) {
 				console.error(error);
 			}
