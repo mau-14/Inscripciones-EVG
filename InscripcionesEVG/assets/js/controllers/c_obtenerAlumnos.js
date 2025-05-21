@@ -113,7 +113,8 @@ async function rellenarSelectsConAlumnos() {
 async function rellenarSelectsConSeleccionados(idClase) {
 	try {
 		const modelo = new M_obtenerAlumnos();
-		const alumnos = await modelo.obtenerAlumnos();
+		const alumnos = await modelo.obtenerAlumnos(idClase);
+		console.log(alumnos);
 
 		const response = await fetch(
 			"/InscripcionesEVG/index.php?controlador=alumnosSeleccionados&accion=extraer&j=1",

@@ -6,12 +6,14 @@ class M_obtenerAlumnos
 
 
   private $conexion;
+  private $idClase;
 
 
-  public function __construct()
+  public function __construct($idClase)
   {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/configDB.php';
 
+    $this->idClase = $idClase;
     try {
       DSN . SERVIDOR . ';dbname=' . BBDD . ';charset=utf8';
       $this->conexion = new PDO(DSN, USUARIO, PASSWORD);
@@ -30,14 +32,13 @@ class M_obtenerAlumnos
     try {
 
 
-      $idClase = 1;
       $query = "SELECT idAlumno, nombre, sexo 
                 FROM Alumnos
                 WHERE idClase = :idClase";
 
       $stmt = $this->conexion->prepare($query);
 
-      $stmt->bindParam(':idClase', $idClase, PDO::PARAM_INT);
+      $stmt->bindParam(':idClase', $this->idClase['idClase'], PDO::PARAM_INT);
 
       $stmt->execute();
 

@@ -23,7 +23,6 @@ if ($isJson) {
 
   if (method_exists($controlador, $accion)) {
     $controlador->{$accion}();
-    error_log('ENTRA AQUII');
   }
 } else {
   $controlador = new $nombreControlador();

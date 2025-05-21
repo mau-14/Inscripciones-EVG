@@ -83,8 +83,6 @@ export async function setUpInscripciones() {
 			h2.textContent = claseTexto;
 			form.parentNode.insertBefore(h2, form);
 
-			console.log(clase);
-
 			try {
 				const response = await fetch(
 					"/InscripcionesEVG/index.php?controlador=alumnosSeleccionados&accion=comprobar&j=1",
@@ -97,6 +95,7 @@ export async function setUpInscripciones() {
 					},
 				);
 				const data = await response.json();
+				console.log(data);
 				if (data.success) {
 					await rellenarSelectsConSeleccionados(clase);
 				} else {

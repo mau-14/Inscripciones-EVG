@@ -51,13 +51,12 @@ class M_alumnosSeleccionados
                 WHERE a.idClase = :idClase
                 LIMIT 1";
       $stmt_4x100 = $this->conexion->prepare($sql_4x100);
-      $stmt_4x100->bindParam(':idClase', $idClase);
+      $stmt_4x100->bindParam(':idClase', $idClase['idClase']);
       $stmt_4x100->execute();
       $hay_4x100 = $stmt_4x100->fetch() !== false;
 
       $this->conexion->commit();
 
-      error_log("Individuales: " . ($hay_individuales ? 'true' : 'false') . " - 4x100: " . ($hay_4x100 ? 'true' : 'false'));
 
       if ($hay_individuales || $hay_4x100) {
         return json_encode(["success" => true, "mensaje" => "La clase tiene inscripciones."]);
@@ -117,7 +116,7 @@ class M_alumnosSeleccionados
                     WHERE a1.idClase = :idClase;";
 
       $stmt_4x100 = $this->conexion->prepare($sql_4x100);
-      $stmt_4x100->bindParam(':idClase', $idClase);
+      $stmt_4x100->bindParam(':idClase', $idClase['idClase']);
       $stmt_4x100->execute();
 
       while ($row = $stmt_4x100->fetch(PDO::FETCH_ASSOC)) {
