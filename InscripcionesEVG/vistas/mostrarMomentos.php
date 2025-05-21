@@ -16,16 +16,13 @@
 
      <!--Lista de Momentos-->
     <?php foreach ($dataToView["data"] as $momento){
-      echo '<form action="./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento" method="POST" style="display: inline;">';
-      echo '<input type="hidden" name="momento" value="'.$momento['idMomento'].'">';
-      echo '<div class="momento" onclick="this.parentElement.submit()">';
+      echo '<div class="momento">';
         echo '<h3>'.$momento['nombre'].'</h3>';
         echo '<div class="acciones">';
-          echo '<button type="button" class="editar" data-id="'.$momento['idMomento'].'" data-nombre="'.$momento['nombre'].'" data-fechaInicio="'.$momento['fecha_inicio'].'" data-fechaFin="'.$momento['fecha_fin'].'"><i class="fas fa-pen"></i></button>';
-          echo '<button type="button" class="eliminar" data-id="'.$momento['idMomento'].'"><i class="fas fa-trash"></i></button>';
+          echo '<button class="editar" data-id="'.$momento['idMomento'].'" data-nombre="'.$momento['nombre'].'" data-fechaInicio="'.$momento['fecha_inicio'].'" data-fechaFin="'.$momento['fecha_fin'].'"><i class="fas fa-pen"></i></button>';
+          echo '<button class="eliminar" data-id="'.$momento['idMomento'].'"><i class="fas fa-trash"></i></button>';
         echo '</div>';
       echo '</div>';
-      echo '</form>';
     } ?>
     <!-- Botón para abrir el formulario -->
     <div class="momento añadir" id="btnAbrirModal">

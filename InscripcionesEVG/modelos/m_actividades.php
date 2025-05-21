@@ -47,5 +47,58 @@ Class Mactividades {
         return $resultado;
     }
 
+    public function mInsertarActividad($nombre, $maxParticipantes, $fecha, $hora, $idMomento) {
+        // 1. Insertar en Actividades
+        $SQL = "INSERT INTO Actividades (nombre, maxParticipantes, fecha, hora, idMomento, tipo) 
+                VALUES (?, ?, ?, ?, ?, 'V')";
+        $stmt = $this->conexion->prepare($SQL);
+        $stmt->bind_param("sissi", $nombre, $maxParticipantes, $fecha, $hora, $idMomento);
+        $stmt->execute();  
+
+        if ($stmt->affected_rows <= 0) {
+            return false;
+        }
+    
+        // 2. Obtener el idActividad insertado
+        $idActividad = $this->conexion->insert_id;
+    
+        // 3. Insertar en Actividades_varias
+        $SQL2 = "INSERT INTO Actividades_varias (idActividad) VALUES (?)";
+        $stmt2 = $this->conexion->prepare($SQL2);
+        $stmt2->bind_param("i", $idActividad);
+        $stmt2->execute();
+    
+        return true;
+    }
+
+    public function mEliminarActividad($idActividad) {
+        // 1. Eliminar de Actividades_varias
+        $SQL1 = "DELETE FROM Actividades_varias WHERE idActividad = ?";
+        $stmt1 = $this->conexion->prepare($SQL1);
+        $stmt1->bind_param("i", $idActividad);
+        $stmt1->execute();
+
+        // 2. Eliminar de Actividades
+        $SQL2 = "DELETE FROM Actividades WHERE idActividad = ?";
+        $stmt2 = $this->conexion->prepare($SQL2);
+        $stmt2->bind_param("i", $idActividad);
+        $stmt2->execute();
+
+        return true;
+    }
+
+    public function mEditarActividad($idActividad, $nombre, $maxParticipantes, $fecha, $hora) {
+        $SQL = "UPDATE Actividades SET 
+                nombre = ?, 
+                maxParticipantes = ?, 
+                fecha = ?, 
+                hora = ?
+                WHERE idActividad = ?";
+        $stmt = $this->conexion->prepare($SQL);
+        $stmt->bind_param("sissi", $nombre, $maxParticipantes, $fecha, $hora, $idActividad);
+        $stmt->execute();  
+
+        return true;
+    }
 }
 ?>
