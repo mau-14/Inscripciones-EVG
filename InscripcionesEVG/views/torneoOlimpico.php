@@ -1,3 +1,8 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
+include $navBar;
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -23,10 +28,7 @@
   </script>
 </head>
 
-<?php
-include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
-include $navBar;
-?>
+
 
 <body>
   <main>

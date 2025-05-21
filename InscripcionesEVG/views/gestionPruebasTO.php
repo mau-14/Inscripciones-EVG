@@ -1,3 +1,8 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
+include $navBar;
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -17,10 +22,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
-<?php
-include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
-include $navBar;
-?>
+
 
 <script type="module">
   import {

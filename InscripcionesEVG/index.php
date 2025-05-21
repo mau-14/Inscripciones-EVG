@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once 'config/config.php';
 
 $controladorNombre = $_GET["controlador"] ?? DEFAULT_CONTROLADOR;

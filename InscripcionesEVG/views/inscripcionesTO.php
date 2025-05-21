@@ -1,3 +1,9 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
+include $navBar; // Este archivo tiene session_start()
+$isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordinador';
+$isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
+?>
 <!doctype html>
 <html lang="es">
 
@@ -18,14 +24,6 @@
 
 </head>
 
-<?php
-
-include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
-include $navBar;
-$isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordinador';
-
-$isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
-?>
 
 <script>
   window.configUsuario = {

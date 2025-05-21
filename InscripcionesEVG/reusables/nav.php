@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . 'InscripcionesEVG/config/entorno/variables.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
