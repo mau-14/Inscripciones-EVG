@@ -29,18 +29,19 @@ async function rellenarSelectsConAlumnos() {
 				const esTipoC = select.name === "C";
 
 				options.forEach((option) => {
-					const alumnoId = option.value;
+					const alumnoId = option.value.toString();
 					if (!alumnoId) return;
 
-					if (esTipoC) {
-						option.disabled =
-							seleccionadosTipoC.has(alumnoId) &&
-							anteriores.get(select) !== alumnoId;
-					} else {
-						option.disabled =
-							seleccionadosGenerales.has(alumnoId) &&
-							anteriores.get(select) !== alumnoId;
-					}
+					const anterior = anteriores.get(select) || "";
+					const disabled = esTipoC
+						? seleccionadosTipoC.has(alumnoId) && anterior !== alumnoId
+						: seleccionadosGenerales.has(alumnoId) && anterior !== alumnoId;
+
+					option.disabled = disabled;
+					// Para depuración:
+					console.log(
+						`Select [${select.name}][${select.getAttribute("data-idprueba")}], option ${option.textContent} (${alumnoId}): disabled=${disabled}`,
+					);
 				});
 			});
 		}
@@ -76,7 +77,7 @@ async function rellenarSelectsConAlumnos() {
 			anteriores.set(select, ""); // valor inicial vacío
 
 			select.addEventListener("change", (event) => {
-				const actual = event.target.value;
+				const actual = event.target.value.toString();
 				const anterior = anteriores.get(select);
 				const esTipoC = select.name === "C";
 
@@ -114,7 +115,6 @@ async function rellenarSelectsConSeleccionados(idClase) {
 		const modelo = new M_obtenerAlumnos();
 		const alumnos = await modelo.obtenerAlumnos();
 
-		// Obtener alumnos ya seleccionados desde el backend
 		const response = await fetch(
 			"/InscripcionesEVG/index.php?controlador=alumnosSeleccionados&accion=extraer&j=1",
 			{
@@ -144,23 +144,19 @@ async function rellenarSelectsConSeleccionados(idClase) {
 		const anteriores = new Map();
 
 		function actualizarSelects() {
-			// Recorrer todos los selects, tanto masculinos como femeninos
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
 				const esTipoC = select.name === "C";
 
 				options.forEach((option) => {
 					const alumnoId = option.value;
-					if (!alumnoId) return; // salto opciones sin value
+					if (!alumnoId) return;
 
 					if (esTipoC) {
-						// Si es tipo C, sólo deshabilitamos si ya está seleccionado en otro select distinto (pero para tipo C)
 						option.disabled =
 							seleccionadosTipoC.has(alumnoId) &&
 							anteriores.get(select) !== alumnoId;
 					} else {
-						// Para los otros tipos, deshabilitamos si el alumno está seleccionado en cualquier otro select (salvo en el actual)
-						// es decir, no puede estar en dos pruebas distintas ni en el mismo tipo distinto.
 						option.disabled =
 							seleccionadosGenerales.has(alumnoId) &&
 							anteriores.get(select) !== alumnoId;
@@ -169,14 +165,10 @@ async function rellenarSelectsConSeleccionados(idClase) {
 			});
 		}
 
-		// Función para rellenar selects y seleccionar los alumnos que ya estaban
 		function rellenarSelects(selects, sexo) {
-			// Registro global de alumnos usados por idPrueba + tipo
-			const usadosPorPruebaTipo = new Map(); // key: `${idPrueba}_${tipo}` -> Set de idsAlumno
+			const usadosPorPruebaTipo = new Map();
 
-			// Agrupamos selects por data-idprueba
 			const selectsPorPrueba = new Map();
-
 			selects.forEach((select) => {
 				const idPrueba = select.getAttribute("data-idprueba");
 				if (!selectsPorPrueba.has(idPrueba)) {
@@ -186,7 +178,6 @@ async function rellenarSelectsConSeleccionados(idClase) {
 			});
 
 			selectsPorPrueba.forEach((selectsPrueba, idPrueba) => {
-				// Agrupamos por tipo
 				const selectsPorTipo = new Map();
 				selectsPrueba.forEach((sel) => {
 					const tipo = sel.name;
@@ -195,21 +186,19 @@ async function rellenarSelectsConSeleccionados(idClase) {
 				});
 
 				selectsPorTipo.forEach((selectsTipo, tipo) => {
-					// Key única para controlar usados en prueba+tipo
 					const keyPruebaTipo = `${idPrueba}_${tipo}`;
 					if (!usadosPorPruebaTipo.has(keyPruebaTipo)) {
 						usadosPorPruebaTipo.set(keyPruebaTipo, new Set());
 					}
 					const usados = usadosPorPruebaTipo.get(keyPruebaTipo);
 
-					// Alumnos seleccionados para este sexo, tipo, idPrueba
 					const idsSeleccionados =
 						(seleccionados[sexo] &&
 							seleccionados[sexo][tipo] &&
 							seleccionados[sexo][tipo][idPrueba]) ||
 						[];
 
-					// Ordenamos selects por data-index
+					// Ordenar selects por data-index para procesar en orden
 					selectsTipo.sort(
 						(a, b) =>
 							parseInt(a.getAttribute("data-index") || "0") -
@@ -219,12 +208,13 @@ async function rellenarSelectsConSeleccionados(idClase) {
 					selectsTipo.forEach((select, idx) => {
 						select.innerHTML = `<option value="">Selecciona</option>`;
 
-						// Intentamos asignar alumno seleccionado en posición idx
-						const idSel = idsSeleccionados[idx];
-						if (idSel && !usados.has(idSel.toString())) {
+						const idSel = idsSeleccionados[idx]; // id seleccionado para este select
+						const idSelStr = idSel ? idSel.toString() : "";
+
+						// Añadir la opción seleccionada del select actual
+						if (idSel) {
 							const alumno = alumnos.find(
-								(a) =>
-									a.idAlumno.toString() === idSel.toString() && a.sexo === sexo,
+								(a) => a.idAlumno.toString() === idSelStr && a.sexo === sexo,
 							);
 							if (alumno) {
 								const option = document.createElement("option");
@@ -232,42 +222,49 @@ async function rellenarSelectsConSeleccionados(idClase) {
 								option.textContent = alumno.nombre;
 								option.selected = true;
 								select.appendChild(option);
-								usados.add(idSel.toString());
 
-								// Registro generales
+								// Marca este id como usado para los siguientes selects
+								usados.add(idSelStr);
+
 								if (tipo === "C") {
-									seleccionadosTipoC.add(idSel.toString());
+									seleccionadosTipoC.add(idSelStr);
 								} else {
-									seleccionadosGenerales.add(idSel.toString());
+									seleccionadosGenerales.add(idSelStr);
 								}
-								anteriores.set(select, idSel.toString());
+								anteriores.set(select, idSelStr);
 							}
 						} else {
-							// No seleccionado previamente
 							if (!anteriores.has(select)) {
 								anteriores.set(select, "");
 							}
 						}
 
-						// Añadir resto alumnos que no estén usados en esta prueba+tipo
+						// Añadir las demás opciones no usadas
 						alumnos
 							.filter(
-								(a) => a.sexo === sexo && !usados.has(a.idAlumno.toString()),
+								(a) => a.sexo === sexo && a.idAlumno.toString() !== idSelStr,
 							)
 							.forEach((alumno) => {
 								const option = document.createElement("option");
 								option.value = alumno.idAlumno;
 								option.textContent = alumno.nombre;
+
+								// Si el alumno ya está usado en otro select, deshabilitar
+								if (usados.has(alumno.idAlumno.toString())) {
+									option.disabled = true;
+								}
+
 								select.appendChild(option);
 							});
 					});
 				});
 			});
+			// *** IMPORTANTE *** Actualizar deshabilitado después de rellenar TODOS los selects
+			actualizarSelects();
 		}
 		rellenarSelects(selectsMasculinos, "M");
 		rellenarSelects(selectsFemeninos, "F");
 
-		// Añadir listeners para actualizar sets y estado al cambiar selección
 		[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 			select.addEventListener("change", (event) => {
 				const actual = event.target.value;
@@ -295,7 +292,8 @@ async function rellenarSelectsConSeleccionados(idClase) {
 			});
 		});
 
-		actualizarSelects(); // Actualización inicial
+		// Inicializar estado de opciones deshabilitadas
+		actualizarSelects();
 	} catch (error) {
 		console.error("Error al inicializar los selects:", error);
 	}
