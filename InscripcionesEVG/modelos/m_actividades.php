@@ -21,9 +21,11 @@ Class Mactividades {
                 a.hora,
                 m.nombre as nombre_momento,
                 a.idMomento,
-                a.tipo
+                a.tipo,
+                a.bases
                 FROM Actividades a
-                INNER JOIN Actividades_varias av ON a.idActividad = av.idActividad
+                LEFT JOIN Actividades_Alumnos aa ON a.idActividad = aa.idActividad
+                LEFT JOIN Actividades_clase ac ON a.idActividad = ac.idActividad
                 INNER JOIN Momentos m ON a.idMomento = m.idMomento
                 WHERE a.idMomento = ?";
         $stmt = $this->conexion->prepare($SQL);
@@ -42,28 +44,30 @@ Class Mactividades {
                 "hora" => $fila['hora'],
                 "idMomento" => $fila['idMomento'],
                 "tipo" => $fila['tipo'],
+                "bases" => $fila['bases']
             ];
         }
         return $resultado;
     }
 
-    public function mInsertarActividad($nombre, $maxParticipantes, $fecha, $hora, $idMomento) {
+    public function mInsertarActividad($nombre, $maxParticipantes, $fecha, $hora, $idMomento, $tipo, $bases) {
         // 1. Insertar en Actividades
-        $SQL = "INSERT INTO Actividades (nombre, maxParticipantes, fecha, hora, idMomento, tipo) 
-                VALUES (?, ?, ?, ?, ?, 'V')";
+        $SQL = "INSERT INTO Actividades (nombre, maxParticipantes, fecha, hora, bases, idMomento, tipo) 
+                VALUES (?, ?, NULLIF(?, ''), NULLIF(?, ''), ?, ?, ?)";
         $stmt = $this->conexion->prepare($SQL);
-        $stmt->bind_param("sissi", $nombre, $maxParticipantes, $fecha, $hora, $idMomento);
+        $stmt->bind_param("sisssis", $nombre, $maxParticipantes, $fecha, $hora, $bases, $idMomento, $tipo);
         $stmt->execute();  
-
-        if ($stmt->affected_rows <= 0) {
-            return false;
-        }
     
         // 2. Obtener el idActividad insertado
         $idActividad = $this->conexion->insert_id;
     
-        // 3. Insertar en Actividades_varias
-        $SQL2 = "INSERT INTO Actividades_varias (idActividad) VALUES (?)";
+        // 3. Insertar en la tabla correspondiente según el tipo
+        if ($tipo === 'V') {
+            $SQL2 = "INSERT INTO Actividades_Alumnos (idActividad) VALUES (?)";
+        } else if ($tipo === 'C') {
+            $SQL2 = "INSERT INTO Actividades_clase (idActividad) VALUES (?)";
+        }
+
         $stmt2 = $this->conexion->prepare($SQL2);
         $stmt2->bind_param("i", $idActividad);
         $stmt2->execute();
@@ -72,8 +76,8 @@ Class Mactividades {
     }
 
     public function mEliminarActividad($idActividad) {
-        // 1. Eliminar de Actividades_varias
-        $SQL1 = "DELETE FROM Actividades_varias WHERE idActividad = ?";
+        // 1. Eliminar de Actividades_Alumnos
+        $SQL1 = "DELETE FROM Actividades_Alumnos WHERE idActividad = ?";
         $stmt1 = $this->conexion->prepare($SQL1);
         $stmt1->bind_param("i", $idActividad);
         $stmt1->execute();
@@ -87,15 +91,16 @@ Class Mactividades {
         return true;
     }
 
-    public function mEditarActividad($idActividad, $nombre, $maxParticipantes, $fecha, $hora) {
+    public function mEditarActividad($idActividad, $nombre, $maxParticipantes, $fecha, $hora, $bases) {
         $SQL = "UPDATE Actividades SET 
                 nombre = ?, 
                 maxParticipantes = ?, 
                 fecha = ?, 
-                hora = ?
+                hora = ?,
+                bases = ?
                 WHERE idActividad = ?";
         $stmt = $this->conexion->prepare($SQL);
-        $stmt->bind_param("sissi", $nombre, $maxParticipantes, $fecha, $hora, $idActividad);
+        $stmt->bind_param("sisssi", $nombre, $maxParticipantes, $fecha, $hora, $bases, $idActividad);
         $stmt->execute();  
 
         return true;

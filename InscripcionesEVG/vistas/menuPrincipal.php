@@ -12,30 +12,22 @@
     <h1>Menu Principal</h1>
 
     <section class="section">
-        
       <div class="card">
         <h3>Momentos</h3>
         <p>Gestiona los momentos del torneo olímpico y de las actividades.</p>
         <a href="index.php?controlador=momentos&accion=cMostrarMomentos"><button>Acceder</button></a>
       </div>
-
-      <div class="card">
-        <h3>Torneo Olímpico</h3>
-        <p>Gestiona Pruebas del Torneo Olímpico.</p>
-        <button>Acceder</button>
-      </div>
-
     </section>
 
     <section class="section">
       <div class="card">
-        <h3>Alumno</h3>
-        <p>Gestiona Actividades de Alumnos.</p>
+        <h3>Actividades</h3 >
+        <p>Gestiona Actividades</p>
         <a href="index.php?controlador=momentos&accion=cMostrarMomentosActividades"><button>Acceder</button></a>
       </div>
       <div class="card">
-        <h3>De Clase</h3>
-        <p>Gestiona Actividades de Clases.</p>
+        <h3>Torneo Olímpico</h3>
+        <p>Gestiona Pruebas del Torneo Olímpico.</p>
         <button>Acceder</button>
       </div>
     </section>

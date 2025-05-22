@@ -11,19 +11,49 @@
 
   <h1>Gestión Momentos</h1>
   <h2>Seleccione un Momento</h2>
+  <!-- Leyenda de iconos explicativos -->
+  <div class="leyenda-iconos">
+    <strong>Leyenda de iconos:</strong>
+    <span><i class="fas fa-bookmark"></i> Nombre del momento</span>
+    <span><i class="fas fa-calendar-alt"></i> Fecha de inicio</span>
+    <span><i class="fas fa-calendar-check"></i> Fecha de fin</span>
+  </div>
 
   <div class="contenedor-momentos">
-
-     <!--Lista de Momentos-->
-    <?php foreach ($dataToView["data"] as $momento){
-      echo '<div class="momento">';
-        echo '<h3>'.$momento['nombre'].'</h3>';
-        echo '<div class="acciones">';
-          echo '<button class="editar" data-id="'.$momento['idMomento'].'" data-nombre="'.$momento['nombre'].'" data-fechaInicio="'.$momento['fecha_inicio'].'" data-fechaFin="'.$momento['fecha_fin'].'"><i class="fas fa-pen"></i></button>';
-          echo '<button class="eliminar" data-id="'.$momento['idMomento'].'"><i class="fas fa-trash"></i></button>';
-        echo '</div>';
-      echo '</div>';
-    } ?>
+    <!--Lista de Momentos-->
+    <?php foreach ($dataToView["data"] as $momento){ ?>
+      <div class="carta">
+        <div class="carta-header">
+          <h3><i class="fas fa-bookmark"></i> <?php echo htmlspecialchars($momento['nombre']); ?></h3>
+        </div>
+        <div class="carta-body">
+          <div class="dato-carta">
+            <i class="fas fa-calendar-alt"></i>
+            <?php
+              if (!empty($momento['fecha_inicio'])) {
+                  echo htmlspecialchars($momento['fecha_inicio']);
+              } else {
+                  echo '<em>Sin fecha inicio</em>';
+              }
+            ?>
+          </div>
+          <div class="dato-carta">
+            <i class="fas fa-calendar-check"></i>
+            <?php
+              if (!empty($momento['fecha_fin'])) {
+                  echo htmlspecialchars($momento['fecha_fin']);
+              } else {
+                  echo '<em>Sin fecha fin</em>';
+              }
+            ?>
+          </div>
+        </div>
+        <div class="carta-acciones">
+          <button class="editar" data-id="<?php echo $momento['idMomento']; ?>" data-nombre="<?php echo htmlspecialchars($momento['nombre']); ?>" data-fechaInicio="<?php echo $momento['fecha_inicio']; ?>" data-fechaFin="<?php echo $momento['fecha_fin']; ?>"><i class="fas fa-pen"></i></button>
+          <button class="eliminar" data-id="<?php echo $momento['idMomento']; ?>"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    <?php } ?>
     <!-- Botón para abrir el formulario -->
     <div class="momento añadir" id="btnAbrirModal">
       <i class="fas fa-plus"></i>
@@ -79,6 +109,7 @@
   <div class="modal-contenido">
     <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
     <h2>¿Estás seguro?</h2>
+    <h3> (Se eliminarán todas las actividades asociadas a este momento)</h3>
     <div class="botones-confirmacion">
       <a id="btnConfirmarEliminar" class="btn-confirmar">Sí</a>
       <button id="btnCancelarEliminar" class="btn-cancelar">No</button>

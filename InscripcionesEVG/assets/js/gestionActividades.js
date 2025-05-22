@@ -18,6 +18,7 @@ document.querySelectorAll(".editar").forEach((boton) => {
     const maxParticipantes = boton.dataset.max;
     const fecha = boton.dataset.fecha;
     const hora = boton.dataset.hora;
+    const bases = boton.dataset.bases || '';
 
     // Asignar los valores a los inputs del formulario
     document.getElementById("editarId").value = id;
@@ -25,6 +26,7 @@ document.querySelectorAll(".editar").forEach((boton) => {
     document.getElementById("editarMaxParticipantes").value = maxParticipantes;
     document.getElementById("editarFecha").value = fecha;
     document.getElementById("editarHora").value = hora;
+    document.getElementById("editarBases").value = bases;
 
     // Mostrar modal
     modalEditar.style.display = "block";
@@ -79,5 +81,20 @@ window.addEventListener("click", function (event) {
   }
   if (event.target === modalConfirmar) {
     modalConfirmar.style.display = "none";
+  }
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const errorMsg = params.get('errorMsg');
+  if (errorMsg && document.getElementById('modalError')) {
+    document.getElementById('errorMsgText').textContent = decodeURIComponent(errorMsg.replace(/\+/g, ' '));
+    document.getElementById('modalError').style.display = 'block';
+  }
+  const btnCerrar = document.getElementById('btnCerrarError');
+  if (btnCerrar) {
+    btnCerrar.onclick = function() {
+      document.getElementById('modalError').style.display = 'none';
+    }
   }
 }); 
