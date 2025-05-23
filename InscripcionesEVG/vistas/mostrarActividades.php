@@ -35,7 +35,7 @@
         <div class="carta">
           <div class="carta-header">
             <h3><?php echo htmlspecialchars($actividad['nombre']); ?></h3>
-            <span class="tipo-actividad tipo-<?php echo strtolower($actividad['tipo']); ?>">
+            <span>
               <?php if ($actividad['tipo'] === 'V') { ?>
                 <i class="fas fa-user-graduate"></i>
               <?php } else { ?>

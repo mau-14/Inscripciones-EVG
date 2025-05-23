@@ -12,13 +12,18 @@ document.getElementById("btnCerrarModal").addEventListener("click", function () 
 const modalEditar = document.getElementById("modalEditar");
 const btnCerrarEditar = document.getElementById("btnCerrarEditar");
 
+// Cerrar modal de editar
+btnCerrarEditar.addEventListener("click", () => {
+  modalEditar.style.display = "none";
+});
+
 document.querySelectorAll(".editar").forEach((boton) => {
   boton.addEventListener("click", () => {
     // Extraer datos desde los atributos data-*
     const id = boton.dataset.id;
     const nombre = boton.dataset.nombre;
-    const fechaInicio = boton.dataset.fechainicio;
-    const fechaFin = boton.dataset.fechafin;
+    const fechaInicio = boton.dataset.fechaInicio;
+    const fechaFin = boton.dataset.fechaFin;
 
     // Asignar los valores a los inputs del formulario
     document.getElementById("editarId").value = id;
@@ -27,7 +32,7 @@ document.querySelectorAll(".editar").forEach((boton) => {
     document.getElementById("editarFechaFin").value = fechaFin;
 
     // Mostrar modal
-    document.getElementById("modalEditar").style.display = "block";
+    modalEditar.style.display = "block";
   });
 });
 
@@ -96,3 +101,17 @@ window.addEventListener("click", function (event) {
     modalConfirmar.style.display = "none";
   }
 });
+window.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const errorMsg = params.get('errorMsg');
+  if (errorMsg && document.getElementById('modalError')) {
+    document.getElementById('errorMsgText').textContent = decodeURIComponent(errorMsg.replace(/\+/g, ' '));
+    document.getElementById('modalError').style.display = 'block';
+  }
+  const btnCerrar = document.getElementById('btnCerrarError');
+  if (btnCerrar) {
+    btnCerrar.onclick = function() {
+      document.getElementById('modalError').style.display = 'none';
+    }
+  }
+}); 

@@ -8,7 +8,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
+<div class="modal error-modal" id="modalError" style="display:none;">
+    <div class="modal-contenido">
+      <span class="cerrar" id="btnCerrarError">&times;</span>
+      <h2>Error</h2>
+      <p id="errorMsgText"></p>
+    </div>
+  </div>
   <h1>Gestión Momentos</h1>
   <h2>Seleccione un Momento</h2>
   <!-- Leyenda de iconos explicativos -->
@@ -49,7 +55,7 @@
           </div>
         </div>
         <div class="carta-acciones">
-          <button class="editar" data-id="<?php echo $momento['idMomento']; ?>" data-nombre="<?php echo htmlspecialchars($momento['nombre']); ?>" data-fechaInicio="<?php echo $momento['fecha_inicio']; ?>" data-fechaFin="<?php echo $momento['fecha_fin']; ?>"><i class="fas fa-pen"></i></button>
+          <button class="editar" data-id="<?php echo $momento['idMomento']; ?>" data-nombre="<?php echo htmlspecialchars($momento['nombre']); ?>" data-fecha-inicio="<?php echo $momento['fecha_inicio']; ?>" data-fecha-fin="<?php echo $momento['fecha_fin']; ?>"><i class="fas fa-pen"></i></button>
           <button class="eliminar" data-id="<?php echo $momento['idMomento']; ?>"><i class="fas fa-trash"></i></button>
         </div>
       </div>

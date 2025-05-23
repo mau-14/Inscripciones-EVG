@@ -496,5 +496,22 @@
     border: 2px solid #e74c3c;
     color: #e74c3c;
     background: #fff6f6;
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  .error-modal h2 {
+    color: #e74c3c;
+    margin-bottom: 15px;
+  }
+  
+  .error-modal p {
+    color: #e74c3c;
+    font-size: 1.1em;
+    line-height: 1.4;
+  }
+  
+  .error-modal .cerrar {
+    color: #e74c3c;
   }
   
