@@ -53,14 +53,13 @@ Class Cmomentos {
         $fechaFin = $_POST['fechaFin'];
         
         $resultado = $this->objmomentos->mInsertarMomento($nombre, $fechaInicio, $fechaFin);
-        if ($resultado) {
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos");
-            exit();
-        } else {
+        if (!$resultado) {
             $msg = urlencode("Error al insertar el momento.");
             header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
             exit();
-        }
+        } 
+        
+        return $this->objmomentos->mMostrarMomentos();
     }
     public function cEliminarMomento() {
         $this->vista = 'mostrarMomentos';
@@ -73,14 +72,12 @@ Class Cmomentos {
 
         $idMomento = $_GET['idMomento'];
         $resultado = $this->objmomentos->mEliminarMomento($idMomento);
-        if ($resultado) {
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos");
-            exit();
-        } else {
+        if (!$resultado) {
             $msg = urlencode("Error al eliminar el momento.");
             header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
             exit();
-        }
+        } 
+        return $this->objmomentos->mMostrarMomentos();
     }
     public function cEditarMomento() {
         $this->vista = 'mostrarMomentos';
@@ -114,14 +111,12 @@ Class Cmomentos {
         $fechaFin = $_POST['fechaFin'];
         
         $resultado = $this->objmomentos->mEditarMomento($idMomento, $nombre, $fechaInicio, $fechaFin);
-        if ($resultado) {
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos");
-            exit();
-        } else {
+        if (!$resultado) {
             $msg = urlencode("Error al editar el momento.");
             header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
             exit();
-        }
+        } 
+        return $this->objmomentos->mMostrarMomentos();
     }
     
 }

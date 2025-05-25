@@ -95,7 +95,9 @@
                     data-bases="<?php echo htmlspecialchars($actividad['bases'] ?? ''); ?>">
               <i class="fas fa-pen"></i>
             </button>
-            <button class="eliminar" data-id="<?php echo $actividad['idActividad']; ?>"><i class="fas fa-trash"></i></button>
+            <button class="eliminar" data-id="<?php echo $actividad['idActividad']; ?>">
+              <i class="fas fa-trash"></i>
+            </button>
           </div>
         </div>
       <?php } ?>
@@ -113,8 +115,6 @@
       <span class="cerrar" id="btnCerrarModal">&times;</span>
       <h2>Nueva Actividad</h2>
       <form id="formActividad" action="./index.php?controlador=actividades&accion=cInsertarActividad" method="POST">
-        <input type="hidden" name="idMomento" value="<?php echo isset($_POST['momento']) ? $_POST['momento'] : $_GET['momento']; ?>">
-        
         <label for="nombre">Nombre de la Actividad:</label>
         <input type="text" id="nombre" name="nombre">
 
@@ -150,7 +150,6 @@
       <h2>Editar Actividad</h2>
       <form id="formEditarActividad" action="./index.php?controlador=actividades&accion=cEditarActividad" method="POST">
         <input type="hidden" name="idActividad" id="editarId">
-        <input type="hidden" name="idMomento" value="<?php echo isset($_POST['momento']) ? $_POST['momento'] : $_GET['momento']; ?>">
         
         <label for="editarNombre">Nombre de la actividad:</label>
         <input type="text" id="editarNombre" name="editarNombre">

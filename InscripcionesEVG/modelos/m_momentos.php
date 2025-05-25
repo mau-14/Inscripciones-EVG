@@ -33,8 +33,12 @@ Class Mmomentos {
         $SQL = "INSERT INTO Momentos (nombre, fecha_inicio, fecha_fin) VALUES (?, ?, ?)";
         $stmt = $this->conexion->prepare($SQL);
         $stmt->bind_param("sss", $nombre, $fecha_inicio, $fecha_fin);
-        $stmt->execute();
-        return true;
+        try{
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
     public function mEliminarMomento($idMomento) {
         $SQL = "DELETE FROM Momentos WHERE idMomento = ?";
