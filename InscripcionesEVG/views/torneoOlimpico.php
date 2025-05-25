@@ -57,10 +57,6 @@ include $navBar;
     </section>
   </main>
 
-
-
-  <?php include $footer; ?>
-
 </body>
 
 

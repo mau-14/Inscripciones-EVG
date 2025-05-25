@@ -10,6 +10,7 @@ $controladores = '/InscripcionesEVG/controllers/';
 
 $inicioHref = "/InscripcionesEVG/index.php";
 $momentoHref = "#sec2";
+$actividadesHref = "/InscripcionesEVG/index.php";
 $consultaActividadesHref = "#sub1";
 $gestionPruebasHref = $vistas . "gestionPruebasTO.php";
 $inscripcionActividadesHref = "#sub1";

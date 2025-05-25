@@ -112,10 +112,6 @@ include $navBar;
       </div>
     </div>
   </div>
-
-
-
-  <?php include $footer; ?>
   <script src="js/utils/modalesGestionTO.js" defer></script>
   <script type="module" src="js/controllers/c_crudPruebasTO.js" defer></script>
 </body>

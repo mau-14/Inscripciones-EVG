@@ -63,11 +63,18 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
 
       <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Profesor' || $usuarioTipo === 'Tutor'): ?>
         <li class="has-submenu">
-          <a href="<?= $momentoHref ?>">Momento</a>
+          <a href="<?= $actividadesHref ?>">Actividades</a>
           <ul class="submenu">
             <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li>
+
             <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Tutor'): ?>
               <li><a href="<?= $inscripcionActividadesHref ?>">Inscripción Actividades</a></li>
+              <li><a href="<?= $inscripcionClaseHref ?>">Inscripción Actividades de Clase</a></li>
+            <?php endif; ?>
+
+            <?php if ($usuarioTipo === 'Coordinador'): ?>
+              <li><a href="<?= $gestionActividadesHref ?>">Gestión de Actividades</a></li>
+              <li><a href="<?= $gestionClaseHref ?>">Gestión de Actividades de Clase</a></li>
             <?php endif; ?>
           </ul>
         </li>

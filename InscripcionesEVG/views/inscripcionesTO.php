@@ -107,9 +107,6 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
       </form>
     </section>
   </main>
-
-  <?php include $footer; ?>
-
 </body>
 
 </html>

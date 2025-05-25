@@ -62,10 +62,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
     </section>
   </main>
 
-
-
-  <?php include $footer; ?>
-
 </body>
 
 </html>
