@@ -1,159 +1,144 @@
-.formulario-inscripciones {
-  background-color: #f2f2f2;
+#secInscripcion {
   margin: 0 auto;
-  border: 1px solid black;
-  border-radius: 10px;
-  height: auto;
+  width: 70%;
+}
+
+#secInscripcion h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+#inscripcionesTitulo {
+  font-size: 3em;
+  color: #3498db;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.formulario-inscripciones {
+  background-color: white;
+  margin: 0 auto;
   padding: 2em;
   display: flex;
   flex-direction: column;
+  gap: 2em;
+  max-width: 1200px;
 }
 
 .categoria-container {
   display: flex;
-  gap: 2em;
+  flex-direction: column;
+  gap: 3em;
+}
+
+@media (min-width: 768px) {
+  .categoria-container {
+    flex-direction: row;
+  }
 }
 
 .categoria {
   flex: 1;
-}
-
-#secInscripcion h2 {
-  font-size: 3em;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  color: #0077cc;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 }
 
 .linea-separadora {
-  width: 2px;
-  border: 1px solid black;
-  background-color: #444;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .linea-separadora {
+    display: block;
+    width: 2px;
+    background-color: #ccc;
+  }
 }
 
 .grid-pruebas {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5em;
-  margin-bottom: 2em;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.2em;
 }
 
 .campo {
   display: flex;
   flex-direction: column;
+  background-color: #fafafa;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  transition: transform 0.2s ease;
+  padding: 1em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.campo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .campo label {
-  font-weight: bold;
-  font-size: 2em;
+  font-weight: 600;
+  font-size: 1.2em;
   margin-bottom: 0.5em;
+  color: #333;
+  text-align: left;
 }
 
 .campo select {
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-  border: 1px solid #444;
-  border-radius: 4px;
+  padding: 0.6em;
+  border: 1px solid #bbb;
+  border-radius: 6px;
   font-size: 1em;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.campo select:focus {
+  border-color: #0077cc;
+  outline: none;
 }
 
 .categoriaMixta {
-  width: 18%;
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
 }
 
+/* Botones */
 .botones-formulario {
   display: flex;
   justify-content: center;
-  gap: 1em;
-}
-
-.botones-formulario button {
-  margin-top: 5%;
-  padding: 0.7em 2em;
-  font-size: 1em;
-  border-radius: 5px;
-  border: 1px solid #444;
-  cursor: pointer;
-}
-
-.botones-formulario button[type="submit"] {
-  background-color: green;
-  color: white;
-}
-
-.botones-formulario button[type="reset"] {
-  background-color: white;
-  color: #333;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px); /* Más desenfoque */
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: #ffffff;
-  padding: 2.5em;
-  border-radius: 15px;
-  max-width: 500px; /* Más ancho */
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease-in-out;
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  font-size: 2em;
-  color: #0077cc;
-}
-
-.modal-content p {
-  font-size: 1.3em;
-  margin: 1.5em 0;
-}
-
-.modal .botones {
-  display: flex;
-  justify-content: center;
-  gap: 0.8em; /* Botones más cerca */
+  gap: 1.5em;
   margin-top: 1em;
 }
 
-.modal .botones button {
-  padding: 0.7em 2em;
-  font-size: 1.05em;
+.botones-formulario button {
+  background-color: #0077cc;
+  color: white;
   border: none;
+  padding: 0.8em 2em;
+  font-size: 1.1em;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
 }
 
-.modal .aceptar {
-  background-color: #28a745;
-  color: white;
+.botones-formulario button:hover {
+  background-color: #005fa3;
 }
 
-.modal .aceptar:hover {
-  background-color: #218838;
-}
-
-.modal .cancelar {
+.botones-formulario button[type="reset"] {
   background-color: #e0e0e0;
   color: #333;
 }
 
-.modal .cancelar:hover {
-  background-color: #d5d5d5;
+.botones-formulario button[type="reset"]:hover {
+  background-color: #cfcfcf;
 }

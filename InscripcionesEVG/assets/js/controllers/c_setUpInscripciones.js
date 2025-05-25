@@ -74,7 +74,6 @@ export async function setUpInscripciones() {
 				errorDialog.show("Debes seleccionar ambos campos");
 				return false;
 			}
-
 			const form = document.getElementById("formIns");
 
 			const h2 = document.createElement("h2");
@@ -101,6 +100,7 @@ export async function setUpInscripciones() {
 				} else {
 					await rellenarSelectsConAlumnos();
 				}
+				return true;
 			} catch (error) {
 				console.error(error);
 			}

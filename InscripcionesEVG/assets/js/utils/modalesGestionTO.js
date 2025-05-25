@@ -46,7 +46,7 @@ function abrirModal(tipo, idM, prueba, idF) {
 		} else {
 			// Mostrar el modal para añadir o editar
 			modal.style.display = "flex";
-			const aceptarBtn = document.querySelector(".aceptar");
+			const aceptarBtn = document.querySelector(".aceptarGP");
 
 			if (tipo === "editar") {
 				aceptarBtn.setAttribute("data-tipo", "editar");
@@ -118,7 +118,7 @@ window.onclick = function (e) {
 };
 
 // Asignar evento a todos los botones con clase "cancelar"
-document.querySelectorAll(".cancelar").forEach((btn) => {
+document.querySelectorAll(".cancelarGP").forEach((btn) => {
 	btn.addEventListener("click", function () {
 		console.log("Cerrar modal");
 		modalConfirmacion.style.display = "none";

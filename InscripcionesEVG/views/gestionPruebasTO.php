@@ -45,59 +45,72 @@ include $navBar;
     <div class="modal-content">
       <h3 id="modal-title">Añadir Prueba</h3>
       <form id="modal-form">
-        <label>Nombre:
-          <input type="text" id="nombrePrueba" placeholder="Nombre de la prueba" required />
-        </label>
+        <div id="struct">
+          <!-- Primer bloque: Nombre y Descripción -->
+          <div>
+            <div class="form-group">
+              <label for="nombrePrueba">Nombre:</label>
+              <input type="text" id="nombrePrueba" placeholder="Nombre de la prueba" required />
+            </div>
 
-        <label>Descripción:
-          <textarea rows="3" placeholder="Detalles..." id="bases"></textarea>
-        </label>
+            <div class="form-group">
+              <label for="bases">Descripción:</label>
+              <textarea rows="3" placeholder="Detalles..." id="bases"></textarea>
+            </div>
+          </div>
 
-        <div class="inputEspeciales">
-          <label>Participantes:
-            <select id="maxParticipantes">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-            </select>
-          </label>
+          <!-- Segundo bloque: Participantes, Fecha y Hora -->
+          <div class="inputEspeciales">
+            <div class="form-group">
+              <label for="maxParticipantes">Participantes:</label>
+              <select id="maxParticipantes">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+              </select>
+            </div>
 
-          <label>Fecha:
-            <input type="date" id="fechaPrueba" />
-          </label>
+            <div class="form-group">
+              <label for="fechaPrueba">Fecha:</label>
+              <input type="date" id="fechaPrueba" />
+            </div>
 
-          <label>Hora:
-            <input type="time" id="horaPrueba" />
-          </label>
+            <div class="form-group">
+              <label for="horaPrueba">Hora:</label>
+              <input type="time" id="horaPrueba" />
+            </div>
+          </div>
 
-        </div>
-
-        <div id="loader-modal" class="loader-modal" style="display: none;">
-          <div class="loader-content">
-            <div class="spinner"></div>
-            <span class="spinner-text">Enviando datos...</span>
+          <!-- Loader -->
+          <div id="loader-modal" class="loader-modal" style="display: none;">
+            <div class="loader-content">
+              <div class="spinner"></div>
+              <span class="spinner-text">Enviando datos...</span>
+            </div>
           </div>
         </div>
 
+        <!-- Errores -->
         <span id="error-mensajes" class="error"></span>
-        <div class="botones">
-          <button type="submit" class="aceptar" id="aceptar">Aceptar</button>
-          <button type="button" class="cancelar" id="btnCancelar">Cancelar</button>
-        </div>
 
+        <!-- Botones -->
+        <div class="botones">
+          <button type="submit" class="aceptarGP" id="aceptar">Aceptar</button>
+          <button type="button" class="cancelarGP" id="btnCancelar">Cancelar</button>
+        </div>
       </form>
     </div>
   </div>
@@ -107,8 +120,8 @@ include $navBar;
       <h3 id="modalConfirmacion-title">Eliminar Prueba</h3>
       <p id="modalConfirmacion-text">¿Estás seguro que quieres eliminarla?</p>
       <div class="botones">
-        <button type="submit" class="aceptar" id="btnConfirmar">Borrar</button>
-        <button class="cancelar" id="btnCancelar">Cancelar</button>
+        <button type="submit" class="aceptarGP" id="btnConfirmar">Borrar</button>
+        <button class="cancelarGP" id="btnCancelar">Cancelar</button>
       </div>
     </div>
   </div>

@@ -40,8 +40,9 @@ export class ModalConfirmacion {
 		const btnAceptar = document.createElement("button");
 		btnAceptar.textContent = "Aceptar";
 		btnAceptar.className = "aceptar";
-		btnAceptar.addEventListener("click", () => {
-			if (this.onAceptar() === false) return; // Evitar cerrar si onAceptar devuelve false
+		btnAceptar.addEventListener("click", async () => {
+			const resultado = await this.onAceptar();
+			if (resultado === false) return; // No cerrar modal si devuelve false
 			this.cerrar();
 		});
 

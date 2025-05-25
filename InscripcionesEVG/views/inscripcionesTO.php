@@ -76,8 +76,8 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
 
   <main>
 
+    <h1 id="inscripcionesTitulo">Panel de Inscripciones</h1>
     <section id="secInscripcion">
-      <h1>Panel de Inscripciones</h1>
 
       <form id="formIns" class="formulario-inscripciones">
         <div class="categoria-container">
