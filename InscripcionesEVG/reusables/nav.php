@@ -61,44 +61,43 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
 
       <li><a href="<?= $inicioHref ?>">Inicio</a></li>
 
-      <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Profesor' || $usuarioTipo === 'Tutor'): ?>
+      <!-- Consulta (Todos los usuarios) -->
+      <li class="has-submenu">
+        <a href="/InscripcionesEVG/views/menuConsulta.php">Consulta</a>
+        <ul class="submenu">
+          <li><a href="<?= $consultaPruebasHref ?>">Consulta Torneo Olímpico</a></li>
+          <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li>
+        </ul>
+      </li>
+
+      <!-- Inscripciones (Coordinador y Tutor) -->
+      <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Tutor'): ?>
         <li class="has-submenu">
-          <a href="<?= $actividadesHref ?>">Actividades</a>
+          <a href="/InscripcionesEVG/views/menuInscripciones.php">Inscripciones</a>
           <ul class="submenu">
-            <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li>
-
-            <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Tutor'): ?>
-              <li><a href="<?= $inscripcionActividadesHref ?>">Inscripción Actividades</a></li>
-              <li><a href="<?= $inscripcionClaseHref ?>">Inscripción Actividades de Clase</a></li>
-            <?php endif; ?>
-
-            <?php if ($usuarioTipo === 'Coordinador'): ?>
-              <li><a href="<?= $gestionActividadesHref ?>">Gestión de Actividades</a></li>
-              <li><a href="<?= $gestionClaseHref ?>">Gestión de Actividades de Clase</a></li>
-            <?php endif; ?>
+            <li><a href="<?= $inscripcionTorneoHref ?>">Inscripción a Torneo Olímpico</a></li>
+            <li><a href="<?= $inscripcionActividadesHref ?>">Inscripción a Actividades</a></li>
+            <li><a href="<?= $inscripcionClaseHref ?>">Inscripción a Actividades de Clase</a></li>
           </ul>
         </li>
       <?php endif; ?>
 
-      <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Profesor' || $usuarioTipo === 'Tutor'): ?>
+      <!-- Gestión (Solo Coordinador) -->
+      <?php if ($usuarioTipo === 'Coordinador'): ?>
         <li class="has-submenu">
-          <a href="<?= $torneoOlimpicoHref ?>">Torneo Olímpico</a>
+          <a href="/InscripcionesEVG/views/menuGestiones.php">Gestión</a>
           <ul class="submenu">
-            <li><a href="<?= $consultaPruebasHref ?>">Consulta de Pruebas</a></li>
-
-            <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Tutor'): ?>
-              <li><a href="<?= $inscripcionTorneoHref ?>">Inscripción Torneo</a></li>
-            <?php endif; ?>
-
-            <?php if ($usuarioTipo === 'Coordinador'): ?>
-              <li><a href="<?= $gestionPruebasHref ?>">Gestión de Pruebas</a></li>
-            <?php endif; ?>
+            <li><a href="<?= $gestionPruebasHref ?>">Gestión Torneo Olímpico</a></li>
+            <li><a href="<?= $gestionActividadesHref ?>">Gestión de Actividades</a></li>
+            <li><a href="<?= $gestionMomentosHref ?>">Gestión de Momentos</a></li>
           </ul>
         </li>
       <?php endif; ?>
-
     </ul>
 
-    <button id="cerrar-sesion"><i class="fas fa-user"></i> <?= htmlspecialchars($usuarioTipo) ?> - Cerrar sesión</button>
+    <button id="cerrar-sesion">
+      <i class="fas fa-user"></i>
+      <?= htmlspecialchars($usuarioTipo) ?> - Cerrar sesión
+    </button>
   </div>
 </nav>

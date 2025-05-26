@@ -27,17 +27,13 @@ include $navBar;
     <h1>Panel Gestión Aplicación</h1>
 
     <section class="grid">
-      <a href="/InscripcionesEVG/admin/torneo-olimpico.php" class="menu-option" aria-label="Gestión de Torneo Olímpico">
+      <a href="/InscripcionesEVG/views/gestionPruebasTO.php" class="menu-option" aria-label="Gestión de Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>
         Gestión de Torneo Olímpico
       </a>
       <a href="/InscripcionesEVG/admin/actividades.php" class="menu-option" aria-label="Gestión de Actividades">
         <i class="fa-solid fa-calendar-check"></i>
         Gestión de Actividades
-      </a>
-      <a href="/InscripcionesEVG/admin/actividades-clase.php" class="menu-option" aria-label="Gestión de Actividades de Clase">
-        <i class="fa-solid fa-chalkboard-user"></i>
-        Gestión de Actividades de Clase
       </a>
       <a href="/InscripcionesEVG/admin/momentos.php" class="menu-option" aria-label="Gestión de Momentos">
         <i class="fa-solid fa-clock"></i>

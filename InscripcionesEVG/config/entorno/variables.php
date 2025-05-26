@@ -16,7 +16,7 @@ $gestionPruebasHref = $vistas . "gestionPruebasTO.php";
 $inscripcionActividadesHref = "#sub1";
 $torneoOlimpicoHref = $vistas . "torneoOlimpico.php?tipo=Profesorado";
 $consultaPruebasHref = "#sub1";
-$inscripcionTorneoHref = $vistas . "inscripcionesTO.php?tipo=Tutor";
+$inscripcionTorneoHref = $vistas . "inscripcionesTO.php";
 
 
 // FOOTER
