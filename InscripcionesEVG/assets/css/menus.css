@@ -1,0 +1,74 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+main {
+  width: 70%;
+  margin: 2.5rem auto 5rem auto;
+  padding: 1.5 rem 1.5rem;
+}
+h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-size: 3rem; /* antes 2.5rem */
+}
+.subtitle {
+  text-align: center;
+  font-size: 2rem;
+  color: green; /* gris oscuro sobrio */
+  margin-bottom: 3rem;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  font-family:
+    Arial, Helvetica, sans-serif, serif; /* fuente clásica y elegante */
+  border-bottom: 2px solid #b0b0b0;
+  padding-bottom: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  transition: color 0.3s ease;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* un poco más ancho mínimo */
+  gap: 2.2rem; /* un poco más de separación */
+}
+.menu-option {
+  background: white;
+  border-radius: 10px;
+  padding: 2.5rem 2rem; /* más espacio dentro */
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.07);
+  text-decoration: none;
+  color: #34495e;
+  font-weight: 600;
+  font-size: 1.5rem; /* antes 1.25rem */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+.menu-option i {
+  font-size: 4.5rem; /* antes 3.5rem */
+  margin-bottom: 1.2rem;
+  color: #2980b9;
+  transition: color 0.3s ease;
+}
+.menu-option:hover {
+  transform: translateY(-10px); /* un poco más de subida */
+  box-shadow: 0 10px 30px rgb(41 128 185 / 0.4);
+  border-color: #2980b9;
+  color: #2980b9;
+}
+.menu-option:hover i {
+  color: #1c5980;
+}
