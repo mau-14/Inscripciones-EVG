@@ -32,6 +32,8 @@ class M_crudPruebasTO
 
       $categorias = ['M', 'F'];
       $tipo = 'P';
+      $datos['fecha'] = empty($datos['fecha']) ? null : $datos['fecha'];
+      $datos['hora'] = empty($datos['hora']) ? null : $datos['hora'];
 
       // Insertar en la tabla Torneo_Olimpico
       $sql = "INSERT INTO Torneo_Olimpico (nombre, bases, maxParticipantes, fecha, hora, categoria, tipo)
@@ -43,8 +45,8 @@ class M_crudPruebasTO
         $stmt->bindParam(':nombre', $datos['nombre']);
         $stmt->bindParam(':bases', $datos['bases']);
         $stmt->bindParam(':max_participantes', $datos['maxParticipantes']);
-        $stmt->bindParam(':fecha', $datos['fecha']);
-        $stmt->bindParam(':hora', $datos['hora']);
+        $stmt->bindValue(':fecha', $datos['fecha'], is_null($datos['fecha']) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue(':hora', $datos['hora'], is_null($datos['hora']) ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindParam(':categoria', $categoria);
         $stmt->bindParam(':tipo', $tipo);
         $stmt->execute();

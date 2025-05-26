@@ -30,8 +30,8 @@ async function renderizarPruebas() {
 
 			div.innerHTML = `
 		<h3>${pruebaM.nombre}</h3>
-		<p><strong>Fecha:</strong> ${formatearFecha(pruebaM.fecha)}</p>
-		<p><strong>Hora:</strong> ${pruebaM.hora.slice(0, 5)}</p>
+		<p><strong>Fecha:</strong> ${pruebaM.fecha ? formatearFecha(pruebaM.fecha) : "Sin fecha"}</p>
+    <p><strong>Hora:</strong> ${pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Sin hora"}</p>
 		<p><strong>Descripción:</strong> ${pruebaM.bases}</p>
 		<div class="acciones">
 			<button class="btn-editar">✏️</button>

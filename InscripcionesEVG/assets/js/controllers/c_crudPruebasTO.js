@@ -32,16 +32,14 @@ btnAceptar?.addEventListener("click", async function (event) {
 			const bases = document.getElementById("bases").value;
 			const maxParticipantes =
 				document.getElementById("maxParticipantes").value;
-			const fechaPrueba = document.getElementById("fechaPrueba").value;
-			const horaPrueba = document.getElementById("horaPrueba").value;
+			const fechaPrueba = document.getElementById("fechaPrueba").value ?? "";
+			const horaPrueba = document.getElementById("horaPrueba").value ?? "";
 
 			if (
 				!nombrePrueba ||
 				!bases ||
 				!maxParticipantes ||
-				maxParticipantes === "0" ||
-				!fechaPrueba ||
-				!horaPrueba
+				maxParticipantes === "0"
 			) {
 				errorDialog.show("Faltan campos por rellenar.");
 				return;
