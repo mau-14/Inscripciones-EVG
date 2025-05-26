@@ -56,15 +56,21 @@ async function renderizarPruebas() {
 			grid.appendChild(div);
 		});
 		// Botón "Añadir prueba"
-		const addPruebaDiv = document.createElement("div");
-		addPruebaDiv.classList.add("prueba");
-		addPruebaDiv.innerHTML = `
-			<h3>AÑADIR PRUEBA</h3>
-			<div class="acciones">
-				<button class="btn-mas" onclick="abrirModal('añadir')">➕</button>
-			</div>
-		`;
-		grid.appendChild(addPruebaDiv);
+		const addPruebaBtn = document.createElement("button");
+		addPruebaBtn.classList.add("prueba");
+		addPruebaBtn.id = "prueba-unica"; // Aquí el id
+		addPruebaBtn.type = "button";
+		addPruebaBtn.innerHTML = `
+    <h3>AÑADIR PRUEBA</h3>
+    <div class="acciones">
+      <span class="btn-mas">➕</span>
+    </div>
+    <div style="visibility:hidden; height: 100px;">&nbsp;</div>
+  `;
+		addPruebaBtn.onclick = () => abrirModal("añadir");
+		// Añades el evento onclick directamente al botón:
+		addPruebaBtn.onclick = () => abrirModal("añadir");
+		grid.appendChild(addPruebaBtn);
 	} catch (error) {
 		console.error("Error al renderizar las pruebas:", error);
 	}

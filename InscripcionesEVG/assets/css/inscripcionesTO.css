@@ -147,3 +147,8 @@
 .botones-formulario button[type="reset"]:hover {
   background-color: #cfcfcf;
 }
+
+.claseTexto {
+  color: green;
+  font-weight: bold;
+}

@@ -59,6 +59,16 @@ btnAceptar?.addEventListener("click", async function (event) {
 				hora: horaPrueba,
 			};
 
+			if (bases.length > 255) {
+				errorDialog.show(
+					"La descripción no puede tener más de 255 caracteres.",
+				);
+				return;
+			} else if (nombrePrueba.length > 50) {
+				errorDialog.show("El nombre no puede tener más de 50 caracteres.");
+				return;
+			}
+
 			console.log(prueba);
 			mostrarLoaderModal();
 

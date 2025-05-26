@@ -79,7 +79,7 @@ export async function setUpInscripciones() {
 			const h2 = document.createElement("h2");
 			h2.style.display = "block";
 
-			h2.textContent = claseTexto;
+			h2.innerHTML = `Clase seleccionada: <span class="claseTexto">${claseTexto}</span>`;
 			form.parentNode.insertBefore(h2, form);
 
 			try {
