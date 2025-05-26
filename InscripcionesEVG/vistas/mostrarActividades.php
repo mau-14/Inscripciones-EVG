@@ -114,14 +114,12 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarModal">&times;</span>
       <h2>Nueva Actividad</h2>
-      <form id="formActividad" action="./index.php?controlador=actividades&accion=cInsertarActividad" method="POST">
+      <form id="formActividad">
         <label for="nombre">Nombre de la Actividad:</label>
         <input type="text" id="nombre" name="nombre">
 
         <label for="maxParticipantes">Número máximo de Participantes:</label>
-        <input type="number" id="maxParticipantes" name="maxParticipantes" >
-
-        
+        <input type="number" id="maxParticipantes" name="maxParticipantes">
 
         <label for="tipo">Tipo de la Actividad:</label>
         <select id="tipo" name="tipo">
@@ -148,7 +146,7 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarEditar">&times;</span>
       <h2>Editar Actividad</h2>
-      <form id="formEditarActividad" action="./index.php?controlador=actividades&accion=cEditarActividad" method="POST">
+      <form id="formEditarActividad">
         <input type="hidden" name="idActividad" id="editarId">
         
         <label for="editarNombre">Nombre de la actividad:</label>
@@ -184,6 +182,13 @@
   </div>
 
   <a href="index.php?controlador=momentos&accion=cMostrarMomentosActividades"><button class="volver">Volver</button></a>
+  <script src="<?php echo JS_MODELO ?>actividadesModel.js"></script>
+  <script src="<?php echo JS_CONTROLADOR ?>actividadesController.js"></script>
   <script src="<?php echo JS ?>gestionActividades.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      new ActividadesController();
+    });
+  </script>
 </body>
 </html>

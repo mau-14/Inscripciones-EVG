@@ -5,8 +5,8 @@
     define('LOGO','assets/img/logo.png');
 
     define('JS','assets/js/');
-    define('JS_CONTROLADOR','assets/js/controllers/');
-    define('JS_MODELO','assets/js/models/');
+    define('JS_CONTROLADOR','assets/js/controladores/');
+    define('JS_MODELO','assets/js/modelos/');
     define('CONFIG','config/');
     define('MODELOS','modelos/');
     define('CONTROLADORES','controladores/');

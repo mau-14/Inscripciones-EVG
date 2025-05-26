@@ -31,26 +31,25 @@ Class Cactividades {
     }
 
     public function cInsertarActividad() {
+        ob_clean(); // Limpia cualquier salida anterior
+        header('Content-Type: application/json');
         $this->vista = 'mostrarActividades';
     
         // Validación de campos obligatorios
         if (empty($_POST['nombre']) || empty($_POST['maxParticipantes']) || empty($_POST['tipo'])) {
-            $msg = urlencode("Faltan campos obligatorios para crear la actividad.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=$msg");
+            echo json_encode(['success' => false, 'error' => 'Faltan campos obligatorios para crear la actividad.']);
             exit();
         }
     
         // Validación de tipo
         if ($_POST['tipo'] !== 'V' && $_POST['tipo'] !== 'C') {
-            $msg = urlencode("El tipo de actividad no es válido.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=$msg");
+            echo json_encode(['success' => false, 'error' => 'El tipo de actividad no es válido.']);
             exit();
         }
     
         // Validación de maxParticipantes
         if (!is_numeric($_POST['maxParticipantes']) || $_POST['maxParticipantes'] <= 0) {
-            $msg = urlencode("El número máximo de participantes debe ser un número positivo.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=$msg");
+            echo json_encode(['success' => false, 'error' => 'El número máximo de participantes debe ser un número positivo.']);
             exit();
         }
     
@@ -64,21 +63,20 @@ Class Cactividades {
     
         $resultado = $this->objactividades->mInsertarActividad($nombre, $maxParticipantes, $fecha, $hora, $_SESSION['idMomento'], $tipo, $bases);
         if ($resultado) {
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento");
-            exit();
+            echo json_encode(['success' => true]);
         } else {
-            $msg = urlencode("Error al insertar la actividad.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=$msg");
-            exit();
+            echo json_encode(['success' => false, 'error' => 'Error al insertar la actividad.']);
         }
+        exit();
     }
 
     public function cEliminarActividad() {
+        ob_clean(); // Limpia cualquier salida anterior
+        header('Content-Type: application/json');
         $this->vista = 'mostrarActividades';
         
         if (!isset($_GET['idActividad'])) {
-            $msg = urlencode("No se ha podido identificar la actividad a eliminar.");
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+            echo json_encode(['success' => false, 'error' => 'No se ha podido identificar la actividad a eliminar.']);
             exit();
         }
 
@@ -86,32 +84,30 @@ Class Cactividades {
         $resultado = $this->objactividades->mEliminarActividad($idActividad);
         
         if ($resultado) {
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento");
-            exit();
+            echo json_encode(['success' => true]);
         } else {
-            $msg = urlencode("Error al eliminar la actividad.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=" . $msg);
-            exit();
+            echo json_encode(['success' => false, 'error' => 'Error al eliminar la actividad.']);
         }
+        exit();
     }
 
     public function cEditarActividad() {
+        ob_clean(); // Limpia cualquier salida anterior
+        header('Content-Type: application/json');
         $this->vista = 'mostrarActividades';
+        
         if (!isset($_POST['idActividad'])) {
-            $msg = urlencode("Falta el identificador de la actividad.");
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+            echo json_encode(['success' => false, 'error' => 'Falta el identificador de la actividad.']);
             exit();
         }
 
         if (!isset($_POST['editarNombre'])) {
-            $msg = urlencode("Falta el nombre de la actividad.");
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+            echo json_encode(['success' => false, 'error' => 'Falta el nombre de la actividad.']);
             exit();
         }
 
         if (!isset($_POST['editarMaxParticipantes'])) {
-            $msg = urlencode("Falta el número máximo de participantes.");
-            header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+            echo json_encode(['success' => false, 'error' => 'Falta el número máximo de participantes.']);
             exit();
         }
 
@@ -120,14 +116,12 @@ Class Cactividades {
         $maxParticipantes = $_POST['editarMaxParticipantes'];
 
         if (empty($idActividad) || empty($nombre) || empty($maxParticipantes)) {
-            $msg = urlencode("Faltan campos obligatorios para editar la actividad.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=" . $msg);
+            echo json_encode(['success' => false, 'error' => 'Faltan campos obligatorios para editar la actividad.']);
             exit();
         }
 
         if (!is_numeric($maxParticipantes) || $maxParticipantes <= 0) {
-            $msg = urlencode("El número máximo de participantes debe ser un número positivo.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=" . $msg);
+            echo json_encode(['success' => false, 'error' => 'El número máximo de participantes debe ser un número positivo.']);
             exit();
         }
 
@@ -137,13 +131,11 @@ Class Cactividades {
         
         $resultado = $this->objactividades->mEditarActividad($idActividad, $nombre, $maxParticipantes, $fecha, $hora, $bases);
         if ($resultado) {
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento");
-            exit();
+            echo json_encode(['success' => true]);
         } else {
-            $msg = urlencode("Error al editar la actividad.");
-            header("Location: ./index.php?controlador=actividades&accion=cMostrarActividadesporIdMomento&errorMsg=" . $msg);
-            exit();
+            echo json_encode(['success' => false, 'error' => 'Error al editar la actividad.']);
         }
+        exit();
     }
 }
 ?>
