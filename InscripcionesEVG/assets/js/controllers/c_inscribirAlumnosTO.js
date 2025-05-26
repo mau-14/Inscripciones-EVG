@@ -8,11 +8,13 @@ const errorDialog = new ErrorDialog();
 
 boton.addEventListener("click", (e) => {
 	e.preventDefault();
+
+	const resultado = obtenerInscripcion();
+	if (!resultado) return;
 	new ModalConfirmacion({
 		titulo: "Confirme operación",
 		mensaje: "¿Estás seguro de inscribir a los alumnos?",
 		onAceptar: async () => {
-			let resultado = obtenerInscripcion();
 			const obj = new M_inscribirAlumnosTO();
 			const data = await obj.inscribirAlumnos(resultado);
 			console.log("datos ", data);
@@ -21,6 +23,7 @@ boton.addEventListener("click", (e) => {
 				errorDialog.show(data.success, true);
 			} else {
 				errorDialog.show("Esta mal " + data.error);
+				return;
 			}
 		},
 		onCancelar: () => {
@@ -75,7 +78,7 @@ function obtenerInscripcion() {
 
 	if (hayErrorEnTipoC) {
 		errorDialog.show("4*100 son mínimo 4 participantes");
-		return;
+		return null;
 	}
 
 	resultado = JSON.stringify(resultado, null, 2);

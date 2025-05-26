@@ -12,7 +12,6 @@ class M_inscribirAlumnosTO {
 				},
 			);
 			const data = await response.json();
-			console.log("datos modelo" + data);
 			return data;
 		} catch (error) {
 			console.error(error);
