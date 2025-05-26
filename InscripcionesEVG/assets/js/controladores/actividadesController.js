@@ -119,14 +119,14 @@ class ActividadesController {
 
             const resultado = await this.model.insertarActividad(formData);
             if (resultado.success) {
-                document.getElementById('modal').style.display = 'none';
+               
                 window.location.reload();
             } else {
-                document.getElementById('modal').style.display = 'none';
+                
                 this.mostrarError(resultado.error || 'Error al insertar la actividad');
             }
         } catch (error) {
-            document.getElementById('modal').style.display = 'none';
+           
             this.mostrarError(error.message);
         }
     }
