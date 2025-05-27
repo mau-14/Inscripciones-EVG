@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestión Momentos</title>
   <link rel="stylesheet" href="<?php echo CSS ?>estilo.css">
-  <link rel="stylesheet" href="<?php echo CSS ?>nav.css">
+  <base href="/InscripcionesEVG/assets/">
+  <link href="css/navbar.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -74,7 +75,7 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarModal">&times;</span>
       <h2>Nuevo Momento</h2>
-      <form id="formMomento" action="./index.php?controlador=momentos&accion=cInsertarMomento" method="POST">
+      <form id="formMomento" action="/InscripcionesEVG/index.php?controlador=momentos&accion=cInsertarMomento" method="POST">
         <label for="nombre">Nombre del momento:</label>
         <input type="text" id="nombre" name="nombre">
 

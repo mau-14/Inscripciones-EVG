@@ -4,7 +4,7 @@ define('CSS', 'assets/css/');
 define('IMG', 'assets/img/');
 //define('LOGO', 'assets/img/logo.png');
 
-define('JS', 'assets/js/');
+define('JS', 'js/');
 define('JS_CONTROLADOR', 'assets/js/controllers/');
 define('JS_MODELO', 'assets/js/models/');
 define('CONFIG', 'config/');
