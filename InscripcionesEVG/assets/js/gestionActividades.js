@@ -46,15 +46,6 @@ const btnConfirmarEliminar = document.getElementById("btnConfirmarEliminar");
 // Mostrar el modal de confirmación al hacer clic en el botón de eliminar
 document.querySelectorAll(".eliminar").forEach((boton) => {
   boton.addEventListener("click", () => {
-    const idActividad = boton.getAttribute('data-id');
-    const modalConfirmar = document.getElementById("modalConfirmar");
-    const confirmarBtn = document.getElementById("btnConfirmarEliminar");
-
-    // Configurar el botón de confirmación
-    confirmarBtn.onclick = function() {
-      window.location.href = `./index.php?controlador=actividades&accion=cEliminarActividad&idActividad=${idActividad}`;
-    };
-
     // Muestra el modal
     modalConfirmar.style.display = "block";
   });

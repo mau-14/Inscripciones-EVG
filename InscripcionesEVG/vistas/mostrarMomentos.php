@@ -72,7 +72,7 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarModal">&times;</span>
       <h2>Nuevo Momento</h2>
-      <form id="formMomento"action="./index.php?controlador=momentos&accion=cInsertarMomento" method="POST">
+      <form id="formMomento">
         <label for="nombre">Nombre del momento:</label>
         <input type="text" id="nombre" name="nombre">
 
@@ -82,7 +82,7 @@
         <label for="fechaFin">Fecha de fin:</label>
         <input type="date" id="fechaFin" name="fechaFin"/>
 
-        <input type="submit" value="Enviar">
+        <button type="submit">Guardar</button>
       </form>
     </div>
   </div>
@@ -92,8 +92,8 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarEditar">&times;</span>
       <h2>Editar Momento</h2>
-      <form id="formEditarMomento" action="./index.php?controlador=momentos&accion=cEditarMomento" method="POST">
-        <input type="hidden" id="editarId" name="idMomento"> <!-- ID oculto -->
+      <form id="formEditarMomento">
+        <input type="hidden" id="editarId" name="idMomento">
         
         <label for="editarNombre">Nombre del momento:</label>
         <input type="text" id="editarNombre" name="nombre">
@@ -115,7 +115,6 @@
   <div class="modal-contenido">
     <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
     <h2>¿Estás seguro?</h2>
-    <h3> (Se eliminarán todas las actividades asociadas a este momento)</h3>
     <div class="botones-confirmacion">
       <a id="btnConfirmarEliminar" class="btn-confirmar">Sí</a>
       <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
@@ -124,6 +123,13 @@
 </div>
 
 
+  <script src="<?php echo JS ?>modelos/momentosModel.js"></script>
+  <script src="<?php echo JS ?>controladores/momentosController.js"></script>
   <script src="<?php echo JS ?>gestionMomentos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      new MomentosController();
+    });
+  </script>
 </body>
 </html>
