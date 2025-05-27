@@ -95,7 +95,7 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarEditar">&times;</span>
       <h2>Editar Momento</h2>
-      <form id="formEditarMomento" action="./index.php?controlador=momentos&accion=cEditarMomento" method="POST">
+      <form id="formEditarMomento" action="/InscripcionesEVG/index.php?controlador=momentos&accion=cEditarMomento" method="POST">
         <input type="hidden" id="editarId" name="idMomento"> <!-- ID oculto -->
 
         <label for="editarNombre">Nombre del momento:</label>
