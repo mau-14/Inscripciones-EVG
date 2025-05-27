@@ -64,21 +64,21 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
       <!-- Consulta (Todos los usuarios) -->
       <li class="has-submenu">
         <a href="/InscripcionesEVG/views/menuConsulta.php">Consulta</a>
-        <ul class="submenu">
-          <li><a href="<?= $consultaPruebasHref ?>">Consulta Torneo Olímpico</a></li>
-          <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li>
-        </ul>
+        <!-- <ul class="submenu"> -->
+        <!--   <li><a href="<?= $consultaPruebasHref ?>">Consulta Torneo Olímpico</a></li> -->
+        <!--   <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li> -->
+        <!-- </ul> -->
       </li>
 
       <!-- Inscripciones (Coordinador y Tutor) -->
       <?php if ($usuarioTipo === 'Coordinador' || $usuarioTipo === 'Tutor'): ?>
         <li class="has-submenu">
           <a href="/InscripcionesEVG/views/menuInscripciones.php">Inscripciones</a>
-          <ul class="submenu">
-            <li><a href="<?= $inscripcionTorneoHref ?>">Inscripción a Torneo Olímpico</a></li>
-            <li><a href="<?= $inscripcionActividadesHref ?>">Inscripción a Actividades</a></li>
-            <li><a href="<?= $inscripcionClaseHref ?>">Inscripción a Actividades de Clase</a></li>
-          </ul>
+          <!-- <ul class="submenu"> -->
+          <!--   <li><a href="<?= $inscripcionTorneoHref ?>">Inscripción a Torneo Olímpico</a></li> -->
+          <!--   <li><a href="<?= $inscripcionActividadesHref ?>">Inscripción a Actividades</a></li> -->
+          <!--   <li><a href="<?= $inscripcionClaseHref ?>">Inscripción a Actividades de Clase</a></li> -->
+          <!-- </ul> -->
         </li>
       <?php endif; ?>
 
@@ -86,11 +86,11 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
       <?php if ($usuarioTipo === 'Coordinador'): ?>
         <li class="has-submenu">
           <a href="/InscripcionesEVG/views/menuGestiones.php">Gestión</a>
-          <ul class="submenu">
-            <li><a href="<?= $gestionPruebasHref ?>">Gestión Torneo Olímpico</a></li>
-            <li><a href="<?= $gestionActividadesHref ?>">Gestión de Actividades</a></li>
-            <li><a href="<?= $gestionMomentosHref ?>">Gestión de Momentos</a></li>
-          </ul>
+          <!-- <ul class="submenu"> -->
+          <!--   <li><a href="<?= $gestionPruebasHref ?>">Gestión Torneo Olímpico</a></li> -->
+          <!--   <li><a href="<?= $gestionActividadesHref ?>">Gestión de Actividades</a></li> -->
+          <!--   <li><a href="<?= $gestionMomentosHref ?>">Gestión de Momentos</a></li> -->
+          <!-- </ul> -->
         </li>
       <?php endif; ?>
     </ul>
