@@ -31,7 +31,7 @@ include $navBar;
         <i class="fa-solid fa-trophy"></i>
         Gestión de Torneo Olímpico
       </a>
-      <a href="/InscripcionesEVG/index.php?controlador=momentos&accion=cMostrarMomentos" class="menu-option" aria-label="Gestión de Actividades">
+      <a href="/InscripcionesEVG/index.php?controlador=momentos&accion=cMostrarMomentosActividades" class="menu-option" aria-label="Gestión de Actividades">
         <i class="fa-solid fa-calendar-check"></i>
         Gestión de Actividades
       </a>
