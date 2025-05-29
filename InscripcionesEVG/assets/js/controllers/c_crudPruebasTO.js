@@ -1,6 +1,7 @@
 import M_crudPruebasTO from "/InscripcionesEVG/assets/js/models/m_crudPruebasTO.js";
 import { renderizarPruebas } from "/InscripcionesEVG/assets/js/controllers/c_obtenerPruebas.js";
 import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
+import { Loader } from "/InscripcionesEVG/assets/js/utils/loader.js";
 
 /** @type {ErrorDialog} */
 const errorDialog = new ErrorDialog();
@@ -70,7 +71,7 @@ btnAceptar?.addEventListener("click", async function (event) {
 			}
 
 			console.log(prueba);
-			mostrarLoaderModal();
+			const loader = new Loader("Cargando...");
 
 			try {
 				if (tipoAccion === "añadir") {
@@ -89,7 +90,7 @@ btnAceptar?.addEventListener("click", async function (event) {
 			} catch (error) {
 				console.error("Error al insertar/editar las inscripciones", error);
 			} finally {
-				ocultarLoaderModal();
+				loader.ocultar();
 				cerrarModal();
 			}
 			break;
