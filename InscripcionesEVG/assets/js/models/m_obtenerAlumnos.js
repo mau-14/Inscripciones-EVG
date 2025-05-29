@@ -12,7 +12,7 @@ class M_obtenerAlumnos {
 				},
 			);
 			const data = await response.json();
-			console.log(data);
+			console.log("ALUMNOS" + data);
 			return data;
 		} catch (error) {
 			console.error(error);

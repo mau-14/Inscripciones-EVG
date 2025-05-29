@@ -1,6 +1,7 @@
 import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 import M_inscribirAlumnosTO from "/InscripcionesEVG/assets/js/models/m_inscribirAlumnosTO.js";
 import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
+import { Loader } from "/InscripcionesEVG/assets/js/utils/loader.js";
 
 const boton = document.getElementById("inscripcionAlumnos");
 
@@ -15,13 +16,15 @@ boton.addEventListener("click", (e) => {
 		titulo: "Confirme operación",
 		mensaje: "¿Estás seguro de inscribir a los alumnos?",
 		onAceptar: async () => {
+			const loader = new Loader("Cargando...");
 			const obj = new M_inscribirAlumnosTO();
 			const data = await obj.inscribirAlumnos(resultado);
-			console.log("datos ", data);
 
 			if (data.success) {
+				loader.ocultar();
 				errorDialog.show(data.success, true);
 			} else {
+				loader.ocultar();
 				errorDialog.show("Esta mal " + data.error);
 				return;
 			}

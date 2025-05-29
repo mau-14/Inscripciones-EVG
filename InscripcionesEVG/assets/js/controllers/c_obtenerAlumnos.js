@@ -1,9 +1,9 @@
 import M_obtenerAlumnos from "/InscripcionesEVG/assets/js/models/m_obtenerAlumnos.js";
 
-async function rellenarSelectsConAlumnos() {
+async function rellenarSelectsConAlumnos(idClase) {
 	try {
 		const modelo = new M_obtenerAlumnos();
-		const alumnos = await modelo.obtenerAlumnos();
+		const alumnos = await modelo.obtenerAlumnos(idClase);
 
 		const contenedorMasculino = document.getElementById(
 			"camposPruebasMasculina",

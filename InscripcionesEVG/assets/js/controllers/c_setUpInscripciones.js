@@ -1,4 +1,5 @@
 import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
+import { Loader } from "/InscripcionesEVG/assets/js/utils/loader.js";
 import M_obtenerEtapasYClases from "/InscripcionesEVG/assets/js/models/m_obtenerEtapasYClases.js";
 import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
 import {
@@ -64,6 +65,8 @@ export async function setUpInscripciones() {
 			});
 		},
 		onAceptar: async () => {
+			const loader = new Loader("Cargando...");
+
 			const etapa = document.getElementById("select-etapa").value;
 			const clase = document.getElementById("select-clase").value;
 			const selectClase = document.getElementById("select-clase");
@@ -81,6 +84,7 @@ export async function setUpInscripciones() {
 
 			h2.innerHTML = `Clase seleccionada: <span class="claseTexto">${claseTexto}</span>`;
 			form.parentNode.insertBefore(h2, form);
+			console.log("ID CLASE" + clase);
 
 			try {
 				const response = await fetch(
@@ -98,11 +102,13 @@ export async function setUpInscripciones() {
 				if (data.success) {
 					await rellenarSelectsConSeleccionados(clase);
 				} else {
-					await rellenarSelectsConAlumnos();
+					await rellenarSelectsConAlumnos(clase);
 				}
 				return true;
 			} catch (error) {
 				console.error(error);
+			} finally {
+				loader.ocultar();
 			}
 
 			// sessionStorage.setItem("etapaSeleccionada", etapa);

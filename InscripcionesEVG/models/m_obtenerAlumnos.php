@@ -30,7 +30,7 @@ class M_obtenerAlumnos
   public function obtenerAlumnos()
   {
     try {
-
+      error_log($this->idClase['idClase']);
 
       $query = "SELECT idAlumno, nombre, sexo 
                 FROM Alumnos
