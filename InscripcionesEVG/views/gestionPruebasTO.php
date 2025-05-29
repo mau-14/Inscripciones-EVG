@@ -125,6 +125,8 @@ include $navBar;
       </div>
     </div>
   </div>
+
+  <a href="/InscripcionesEVG/views/menuGestiones.php" class="boton-volver">Volver</a>
   <script src="js/utils/modalesGestionTO.js" defer></script>
   <script type="module" src="js/controllers/c_crudPruebasTO.js" defer></script>
 </body>
