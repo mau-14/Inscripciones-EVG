@@ -108,6 +108,9 @@ class M_crudPruebasTO
       $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
 
       $tipo = 'P';
+      $datos['fecha'] = empty($datos['fecha']) ? null : $datos['fecha'];
+      $datos['hora'] = empty($datos['hora']) ? null : $datos['hora'];
+
 
       $sql_update = "UPDATE Torneo_Olimpico
                     SET nombre = :nombre,
