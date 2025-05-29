@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="<?php echo CSS ?>estilo.css">
   <base href="/InscripcionesEVG/assets/">
   <link href="css/navbar.css" rel="stylesheet" />
+  <link href="css/general.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -184,7 +185,7 @@
     </div>
   </div>
 
-  <a href="/InscripcionesEVG/index.php?controlador=momentos&accion=cMostrarMomentosActividades"><button class="volver">Volver</button></a>
+  <a href="/InscripcionesEVG/index.php?controlador=momentos&accion=cMostrarMomentosActividades" class="boton-volver">Volver</a>
   <script src="<?php echo JS_MODELO ?>actividadesModel.js"></script>
   <script src="<?php echo JS_CONTROLADOR ?>actividadesController.js"></script>
   <script src="<?php echo JS ?>gestionActividades.js"></script>

@@ -10,16 +10,6 @@
   text-align: center;
 }
 
-#inscripcionesTitulo {
-  font-size: 3em;
-  color: #3498db;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1.5rem;
-}
-
 .formulario-inscripciones {
   background-color: white;
   margin: 0 auto;

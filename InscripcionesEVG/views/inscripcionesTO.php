@@ -106,6 +106,7 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
       </form>
     </section>
   </main>
+  <a href="/InscripcionesEVG/views/menuInscripciones.php" class="boton-volver">Volver</a>
 </body>
 
 </html>

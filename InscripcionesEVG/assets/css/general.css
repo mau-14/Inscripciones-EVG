@@ -5,9 +5,16 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   position: relative;
-  background-color: #e8f0fe;
+  background-color: #f4f8ff;
   padding: 0;
   text-align: center;
+}
+h1 {
+  font-size: 3em;
+  color: #336699;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
 }
 .boton-volver {
   display: inline-block;
@@ -26,7 +33,7 @@ body {
 
 main {
   padding: 2em;
-  background-color: #e8f0fe;
+  background-color: #f4f8ff;
   display: flex;
   flex-direction: column;
   gap: 2em;

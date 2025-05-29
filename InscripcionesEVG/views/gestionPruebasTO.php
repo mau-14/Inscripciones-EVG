@@ -15,7 +15,6 @@ include $navBar;
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/general.css" rel="stylesheet" />
   <link href="css/gestionPruebasTO.css" rel="stylesheet" />
-  <link href="css/footer.css" rel="stylesheet" />
 
   <link
     rel="stylesheet"

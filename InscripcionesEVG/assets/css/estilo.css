@@ -7,12 +7,9 @@
 
 /* Estilos globales */
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(
-    to right,
-    #f8f9fa,
-    #e9ecef
-  ); /* Mantiene fondo original */
+  font-family: Arial, sans-serif;
+
+  background-color: #f4f8ff;
   color: #333;
   text-align: center;
 }
