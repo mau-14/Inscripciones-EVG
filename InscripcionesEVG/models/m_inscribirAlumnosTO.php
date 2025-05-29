@@ -30,6 +30,30 @@ class M_inscribirAlumnosTO
     try {
       $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
 
+      $alumnosP = [];
+
+      // PRIMERA PASADA: recolectamos todos los alumnos que van a participar en pruebas tipo 'P'
+      foreach (['M', 'F'] as $categoria) {
+        if (!isset($datosJSON[$categoria])) continue;
+
+        if (isset($datosJSON[$categoria]['P'])) {
+          foreach ($datosJSON[$categoria]['P'] as $idPrueba => $alumnos) {
+            foreach ($alumnos as $idAlumno) {
+              $alumnosP[] = $idAlumno;
+            }
+          }
+        }
+      }
+
+      // ELIMINAMOS inscripciones anteriores de estos alumnos en pruebas individuales
+      if (!empty($alumnosP)) {
+        $placeholders = implode(',', array_fill(0, count($alumnosP), '?'));
+        $sqlDeletePrevias = "DELETE FROM Pruebas_olimpicas_alumnos WHERE idAlumno IN ($placeholders)";
+        $stmt = $this->conexion->prepare($sqlDeletePrevias);
+        $stmt->execute($alumnosP);
+      }
+
+      // SEGUNDA PASADA: procesamos todos los datos por categoría y tipo
       foreach (['M', 'F'] as $categoria) {
         if (!isset($datosJSON[$categoria])) continue;
 
@@ -37,15 +61,9 @@ class M_inscribirAlumnosTO
           if (!isset($datosJSON[$categoria][$tipo])) continue;
 
           foreach ($datosJSON[$categoria][$tipo] as $idPrueba => $alumnos) {
-            // Primero, eliminamos registros anteriores
-            if ($tipo === 'P') {
-              // Borrar inscripciones anteriores en pruebas individuales
-              $sqlDelete = "DELETE FROM Pruebas_olimpicas_alumnos WHERE idPrueba = :idPrueba";
-              $stmt = $this->conexion->prepare($sqlDelete);
-              $stmt->bindParam(':idPrueba', $idPrueba, PDO::PARAM_INT);
-              $stmt->execute();
 
-              // Insertar nuevas inscripciones
+            if ($tipo === 'P') {
+              // INSERTAMOS nuevas inscripciones para pruebas individuales
               $sqlInsert = "INSERT INTO Pruebas_olimpicas_alumnos (idAlumno, idPrueba) VALUES (:idAlumno, :idPrueba)";
               $stmt = $this->conexion->prepare($sqlInsert);
               foreach ($alumnos as $idAlumno) {
@@ -54,22 +72,21 @@ class M_inscribirAlumnosTO
                 $stmt->execute();
               }
             } elseif ($tipo === 'C') {
-              // Borrar inscripciones anteriores en pruebas de 4x100
+              // ELIMINAMOS inscripciones previas en pruebas de relevos (4x100)
               $sqlDelete = "DELETE FROM 4x100_Alumnos WHERE idPrueba = :idPrueba";
               $stmt = $this->conexion->prepare($sqlDelete);
               $stmt->bindParam(':idPrueba', $idPrueba, PDO::PARAM_INT);
               $stmt->execute();
 
-              // Insertar nuevas inscripciones
-              // Se insertan en grupos de 4
-              $sqlInsert = "INSERT INTO 4x100_Alumnos (idAlumno1, idAlumno2, idAlumno3, idAlumno4, idPrueba)
-                                      VALUES (:id1, :id2, :id3, :id4, :idPrueba)";
-              $stmt = $this->conexion->prepare($sqlInsert);
-
-              // Validación: deben ser múltiplos de 4
+              // VALIDAMOS que el número de alumnos sea múltiplo de 4
               if (count($alumnos) % 4 !== 0) {
                 throw new Exception("Número inválido de alumnos en la prueba 4x100 ID $idPrueba. Debe ser múltiplo de 4.");
               }
+
+              // INSERTAMOS en grupos de 4
+              $sqlInsert = "INSERT INTO 4x100_Alumnos (idAlumno1, idAlumno2, idAlumno3, idAlumno4, idPrueba)
+                          VALUES (:id1, :id2, :id3, :id4, :idPrueba)";
+              $stmt = $this->conexion->prepare($sqlInsert);
 
               for ($i = 0; $i < count($alumnos); $i += 4) {
                 $stmt->bindParam(':id1', $alumnos[$i], PDO::PARAM_INT);
@@ -84,14 +101,14 @@ class M_inscribirAlumnosTO
         }
       }
 
-      $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
+      $this->conexion->commit(); // TODO CORRECTO
       return json_encode(["success" => "Inscripciones actualizadas correctamente."]);
     } catch (PDOException $e) {
-      $this->conexion->rollBack(); // DESHACER SI HAY ERROR SQL
+      $this->conexion->rollBack();
       error_log("Error SQL al actualizar inscripciones: " . $e->getMessage());
       return json_encode(["error" => "Error SQL al actualizar inscripciones."]);
     } catch (Exception $e) {
-      $this->conexion->rollBack(); // DESHACER SI FALLA POR LÓGICA (ej. grupos no múltiplos de 4)
+      $this->conexion->rollBack();
       error_log("Error lógico al actualizar inscripciones: " . $e->getMessage());
       return json_encode(["error" => $e->getMessage()]);
     }

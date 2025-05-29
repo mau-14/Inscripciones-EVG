@@ -49,7 +49,7 @@ if ($mes >= 6 && $mes <= 8) {
 <body>
   <main>
     <h1>Inscripciones de <?php echo $estacion; ?></h1>
-    <p class="subtitle">Periodo activo: <?php echo $fecha_inicio . " a " . $fecha_fin; ?></p>
+    <p class="subtitle-strong">Periodo activo: <?php echo $fecha_inicio . " a " . $fecha_fin; ?></p>
 
     <section class="grid">
       <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
