@@ -34,6 +34,9 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
 <script type="module" src="js/controllers/c_setUpInscripciones.js"></script>
 <script type="module">
   import {
+    Loader
+  } from "/InscripcionesEVG/assets/js/utils/loader.js";
+  import {
     crearCamposPorPrueba
   } from "./js/controllers/c_obtenerPruebas.js";
   import {
@@ -54,14 +57,20 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
       if (esCoordinador) {
         await setUpInscripciones();
       } else if (esTutor) {
+
+        const loader = new Loader('Cargando..');
         const form = document.getElementById("formIns");
 
         const h2 = document.createElement("h2");
         h2.style.display = "block";
 
-        h2.textContent = '1DAW';
+        h2.innerHTML = `Clase seleccionada: <span class="claseTexto">1DAW</span>`;
         form.parentNode.insertBefore(h2, form);
         await rellenarSelectsConSeleccionados(1);
+
+        document.getElementById("ContenidoPrincipal").style.display = "block";
+        loader.ocultar();
+
       }
     } catch (error) {
       console.error("Error al cargar los campos o alumnos:", error);
@@ -73,7 +82,7 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
 
 <body>
 
-  <main>
+  <main id="ContenidoPrincipal" style="display: none;">
 
     <h1 id="inscripcionesTitulo">Panel de Inscripciones</h1>
     <section id="secInscripcion">
@@ -104,8 +113,9 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
         </div>
       </form>
     </section>
+
+    <a href="/InscripcionesEVG/views/menuInscripciones.php" class="boton-volver">Volver</a>
   </main>
-  <a href="/InscripcionesEVG/views/menuInscripciones.php" class="boton-volver">Volver</a>
 </body>
 
 </html>

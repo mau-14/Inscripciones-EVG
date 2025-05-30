@@ -106,6 +106,7 @@ export async function setUpInscripciones() {
 				} else {
 					await rellenarSelectsConAlumnos(clase);
 				}
+				document.getElementById("ContenidoPrincipal").style.display = "block";
 				return true;
 			} catch (error) {
 				console.error(error);

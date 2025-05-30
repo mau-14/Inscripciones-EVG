@@ -71,5 +71,7 @@ export class ModalConfirmacion {
 
 	cerrar() {
 		this.modal.remove();
+		const contenido = document.getElementById("contenidoPrincipal");
+		if (contenido) contenido.style.display = "block";
 	}
 }
