@@ -75,6 +75,8 @@ export async function setUpInscripciones() {
 
 			if (!etapa || !clase) {
 				errorDialog.show("Debes seleccionar ambos campos");
+
+				loader.ocultar();
 				return false;
 			}
 			const form = document.getElementById("formIns");
