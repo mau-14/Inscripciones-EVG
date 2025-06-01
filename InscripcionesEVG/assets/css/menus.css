@@ -6,7 +6,6 @@ main {
 h1 {
   text-align: center;
   font-weight: 700;
-  margin-bottom: 0.5rem;
   color: #336699;
   font-size: 3rem; /* antes 2.5rem */
 }
@@ -21,7 +20,6 @@ h1 {
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
-  text-transform: uppercase; /* opcional, da presencia */
   transition: color 0.3s ease;
 }
 .subtitle {
@@ -85,7 +83,7 @@ h1 {
   background: #ffffff;
   border-left: 6px solid #2980b9; /* acento visual */
   border-radius: 12px;
-  padding: 2.5rem 2rem;
+  padding: 2rem 2rem;
   margin-bottom: 3rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -109,11 +107,11 @@ h1 {
   font-weight: 700;
   letter-spacing: 0.5px;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .bienvenida-card p {
   margin-bottom: 1.5rem;
+  color: black;
   text-align: justify;
 }
 

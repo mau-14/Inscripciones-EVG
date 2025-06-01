@@ -59,11 +59,9 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
         <img src="/InscripcionesEVG/assets/img/logotipo.png" alt="Logo" />
       </div>
 
-      <li><a href="<?= $inicioHref ?>">Inicio</a></li>
-
       <!-- Consulta (Todos los usuarios) -->
       <li class="has-submenu">
-        <a href="/InscripcionesEVG/views/menuListados.php">Listados</a>
+        <a href="/InscripcionesEVG/index.php">Listados</a>
         <!-- <ul class="submenu"> -->
         <!--   <li><a href="<?= $consultaPruebasHref ?>">Consulta Torneo Olímpico</a></li> -->
         <!--   <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li> -->

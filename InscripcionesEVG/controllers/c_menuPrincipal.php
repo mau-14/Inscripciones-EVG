@@ -5,6 +5,6 @@ class C_menuPrincipal
 
   public function cMenuPrincipal()
   {
-    $this->vista = 'vistaPrincipal';
+    $this->vista = 'menuListados';
   }
 }

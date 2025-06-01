@@ -14,4 +14,4 @@ define('CONTROLADORES', 'controllers/');
 
 /*-- Parámetros por defecto--*/
 define('DEFAULT_CONTROLADOR', 'menuPrincipal'); //Controlador por defecto, el que llama al Menu principal
-define('DEFAULT_ACCION', 'cMenuPrincipal'); //Metodo por defecto, el que despliega el listado de paises
+define('DEFAULT_ACCION', 'cMenuPrincipal');

@@ -1,6 +1,5 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
-include $navBar;
 ?>
 
 <!doctype html>
@@ -22,21 +21,20 @@ include $navBar;
 
 <body>
   <main>
-    <div class="bienvenida-card">
-      <h3 class="subtitle-strong">Bienvenido, <?= $usuarioTipo ?></h3>
 
-      <p>
-        Le damos la bienvenida a la plataforma de gestión de actividades escolares, un espacio diseñado específicamente para facilitar el seguimiento y la organización de la participación del alumnado en las distintas propuestas del centro.
-      </p>
+    <h1>Consulta de Listados</h1>
+    <!-- <div class="bienvenida-card"> -->
+    <!--   <h3 class="subtitle-strong">Bienvenido, <?= $usuarioTipo ?></h3> -->
 
-      <p>
-        Desde esta herramienta podrá acceder de forma clara y estructurada a los <strong>listados de participación en el Torneo Olímpico</strong> y en las <strong>actividades generales</strong>. Esta información le permitirá conocer el estado de las inscripciones, las categorías asignadas y la implicación de cada estudiante.
-      </p>
+    <!--   <p> -->
+    <!--     Le damos la bienvenida a la plataforma de gestión de inscripciones, -->
+    <!--     un espacio diseñado específicamente para facilitar el seguimiento y la organización de la participación del alumnado en las distintas propuestas del centro. -->
+    <!--   </p> -->
 
-      <p>
-        Nuestro objetivo es brindarle un recurso eficaz que contribuya a mejorar la planificación docente, promover la participación activa del alumnado y fortalecer los valores de comunidad, esfuerzo y compromiso que guían nuestro proyecto educativo.
-      </p>
-    </div>
+    <!--   <p> -->
+    <!--     Nuestro objetivo es brindarle un recurso eficaz que contribuya a mejorar la planificación docente, promover la participación activa del alumnado y fortalecer los valores de comunidad, esfuerzo y compromiso que guían nuestro proyecto educativo. -->
+    <!--   </p> -->
+    <!-- </div> -->
     <h2>Seleccione una categoría</h2>
     <section class="grid">
       <a href="/InscripcionesEVG/views/listadoTO.php" class="menu-option" aria-label="Listado Torneo Olímpico">
