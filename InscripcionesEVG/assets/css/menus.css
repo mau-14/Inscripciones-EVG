@@ -13,12 +13,10 @@ h1 {
 .subtitle-strong {
   text-align: center;
   font-size: 2.2rem;
-  color: red; /* gris mucho más oscuro */
-  margin-bottom: 2.5rem;
+  color: black;
   font-weight: 700; /* más grueso */
   letter-spacing: 0.03em;
   font-family: Arial, Helvetica, sans-serif;
-  border-bottom: 2px solid #666;
   padding-bottom: 0.5rem;
   max-width: 80%;
   margin-left: auto;
@@ -30,7 +28,6 @@ h1 {
   text-align: center;
   font-size: 1.8rem;
   color: #4a4a4a; /* gris oscuro sobrio */
-  margin-bottom: 2.5rem;
   font-style: italic;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -82,4 +79,44 @@ h1 {
 }
 .menu-option:hover i {
   color: #1c5980;
+}
+
+.bienvenida-card {
+  background: #ffffff;
+  border-left: 6px solid #2980b9; /* acento visual */
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #336699;
+  line-height: 1.7;
+  font-size: 1.15rem;
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.bienvenida-card:hover {
+  box-shadow: 0 8px 28px rgba(41, 128, 185, 0.15);
+  border-left-color: #1c5980;
+}
+
+.bienvenida-card h3.subtitle-strong {
+  font-size: 2.2rem;
+  color: #336699;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.bienvenida-card p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.bienvenida-card p:last-child {
+  margin-bottom: 0;
 }

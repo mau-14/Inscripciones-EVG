@@ -1,5 +1,5 @@
 .grid {
-  width: 60%;
+  width: 70%;
   box-shadow: transparent;
   margin: 1% auto;
   display: flex;
@@ -10,6 +10,7 @@
   background-color: transparent;
   border-radius: 0;
   box-shadow: none;
+  align-items: stretch;
   transition: none;
   transform: none;
 }
@@ -36,55 +37,57 @@ h2 {
 
 .prueba {
   width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 310px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  height: 40%;
   transition: transform 0.2s ease;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 1rem;
   background-color: #fafafa;
+  overflow: hidden;
+}
+
+.prueba h3 {
+  font-size: 1.5em;
+  color: #336699;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+.prueba p {
+  font-size: 1em;
+  color: #444;
+  flex-grow: 1; /* Ocupa todo el espacio posible */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  max-height: none;
+}
+
+.btn-mas {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  align-self: flex-end;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
 .prueba:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.prueba p {
-  font-size: 1em;
-  color: #444;
-  max-height: 4.5em; /* Aproximadamente 3 líneas */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Número de líneas visibles */
-  -webkit-box-orient: vertical;
-}
-
-.prueba h3 {
-  font-size: 1.2em;
-  color: #336699;
-  margin-bottom: 0.5em;
-  max-height: 2.6em; /* Aproximadamente 2 líneas */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  word-break: break-word; /* Por si hay nombres sin espacios */
-}
-
-.btn-mas {
-  font-size: 2rem;
-  background: none;
-  display: inline-block;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  margin-top: 100%;
-  transition:
-    transform 0.3s ease,
-    color 0.3s ease;
-}
 .btn-mas:hover {
   transform: scale(1.2);
   color: #e67e22;
@@ -99,7 +102,7 @@ h2 {
   background-color: #f5f7fa;
   border: 1px solid #ddd;
   border-radius: 10px;
-  width: 25%;
+  width: 250px;
   padding: 1.2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
   color: #2c3e50;
@@ -195,12 +198,10 @@ select {
 }
 
 input[type="time"] {
-  width: 70%;
+  width: 50%;
 }
 
 textarea {
-  min-height: 120px;
-  max-height: 200px;
   resize: vertical;
 }
 .form-group {

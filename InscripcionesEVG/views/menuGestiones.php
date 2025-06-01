@@ -26,6 +26,7 @@ include $navBar;
   <main>
     <h1>Panel Gestión Aplicación</h1>
 
+    <h2>Seleccione una opción</h2>
     <section class="grid">
       <a href="/InscripcionesEVG/views/gestionPruebasTO.php" class="menu-option" aria-label="Gestión de Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>

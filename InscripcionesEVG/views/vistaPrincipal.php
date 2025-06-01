@@ -32,7 +32,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
     <section id="sec1">
       <div class="ventana-imagen">
         <img src="img/EVG.jpg" alt="Logo Olimpiadas" />
-        <h1 class="titulo-imagen">INICIO</h1>
+        <h1 class="titulo-imagen">ACTIVIDADES</h1>
       </div>
 
       <div class="normas">
@@ -59,9 +59,20 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
           </li>
         </ul>
       </div>
+
+      <h2 style="text-align: center; margin-top: 2rem;">Seleccione una categoría</h2>
+      <section class="grid" style="margin-bottom: 3rem;">
+        <a href="/InscripcionesEVG/views/listadoTO.php" class="menu-option" aria-label="Listado Torneo Olímpico">
+          <i class="fa-solid fa-trophy"></i>
+          Listado Torneo Olímpico
+        </a>
+        <a href="/InscripcionesEVG/views/listadoActividades.php" class="menu-option" aria-label="Listado Actividades">
+          <i class="fa-solid fa-calendar-check"></i>
+          Listado Actividades
+        </a>
+      </section>
     </section>
   </main>
-
 </body>
 
 </html>

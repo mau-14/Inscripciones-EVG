@@ -63,7 +63,7 @@ $usuarioTipo = $_SESSION['usuario'] ?? '';
 
       <!-- Consulta (Todos los usuarios) -->
       <li class="has-submenu">
-        <a href="/InscripcionesEVG/views/menuConsulta.php">Listados</a>
+        <a href="/InscripcionesEVG/views/menuListados.php">Listados</a>
         <!-- <ul class="submenu"> -->
         <!--   <li><a href="<?= $consultaPruebasHref ?>">Consulta Torneo Olímpico</a></li> -->
         <!--   <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li> -->

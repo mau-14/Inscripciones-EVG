@@ -37,7 +37,6 @@ if ($mes >= 6 && $mes <= 8) {
   <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/general.css" rel="stylesheet" />
   <link href="css/menus.css" rel="stylesheet" />
-  <link href="css/footer.css" rel="stylesheet" />
 
   <link
     rel="stylesheet"
@@ -50,7 +49,7 @@ if ($mes >= 6 && $mes <= 8) {
   <main>
     <h1>Inscripciones de <?php echo $estacion; ?></h1>
     <p class="subtitle-strong">Periodo activo: <?php echo $fecha_inicio . " a " . $fecha_fin; ?></p>
-
+    <h2>Seleccione una actividad</h2>
     <section class="grid">
       <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>
