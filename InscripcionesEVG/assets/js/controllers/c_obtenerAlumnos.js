@@ -306,7 +306,30 @@ async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 		idPruebaM,
 		idPruebaF,
 	);
-	console.log("Respuesta excels", excels);
+
+	const response = await fetch(
+		"/InscripcionesEVG/controllers/generar_excel.php",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(excels),
+		},
+	);
+
+	if (!response.ok) {
+		alert("Error al generar el Excel");
+		return;
+	}
+
+	const blob = await response.blob();
+	const url = window.URL.createObjectURL(blob);
+	const a = document.createElement("a");
+	a.href = url;
+	a.download = "torneo.xlsx";
+	a.click();
+	window.URL.revokeObjectURL(url);
 }
 
 export {

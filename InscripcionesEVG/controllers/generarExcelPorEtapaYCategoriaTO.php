@@ -1,19 +1,21 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
 
+require realpath(__DIR__ . '/../../vendor/autoload.php');
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 'torneo.xlsx')
 {
+
+  error_log('DATOS: ' . print_r($datos, true));
   $spreadsheet = new Spreadsheet();
 
   // Agrupar datos por nombreEtapa y categoria
   $grupos = [];
   foreach ($datos as $fila) {
-    $etapa = $fila['nombreEtapa'];
-    $categoria = $fila['categoria'];
+    $etapa = $fila['nombreEtapa'] ?? '';
+    $categoria = $fila['categoria'] ?? '';
     $key = $etapa . '|' . $categoria;
     if (!isset($grupos[$key])) {
       $grupos[$key] = [];
@@ -22,7 +24,13 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
   }
 
   $primerHoja = true;
+  static $nombresUsados = [];
+
   foreach ($grupos as $key => $filas) {
+    if (empty($filas)) {
+      continue; // Saltar grupos sin datos
+    }
+
     [$etapa, $categoria] = explode('|', $key);
 
     // Crear o seleccionar hoja
@@ -32,8 +40,18 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
     } else {
       $sheet = $spreadsheet->createSheet();
     }
+
     // Nombrar hoja (limitar a 31 caracteres y quitar caracteres inválidos)
-    $nombreHoja = substr(preg_replace('/[\\\/\?\*\[\]:]/', '_', $etapa . ' - ' . $categoria), 0, 31);
+    $nombreHoja = substr(preg_replace('/[\\\\\/\?\*\[\]:]/', '_', $etapa . ' - ' . $categoria), 0, 31);
+
+    // Evitar nombres duplicados
+    $original = $nombreHoja;
+    $sufijo = 1;
+    while (in_array($nombreHoja, $nombresUsados)) {
+      $nombreHoja = substr($original, 0, 28) . '_' . $sufijo++;
+    }
+    $nombresUsados[] = $nombreHoja;
+
     $sheet->setTitle($nombreHoja);
 
     // Líneas fijas con formato
@@ -56,18 +74,15 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
     $sheet->getStyle('A4')->getFont()->setBold(true)->setSize(12);
     $sheet->getStyle('A4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-    // Cabecera tabla (2 filas más abajo de la tabla, la tabla empieza en fila 6)
+    // Cabecera tabla (fila 6)
     $sheet->setCellValue('A6', 'Apellidos, Nombre');
     $sheet->setCellValue('B6', 'Clase');
     $sheet->getStyle('A6:B6')->getFont()->setBold(true);
 
     // Datos desde fila 7
     $filaExcel = 7;
-    foreach ($filas as $index => $alumno) {
-      // Formatear nombre "Apellidos, Nombre"
-      $nombreCompleto = $alumno['nombreAlumno'];
-      // Aquí se puede mejorar la separación apellido/nombre si se quiere,
-      // pero usaré lo que hay, invirtiendo el orden separado por espacio
+    foreach ($filas as $alumno) {
+      $nombreCompleto = $alumno['nombreAlumno'] ?? '';
       $partes = explode(' ', $nombreCompleto);
       if (count($partes) > 1) {
         $nombre = array_pop($partes);
@@ -77,22 +92,17 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
         $nombreFormateado = $nombreCompleto;
       }
 
-      // Añadir índice (columna C), Nombre y Clase (D)
       $sheet->setCellValue('A' . $filaExcel, $nombreFormateado);
-      $sheet->setCellValue('B' . $filaExcel, $alumno['nombreClase']);
+      $sheet->setCellValue('B' . $filaExcel, $alumno['nombreClase'] ?? '');
       $filaExcel++;
     }
 
-    // Añadir columna a la derecha vacía (C)
-    $sheet->getColumnDimension('C')->setWidth(15);
-
-    // Dejar 2 filas vacías debajo (ya quedan al final)
-
-    // Ajustar ancho de columnas para que quede bien
+    // Ajustar ancho columnas
     $sheet->getColumnDimension('A')->setWidth(40);
     $sheet->getColumnDimension('B')->setWidth(15);
+    $sheet->getColumnDimension('C')->setWidth(15);
   }
-
+  error_log("Datos escritos en hoja $nombreHoja, filas: " . ($filaExcel - 7));
   // Guardar archivo
   $writer = new Xlsx($spreadsheet);
   $writer->save($nombreArchivo);
