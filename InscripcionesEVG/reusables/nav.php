@@ -7,12 +7,12 @@ if (!isset($_SESSION['usuario'])) {
   exit;
 }
 $usuarioTipo = $_SESSION['usuario'] ?? '';
+$momentoActual = $_SESSION['momento_actual'] ?? null;
 ?>
 
-
-
+<script type="module" src="/InscripcionesEVG/assets/js/controllers/c_controlarFecha.js">
+</script>
 <!-- TODO SACAR ESTO A UN SCRIPT APARTE -->
-
 <script type="module">
   import {
     ModalConfirmacion

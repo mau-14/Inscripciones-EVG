@@ -1,28 +1,30 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 include $navBar;
+function fechaAFrase($fechaStr)
+{
+  $meses = [
+    1 => 'Enero',
+    2 => 'Febrero',
+    3 => 'Marzo',
+    4 => 'Abril',
+    5 => 'Mayo',
+    6 => 'Junio',
+    7 => 'Julio',
+    8 => 'Agosto',
+    9 => 'Septiembre',
+    10 => 'Octubre',
+    11 => 'Noviembre',
+    12 => 'Diciembre'
+  ];
 
-// Obtener fecha actual y mes para estación
-$fecha_actual = new DateTime();
-$mes = (int)$fecha_actual->format('m');
+  $timestamp = strtotime($fechaStr);
+  $dia = date('j', $timestamp);    // día sin cero a la izquierda
+  $mes = (int)date('n', $timestamp); // número de mes sin cero
 
-if ($mes >= 6 && $mes <= 8) {
-  $estacion = "Verano";
-  $fecha_inicio = "21 de junio";
-  $fecha_fin = "23 de septiembre";
-} elseif ($mes >= 9 && $mes <= 11) {
-  $estacion = "Otoño";
-  $fecha_inicio = "23 de septiembre";
-  $fecha_fin = "21 de diciembre";
-} elseif ($mes >= 12 || $mes <= 2) {
-  $estacion = "Invierno";
-  $fecha_inicio = "21 de diciembre";
-  $fecha_fin = "20 de marzo";
-} else {
-  $estacion = "Primavera";
-  $fecha_inicio = "20 de marzo";
-  $fecha_fin = "21 de junio";
+  return $dia . ' de ' . $meses[$mes];
 }
+
 ?>
 
 <!doctype html>
@@ -47,8 +49,13 @@ if ($mes >= 6 && $mes <= 8) {
 
 <body>
   <main>
-    <h1>Inscripciones de <?php echo $estacion; ?></h1>
-    <p class="subtitle-strong">Periodo activo: <?php echo $fecha_inicio . " a " . $fecha_fin; ?></p>
+    <h1>Inscripciones de <?php echo $momentoActual['nombre']; ?></h1>
+    <p class="subtitle-strong">
+      Periodo activo:
+      <?php
+      echo fechaAFrase($momentoActual['fecha_inicio']) . " a " . fechaAFrase($momentoActual['fecha_fin']);
+      ?>
+    </p>
     <h2>Seleccione una actividad</h2>
     <section class="grid">
       <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
