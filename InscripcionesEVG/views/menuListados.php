@@ -37,7 +37,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
     <!-- </div> -->
     <h2>Seleccione una categoría</h2>
     <section class="grid">
-      <a href="/InscripcionesEVG/views/listadoTO.php" class="menu-option" aria-label="Listado Torneo Olímpico">
+      <a href="/InscripcionesEVG/views/vistaListadoTO.php" class="menu-option" aria-label="Listado Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>
         Listado Torneo Olímpico
       </a>

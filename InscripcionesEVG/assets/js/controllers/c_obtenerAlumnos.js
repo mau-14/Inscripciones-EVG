@@ -300,4 +300,17 @@ async function rellenarSelectsConSeleccionados(idClase) {
 	}
 }
 
-export { rellenarSelectsConAlumnos, rellenarSelectsConSeleccionados };
+async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
+	const modelo = new M_obtenerAlumnos();
+	const excels = await modelo.obtenerAlumnosInscripcionesTO(
+		idPruebaM,
+		idPruebaF,
+	);
+	console.log("Respuesta excels", excels);
+}
+
+export {
+	rellenarSelectsConAlumnos,
+	rellenarSelectsConSeleccionados,
+	obtenerExceldePruebas,
+};

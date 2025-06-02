@@ -136,6 +136,58 @@ async function crearCamposPorPrueba() {
 	}
 }
 
+async function renderizarPruebasConDescarga() {
+	try {
+		const modelo = new M_obtenerPruebas();
+		const pruebas = await modelo.obtenerPruebas();
+
+		const pruebasFiltradas = pruebas.filter((p) => p.categoria === "M");
+		const nombresUnicos = new Set();
+
+		const grid = document.querySelector("section.grid");
+		grid.innerHTML = "";
+
+		for (const pruebaM of pruebasFiltradas) {
+			if (nombresUnicos.has(pruebaM.nombre)) continue;
+			nombresUnicos.add(pruebaM.nombre);
+
+			const tieneDatos = pruebaM.tieneDatos ?? false;
+
+			const div = document.createElement("div");
+			div.classList.add("prueba");
+
+			div.innerHTML = `
+        <h3 class="prueba-nombre">${pruebaM.nombre}</h3>
+        <p><strong>Fecha:</strong> ${pruebaM.fecha ? formatearFecha(pruebaM.fecha) : "Por definir"}</p>
+        <p><strong>Hora:</strong> ${pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Por definir"}</p>
+        <p><strong>Descripción:</strong> ${pruebaM.bases || "No hay descripción"}</p>
+      `;
+
+			const btnContainer = document.createElement("div");
+			btnContainer.classList.add("acciones-descarga");
+
+			if (tieneDatos) {
+				const enlace = document.createElement("a");
+				enlace.href = `/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaM.idPrueba}`;
+				enlace.textContent = "Descargar Excel";
+				enlace.classList.add("btn-descarga");
+				enlace.setAttribute("download", "");
+				btnContainer.appendChild(enlace);
+			} else {
+				const mensaje = document.createElement("span");
+				mensaje.textContent = "No hay datos para descargar";
+				mensaje.classList.add("mensaje-sin-datos");
+				btnContainer.appendChild(mensaje);
+			}
+
+			div.appendChild(btnContainer);
+			grid.appendChild(div);
+		}
+	} catch (error) {
+		console.error("Error al renderizar pruebas con descarga:", error);
+	}
+}
+
 /**
  * Formatea una fecha en formato 'YYYY-MM-DD' a 'DD/MM/YYYY'.
  *
@@ -163,4 +215,8 @@ function formatearFecha(fecha) {
 // 	}
 // });
 
-export { renderizarPruebas, crearCamposPorPrueba };
+export {
+	renderizarPruebas,
+	crearCamposPorPrueba,
+	renderizarPruebasConDescarga,
+};
