@@ -32,8 +32,9 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
     }
 
     [$etapa, $categoria] = explode('|', $key);
+    $prueba = $filas[0]['nombrePrueba'] ?? '';
 
-    // Crear o seleccionar hoja
+    $nombreHoja = substr(preg_replace('/[\\\\\/\?\*\[\]:]/', '_', $etapa . ' - ' . $categoria . ' - ' . $prueba), 0, 31);
     if ($primerHoja) {
       $sheet = $spreadsheet->getActiveSheet();
       $primerHoja = false;
@@ -41,8 +42,6 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
       $sheet = $spreadsheet->createSheet();
     }
 
-    // Nombrar hoja (limitar a 31 caracteres y quitar caracteres inválidos)
-    $nombreHoja = substr(preg_replace('/[\\\\\/\?\*\[\]:]/', '_', $etapa . ' - ' . $categoria), 0, 31);
 
     // Evitar nombres duplicados
     $original = $nombreHoja;
@@ -75,7 +74,7 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
     $sheet->getStyle('A4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
     // Cabecera tabla (fila 6)
-    $sheet->setCellValue('A6', 'Apellidos, Nombre');
+    $sheet->setCellValue('A6', 'Nombre, Apellidos');
     $sheet->setCellValue('B6', 'Clase');
     $sheet->getStyle('A6:B6')->getFont()->setBold(true);
 
