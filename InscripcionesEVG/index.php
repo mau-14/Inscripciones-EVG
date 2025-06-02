@@ -21,7 +21,7 @@
     }
 
     if(isset($controlador->vista) && !empty($controlador->vista)){
-        include 'vistas/nav.html';//Incluye el nav en todas las vistas
+        include 'vistas/nav.php';//Incluye el nav en todas las vistas
         require_once 'vistas/'.$controlador->vista.'.php';
     }
 ?>

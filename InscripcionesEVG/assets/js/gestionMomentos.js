@@ -80,14 +80,17 @@ btnConfirmarEliminar.addEventListener("click", () => {
 
 // Cerrar modales al hacer clic fuera
 window.addEventListener("click", function (event) {
-  if (event.target === document.getElementById("modal")) {
-    document.getElementById("modal").style.display = "none";
-  }
-  if (event.target === modalEditar) {
-    modalEditar.style.display = "none";
-  }
-  if (event.target === modalConfirmar) {
-    modalConfirmar.style.display = "none";
+  // Solo cerrar si no hay error
+  if (!document.getElementById('modalError') || document.getElementById('modalError').style.display === 'none') {
+    if (event.target === document.getElementById("modal")) {
+      document.getElementById("modal").style.display = "none";
+    }
+    if (event.target === modalEditar) {
+      modalEditar.style.display = "none";
+    }
+    if (event.target === modalConfirmar) {
+      modalConfirmar.style.display = "none";
+    }
   }
 });
 window.addEventListener('DOMContentLoaded', function() {

@@ -75,7 +75,7 @@ Class Cmomentos {
         if ($resultado) {
             echo json_encode(['success' => true]);
         }else{
-            echo json_encode(['success' => false, 'error' => 'No se puede eliminar el momento.']);
+            echo json_encode(['success' => false, 'error' => 'No se puede eliminar el momento si tiene actividades asociadas.']);
         }
         exit();
     }

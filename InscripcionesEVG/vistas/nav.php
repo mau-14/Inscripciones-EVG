@@ -6,7 +6,7 @@
         <ul class="nav-links">
             <li><a href="index.php?controlador=menuPrincipal">Inicio</a></li>
             <li><a href="index.php?controlador=momentos&accion=cMostrarMomentos">Gestion Momentos</a></li>
-            <li><a href="#">Gestion Torneo</a></li>
+            <li><a href="index.php?controlador=inscripcionesActividades&accion=cMostrarActividades">Inscripciones Actividades</a></li>
             <li><a href="index.php?controlador=momentos&accion=cMostrarMomentosActividades">Gestion Actividades</a>
         </ul>            
     </nav>
