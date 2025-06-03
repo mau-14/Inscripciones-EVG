@@ -8,6 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 $usuarioTipo = $_SESSION['usuario'] ?? '';
 $momentoActual = $_SESSION['momento_actual'] ?? null;
+
 ?>
 
 <script type="module" src="/InscripcionesEVG/assets/js/controllers/c_controlarFecha.js">
