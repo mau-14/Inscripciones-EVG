@@ -5,8 +5,6 @@ include $navBar;
 $isCoordinador = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Coordinador';
 $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
 
-// Validar acceso permitido según el momento actual
-$MOMENTO_TORNEO_ID = 41;
 
 if (!$isCoordinador && !$isTutor) {
   header("Location: /InscripcionesEVG/views/menuInscripciones.php");

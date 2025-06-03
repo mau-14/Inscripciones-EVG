@@ -17,7 +17,7 @@ $inscripcionActividadesHref = "#sub1";
 $torneoOlimpicoHref = $vistas . "torneoOlimpico.php?tipo=Profesorado";
 $consultaPruebasHref = "#sub1";
 $inscripcionTorneoHref = $vistas . "inscripcionesTO.php";
-
+$MOMENTO_TORNEO_ID = 41;
 
 // FOOTER
 
