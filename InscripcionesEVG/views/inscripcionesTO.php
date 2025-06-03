@@ -64,7 +64,7 @@ $isTutor = isset($_SESSION['usuario']) && $_SESSION['usuario'] === 'Tutor';
         const h2 = document.createElement("h2");
         h2.style.display = "block";
 
-        h2.innerHTML = `Clase seleccionada: <span class="claseTexto">1DAW</span>`;
+        h2.innerHTML = `Clase seleccionada: <span class="claseTexto">1º DAW CF</span>`;
         form.parentNode.insertBefore(h2, form);
         await rellenarSelectsConSeleccionados(1);
 

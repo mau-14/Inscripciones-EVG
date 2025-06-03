@@ -26,6 +26,12 @@ function fechaAFrase($fechaStr)
 }
 
 ?>
+<!-- Inyección de variable de sesión -->
+<script type="text/javascript">
+  window.MOMENTO_ACTUAL = <?= json_encode($momentoActual) ?>;
+</script>
+
+<script type="module" src="/InscripcionesEVG/assets/js/momentos/verificarMomentoTorneo.js"></script>
 
 <!doctype html>
 <html lang="es">
@@ -33,7 +39,7 @@ function fechaAFrase($fechaStr)
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inscripciones - Panel de <?php echo $estacion; ?></title>
+  <title>Inscripciones - Panel de <?php echo $momentoActual; ?></title>
 
   <base href="/InscripcionesEVG/assets/">
   <link href="css/navbar.css" rel="stylesheet" />
@@ -56,7 +62,7 @@ function fechaAFrase($fechaStr)
       echo fechaAFrase($momentoActual['fecha_inicio']) . " a " . fechaAFrase($momentoActual['fecha_fin']);
       ?>
     </p>
-    <h2>Seleccione una actividad</h2>
+    <h2>Seleccione una inscripcion</h2>
     <section class="grid">
       <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>
@@ -66,10 +72,7 @@ function fechaAFrase($fechaStr)
         <i class="fa-solid fa-calendar-check"></i>
         Inscripción Actividades
       </a>
-      <a href="/InscripcionesEVG/actividades-clase/inscripcion.php" class="menu-option" aria-label="Inscripciones Actividades de Clase">
-        <i class="fa-solid fa-chalkboard-user"></i>
-        Inscripciones Actividades de Clase
-      </a>
+
     </section>
   </main>
 
