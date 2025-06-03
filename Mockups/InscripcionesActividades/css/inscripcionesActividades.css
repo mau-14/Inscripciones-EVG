@@ -1,0 +1,87 @@
+/* Estilos específicos para la página de inscripción de actividades */
+
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-top: 3%;
+    margin-bottom: 0.5rem;
+    color: #2b6cb0;
+}
+
+/* Contenedor de reglas */
+.reglas-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.reglas-container h2 {
+    color: #2b6cb0;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+.reglas-container p {
+    color: #6c757d;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* Título de sección */
+.seccion-titulo {
+    margin: 30px 0 20px;
+    color: #2b6cb0;
+    font-size: 1.8rem;
+}
+
+/* Grid de actividades */
+.actividades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Tarjeta de actividad */
+.actividad-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border: 1px solid #dee2e6;
+    text-align: center;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actividad-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    border-color: #0d6efd;
+}
+
+.actividad-nombre {
+    font-size: 1.4rem;
+    color: #2b6cb0;
+    font-weight: 600;
+}

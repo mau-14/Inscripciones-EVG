@@ -596,38 +596,240 @@
     text-transform: lowercase;
   }
   
-  /* Estilos para el formulario de inscripción */
-.form-container {
-    max-width: 1200px;  /* Aumentado a 1200px */
+  /* Estilos base para los formularios */
+main {
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 30px;
+    padding: 20px;
+}
+
+/* Estilos para botones */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de botones */
+.botones-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+h1 {
+    color: #2d3748;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+/* Contenedor del formulario */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 95%;  /* Aumentado a 95% */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Contenedor para las columnas de selects */
+/* Grid de selects */
 .selects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
+/* Grupo de formulario */
 .form-group {
-    margin-bottom: 0;  /* Eliminamos el margen inferior ya que lo controla el gap del grid */
-    min-width: 0;  /* Evita que los elementos se salgan del contenedor */
+    background: #f8fafc;
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
 }
 
+/* Etiquetas */
 .form-group label {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
-    color: #2c3e50;
-    font-size: 0.95em;
+    color: #2d3748;
+}
+
+/* Badge numerado */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Controles de formulario */
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+/* Acciones del formulario */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #edf2f7;
+}
+
+/* Botones */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
     gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn i {
+    font-size: 0.9em;
+}
+
+/* Botón de eliminar en los formularios */
+.remove-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-left: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+    background: #fbeaea;
+}
+
+.remove-btn i {
+    font-size: 0.9em;
+}
+
+/* Estilos específicos de botones */
+.btn-cancel {
+    background-color: #f1f5f9;
+    color: #4a5568;
+}
+
+.btn-cancel:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Botón para añadir más campos */
+.add-btn {
+    background-color: #10b981;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.add-btn:hover {
+    background-color: #0d9f6e;
+}
+
+.add-btn i {
+    font-size: 0.9em;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    main {
+        padding: 15px;
+    }
+
+    .form-container {
+        padding: 15px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
 }
 
 .badge {

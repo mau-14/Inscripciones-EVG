@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción de Clase</title>
+    <link rel="stylesheet" href="<?php echo CSS; ?>nav.css">
+    <link rel="stylesheet" href="<?php echo CSS; ?>estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <main>
+        <h1>Inscripción de Clase</h1>
+        <form action="index.php?controlador=inscripcionesActividades&accion=cInscribirClase" method="POST" class="form-container">
+            <div class="selects-grid">
+                <div class="form-group">
+                    <label for="idClase">
+                        <span class="badge">1</span>
+                        Seleccionar clase
+                    </label>
+                    <input type="hidden" name="idActividad" value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>">
+                    <select id="idClase" name="idClase" class="form-control">
+                        <option value="" disabled selected>Seleccione una clase</option>
+                        <?php foreach ($dataToView["data"] as $clase): ?>
+                            <option value="<?php echo $clase['idClase']; ?>">
+                                <?php echo htmlspecialchars($clase['nombre']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-cancel" onclick="window.history.back()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar Inscripción
+                </button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
