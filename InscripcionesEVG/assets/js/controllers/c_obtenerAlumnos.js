@@ -323,15 +323,26 @@ async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 		return;
 	}
 
+	// Obtener el nombre del archivo desde la cabecera
+	let filename = "archivo.xlsx"; // por defecto
+	const disposition = response.headers.get("Content-Disposition");
+	if (disposition && disposition.includes("filename=")) {
+		const match = disposition.match(/filename="?([^"]+)"?/);
+		if (match && match[1]) {
+			filename = match[1];
+		}
+	}
+
 	const blob = await response.blob();
 	const url = window.URL.createObjectURL(blob);
 	const a = document.createElement("a");
 	a.href = url;
-	a.download = "torneo.xlsx";
+	a.download = filename;
+	document.body.appendChild(a);
 	a.click();
+	document.body.removeChild(a);
 	window.URL.revokeObjectURL(url);
 }
-
 export {
 	rellenarSelectsConAlumnos,
 	rellenarSelectsConSeleccionados,

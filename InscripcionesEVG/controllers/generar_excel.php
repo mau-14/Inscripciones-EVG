@@ -11,11 +11,11 @@ if (!is_array($datos)) {
   exit;
 }
 
-// Generar Excel
-$nombreArchivo = 'torneo.xlsx';
-$rutaArchivo = __DIR__ . '/' . $nombreArchivo;
 
-generarExcelPorEtapaYCategoria($datos, $rutaArchivo);
+$nombreArchivo = generarExcelPorEtapaYCategoria($datos);
+error_log($nombreArchivo);
+$rutaArchivo = __DIR__ . '/' . $nombreArchivo;
+error_log($rutaArchivo);
 if (!file_exists($rutaArchivo)) {
   error_log("Archivo no encontrado: $rutaArchivo");
   http_response_code(500);
@@ -23,8 +23,16 @@ if (!file_exists($rutaArchivo)) {
   exit;
 }
 // Enviar el archivo como descarga
+header('Content-Description: File Transfer');
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment; filename=\"$nombreArchivo\"");
+header('Content-Transfer-Encoding: binary');
+header('Expires: 0');
+header('Cache-Control: must-revalidate');
+header('Pragma: public');
+header('Content-Length: ' . filesize($rutaArchivo));
 readfile($rutaArchivo);
+
+unlink($rutaArchivo);
 
 exit;

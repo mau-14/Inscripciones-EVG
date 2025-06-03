@@ -24,6 +24,7 @@ require_once $navBar;
       <h1>Listado de pruebas - Torneo Olímpico</h1>
     </header>
 
+    <h2>Panel de descargas de las pruebas del Torneo Olímpico</h2>
     <section class="pruebasExcel">
     </section>
   </main>
