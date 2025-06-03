@@ -25,7 +25,6 @@ require_once $navBar;
     </header>
 
     <section class="pruebasExcel">
-      <!-- Las tarjetas se insertan dinámicamente -->
     </section>
   </main>
 

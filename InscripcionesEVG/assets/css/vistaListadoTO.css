@@ -3,22 +3,27 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  max-width: 50%;
+  width: 60%;
+  max-width: 1000px;
   margin: 2rem auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  font-family: Arial, sans-serif;
+  border-radius: 16px;
+  box-shadow: none;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: transparent;
+  transition: none;
+  transform: none;
 }
 
 .prueba-item {
-  background-color: #ffffff;
-  border-radius: 14px;
-  padding: 2.2rem 2.5rem;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
+  border: 1px solid #ddd;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
   cursor: default;
   transition:
     transform 0.3s ease,
@@ -29,61 +34,65 @@
 
 .prueba-item:hover {
   transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Título con estilo serio */
 .prueba-item h3 {
-  color: #2c3e50;
+  color: #336699;
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 1.75rem;
   text-align: center;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
   margin: 0;
   user-select: none;
 }
 
 .btn-descargar-excel {
-  margin-top: 1rem;
-  padding: 12px 32px;
-  background-color: green;
-  color: #ecf0f1;
-  font-size: 1rem;
-  font-weight: 600;
+  background-color: #27ae60;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
   transition:
     background-color 0.3s ease,
-    transform 0.15s ease;
-  user-select: none;
-  align-self: center;
-  width: 100%;
-  max-width: 200px;
+    transform 0.2s ease;
 }
 
-/* Hover del botón con un tono ligeramente más oscuro */
 .btn-descargar-excel:hover {
-  background-color: #2c3e50;
-  box-shadow: 0 6px 18px rgba(44, 62, 80, 0.7);
-  transform: scale(1.03);
+  background-color: #1e8449;
+  box-shadow: 0 6px 18px rgba(30, 132, 73, 0.5);
+  transform: scale(1.05);
 }
 
-/* Responsive para pantallas pequeñas */
+.btn-descargar-excel img {
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  user-select: none;
+} /* Responsive para pantallas pequeñas */
 @media (max-width: 600px) {
   .pruebasExcel {
-    max-width: 90%;
-    padding: 1rem 1.5rem;
+    padding: 1.2rem;
+    max-width: 95%;
   }
+
   .prueba-item {
-    padding: 1.5rem 1.8rem;
-    border-radius: 10px;
+    padding: 1.6rem;
+    border-radius: 12px;
   }
+
   .prueba-item h3 {
     font-size: 1.5rem;
   }
+
   .btn-descargar-excel {
+    padding: 14px;
+    font-size: 1.05rem;
     max-width: 100%;
-    padding: 14px 0;
-    font-size: 1.1rem;
   }
 }

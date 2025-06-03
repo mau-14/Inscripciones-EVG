@@ -1,4 +1,6 @@
 import M_obtenerPruebas from "/InscripcionesEVG/assets/js/models/m_obtenerPruebas.js";
+import { Loader } from "/InscripcionesEVG/assets/js/utils/loader.js";
+import { obtenerExceldePruebas } from "/InscripcionesEVG/assets/js/controllers/c_obtenerAlumnos.js";
 
 /**
  * Controlador que obtiene las pruebas desde el modelo y las renderiza en la vista.
@@ -175,28 +177,26 @@ async function cargarPruebasConDescarga() {
 			// Botón para descargar Excel
 			// Botón para descargar Excel
 			const btnDescargar = document.createElement("button");
-			btnDescargar.textContent = "Descarga Excel";
+			const imgExcel = document.createElement("img");
+			imgExcel.src = "/InscripcionesEVG/assets/img/excel.png"; // Cambia por la ruta real del icono
+			imgExcel.alt = "Descargar Excel";
+			imgExcel.style.width = "20px"; // Ajusta el tamaño según convenga
+			imgExcel.style.height = "20px";
+
+			btnDescargar.appendChild(imgExcel);
 			btnDescargar.classList.add("btn-descargar-excel");
 
-			btnDescargar.addEventListener("click", () => {
-				// Aquí decides cómo quieres hacer la descarga,
-				// por ejemplo, abrir un enlace nuevo para masculino y femenino.
-				if (pruebaF) {
-					// Descarga para masculino y femenino
-					window.open(
-						`/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaM.idPrueba}`,
-						"_blank",
-					);
-					window.open(
-						`/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaF.idPrueba}`,
-						"_blank",
-					);
-				} else {
-					// Solo masculino si no hay femenino
-					window.open(
-						`/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaM.idPrueba}`,
-						"_blank",
-					);
+			btnDescargar.addEventListener("click", async () => {
+				// Descarga para masculino y femenino
+				const loader = new Loader("Generando excel...");
+				try {
+					const idPruebaM = inputMasculino.value;
+					const idPruebaF = inputFemenino.value;
+					await obtenerExceldePruebas(idPruebaM, idPruebaF);
+				} catch (error) {
+					console.error("Error al cargar los campos o alumnos:", error);
+				} finally {
+					loader.ocultar();
 				}
 			});
 
