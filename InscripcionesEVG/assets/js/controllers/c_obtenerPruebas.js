@@ -136,58 +136,78 @@ async function crearCamposPorPrueba() {
 	}
 }
 
-async function renderizarPruebasConDescarga() {
+async function cargarPruebasConDescarga() {
 	try {
 		const modelo = new M_obtenerPruebas();
 		const pruebas = await modelo.obtenerPruebas();
 
-		const pruebasFiltradas = pruebas.filter((p) => p.categoria === "M");
-		const nombresUnicos = new Set();
+		const pruebasMasculinas = pruebas.filter((p) => p.categoria === "M");
+		const contenedor = document.querySelector("section.pruebasExcel");
+		contenedor.innerHTML = "";
 
-		const grid = document.querySelector("section.grid");
-		grid.innerHTML = "";
+		for (const pruebaM of pruebasMasculinas) {
+			const pruebaF = pruebas.find(
+				(p) => p.nombre === pruebaM.nombre && p.categoria === "F",
+			);
 
-		for (const pruebaM of pruebasFiltradas) {
-			if (nombresUnicos.has(pruebaM.nombre)) continue;
-			nombresUnicos.add(pruebaM.nombre);
-
-			const tieneDatos = pruebaM.tieneDatos ?? false;
-
+			// Crear div contenedor
 			const div = document.createElement("div");
-			div.classList.add("prueba");
+			div.classList.add("prueba-item");
 
-			div.innerHTML = `
-        <h3 class="prueba-nombre">${pruebaM.nombre}</h3>
-        <p><strong>Fecha:</strong> ${pruebaM.fecha ? formatearFecha(pruebaM.fecha) : "Por definir"}</p>
-        <p><strong>Hora:</strong> ${pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Por definir"}</p>
-        <p><strong>Descripción:</strong> ${pruebaM.bases || "No hay descripción"}</p>
-      `;
+			// Título con nombre prueba
+			const titulo = document.createElement("h3");
+			titulo.textContent = pruebaM.nombre;
+			div.appendChild(titulo);
 
-			const btnContainer = document.createElement("div");
-			btnContainer.classList.add("acciones-descarga");
+			// Inputs hidden para idPrueba masculino y femenino
+			const inputMasculino = document.createElement("input");
+			inputMasculino.type = "hidden";
+			inputMasculino.name = "idPruebaMasculino";
+			inputMasculino.value = pruebaM.idPrueba;
+			div.appendChild(inputMasculino);
 
-			if (tieneDatos) {
-				const enlace = document.createElement("a");
-				enlace.href = `/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaM.idPrueba}`;
-				enlace.textContent = "Descargar Excel";
-				enlace.classList.add("btn-descarga");
-				enlace.setAttribute("download", "");
-				btnContainer.appendChild(enlace);
-			} else {
-				const mensaje = document.createElement("span");
-				mensaje.textContent = "No hay datos para descargar";
-				mensaje.classList.add("mensaje-sin-datos");
-				btnContainer.appendChild(mensaje);
-			}
+			const inputFemenino = document.createElement("input");
+			inputFemenino.type = "hidden";
+			inputFemenino.name = "idPruebaFemenino";
+			inputFemenino.value = pruebaF ? pruebaF.idPrueba : "";
+			div.appendChild(inputFemenino);
 
-			div.appendChild(btnContainer);
-			grid.appendChild(div);
+			// Botón para descargar Excel
+			// Botón para descargar Excel
+			const btnDescargar = document.createElement("button");
+			btnDescargar.textContent = "Descarga Excel";
+			btnDescargar.classList.add("btn-descargar-excel");
+
+			btnDescargar.addEventListener("click", () => {
+				// Aquí decides cómo quieres hacer la descarga,
+				// por ejemplo, abrir un enlace nuevo para masculino y femenino.
+				if (pruebaF) {
+					// Descarga para masculino y femenino
+					window.open(
+						`/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaM.idPrueba}`,
+						"_blank",
+					);
+					window.open(
+						`/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaF.idPrueba}`,
+						"_blank",
+					);
+				} else {
+					// Solo masculino si no hay femenino
+					window.open(
+						`/InscripcionesEVG/index.php?controlador=pruebasTO&accion=descargarExcel&idPrueba=${pruebaM.idPrueba}`,
+						"_blank",
+					);
+				}
+			});
+
+			div.appendChild(btnDescargar);
+
+			contenedor.appendChild(div);
 		}
 	} catch (error) {
-		console.error("Error al renderizar pruebas con descarga:", error);
+		console.error("Error al cargar las pruebas con descarga:", error);
 	}
 }
-
 /**
  * Formatea una fecha en formato 'YYYY-MM-DD' a 'DD/MM/YYYY'.
  *
@@ -215,8 +235,4 @@ function formatearFecha(fecha) {
 // 	}
 // });
 
-export {
-	renderizarPruebas,
-	crearCamposPorPrueba,
-	renderizarPruebasConDescarga,
-};
+export { renderizarPruebas, crearCamposPorPrueba, cargarPruebasConDescarga };
