@@ -7,10 +7,10 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 'torneo.xlsx')
 {
-
   $spreadsheet = new Spreadsheet();
   $grupos = [];
   foreach ($datos as $fila) {
@@ -70,11 +70,18 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
     ]);
 
     // Cabecera tabla
-    $sheet->setCellValue('A6', 'Nombre, Apellidos');
+    $sheet->setCellValue('A6', 'Nombre');
     $sheet->setCellValue('B6', 'Clase');
-    $sheet->getStyle('A6:B6')->applyFromArray([
+    $sheet->setCellValue('C6', ''); // Columna vacía para anotaciones
+    $sheet->getStyle('A6:C6')->applyFromArray([
       'font' => ['bold' => true],
       'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'CCCCCC']],
+      'borders' => [
+        'allBorders' => [
+          'borderStyle' => Border::BORDER_THIN,
+          'color' => ['rgb' => '000000'],
+        ],
+      ],
     ]);
 
     // Filas de alumnos
@@ -95,7 +102,45 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
 
       $sheet->setCellValue("A$filaExcel", $nombreFormateado);
       $sheet->setCellValue("B$filaExcel", $alumno['nombreClase'] ?? '');
-      $sheet->getStyle("A$filaExcel:B$filaExcel")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB($colorFondo);
+      $sheet->setCellValue("C$filaExcel", ''); // Columna vacía
+
+      // Estilos con fondo y borde para cada fila
+      $sheet->getStyle("A$filaExcel:C$filaExcel")->applyFromArray([
+        'fill' => [
+          'fillType' => Fill::FILL_SOLID,
+          'startColor' => ['rgb' => $colorFondo],
+        ],
+        'borders' => [
+          'allBorders' => [
+            'borderStyle' => Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+          ],
+        ],
+      ]);
+
+      $filaExcel++;
+    }
+
+    // Añadir dos filas vacías con bordes para anotaciones
+    for ($i = 0; $i < 2; $i++) {
+      $colorFondo = $zebraColors[($filaExcel - 7) % 2]; // Alternar color
+
+      $sheet->setCellValue("A$filaExcel", '');
+      $sheet->setCellValue("B$filaExcel", '');
+      $sheet->setCellValue("C$filaExcel", '');
+
+      $sheet->getStyle("A$filaExcel:C$filaExcel")->applyFromArray([
+        'fill' => [
+          'fillType' => Fill::FILL_SOLID,
+          'startColor' => ['rgb' => $colorFondo],
+        ],
+        'borders' => [
+          'allBorders' => [
+            'borderStyle' => Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+          ],
+        ],
+      ]);
 
       $filaExcel++;
     }
@@ -103,6 +148,7 @@ function generarExcelPorEtapaYCategoria(array $datos, string $nombreArchivo = 't
     // Ajustar ancho
     $sheet->getColumnDimension('A')->setWidth(40);
     $sheet->getColumnDimension('B')->setWidth(20);
+    $sheet->getColumnDimension('C')->setWidth(15);
   }
 
   // Crear nombre de archivo a partir del nombre de la primera prueba
