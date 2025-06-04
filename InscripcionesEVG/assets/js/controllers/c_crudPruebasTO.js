@@ -2,6 +2,7 @@ import M_crudPruebasTO from "/InscripcionesEVG/assets/js/models/m_crudPruebasTO.
 import { renderizarPruebas } from "/InscripcionesEVG/assets/js/controllers/c_obtenerPruebas.js";
 import { ErrorDialog } from "/InscripcionesEVG/assets/js/utils/errorHandler.js";
 import { Loader } from "/InscripcionesEVG/assets/js/utils/loader.js";
+import M_obtenerPruebas from "/InscripcionesEVG/assets/js/models/m_obtenerPruebas.js";
 
 /** @type {ErrorDialog} */
 const errorDialog = new ErrorDialog();
@@ -72,6 +73,32 @@ btnAceptar?.addEventListener("click", async function (event) {
 
 			console.log(prueba);
 			const loader = new Loader("Cargando...");
+
+			// Validación de hora: debe estar entre 09:00 y 15:00
+			const horaMinima = "09:00";
+			const horaMaxima = "15:00";
+
+			if (!horaPrueba || horaPrueba < horaMinima || horaPrueba > horaMaxima) {
+				errorDialog.show("La hora debe estar entre las 09:00 y las 15:00.");
+				loader.ocultar();
+				return;
+			}
+
+			// Validación de duplicados por hora (independientemente de la fecha)
+			const modeloPruebas = new M_obtenerPruebas();
+			const pruebas = await modeloPruebas.obtenerPruebas();
+
+			const existeMismaHora = pruebas.some(
+				(p) =>
+					p.hora === horaPrueba &&
+					(tipoAccion === "editar" ? p.idPruebaM !== idPruebaM : true),
+			);
+
+			if (existeMismaHora) {
+				errorDialog.show("Ya existe una prueba programada a esa hora.");
+				loader.ocultar();
+				return;
+			}
 
 			try {
 				if (tipoAccion === "añadir") {

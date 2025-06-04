@@ -23,6 +23,7 @@ async function rellenarSelectsConAlumnos(idClase) {
 		const anteriores = new Map(); // Guardamos el valor anterior de cada select
 
 		// Función para actualizar los selects
+		// Función para actualizar los selects
 		function actualizarSelects() {
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
@@ -33,24 +34,28 @@ async function rellenarSelectsConAlumnos(idClase) {
 					if (!alumnoId) return;
 
 					const anterior = anteriores.get(select) || "";
-					const disabled = esTipoC
+					// Si el alumno ya está seleccionado, no lo mostramos en otros selects
+					const noMostrar = esTipoC
 						? seleccionadosTipoC.has(alumnoId) && anterior !== alumnoId
 						: seleccionadosGenerales.has(alumnoId) && anterior !== alumnoId;
 
-					option.disabled = disabled;
-					// Para depuración:
-					console.log(
-						`Select [${select.name}][${select.getAttribute("data-idprueba")}], option ${option.textContent} (${alumnoId}): disabled=${disabled}`,
-					);
+					if (noMostrar) {
+						option.style.display = "none"; // Ocultamos la opción
+					} else {
+						option.style.display = ""; // Aseguramos que la opción esté visible
+					}
 				});
 			});
 		}
-
 		// Rellenar selects masculinos
 		selectsMasculinos.forEach((select) => {
 			select.innerHTML = `<option value="">Selecciona</option>`;
 			alumnos
-				.filter((a) => a.sexo === "M")
+				.filter(
+					(a) =>
+						a.sexo === "M" &&
+						!seleccionadosGenerales.has(a.idAlumno.toString()),
+				)
 				.forEach((alumno) => {
 					const option = document.createElement("option");
 					option.value = alumno.idAlumno;
@@ -63,7 +68,11 @@ async function rellenarSelectsConAlumnos(idClase) {
 		selectsFemeninos.forEach((select) => {
 			select.innerHTML = `<option value="">Selecciona</option>`;
 			alumnos
-				.filter((a) => a.sexo === "F")
+				.filter(
+					(a) =>
+						a.sexo === "F" &&
+						!seleccionadosGenerales.has(a.idAlumno.toString()),
+				)
 				.forEach((alumno) => {
 					const option = document.createElement("option");
 					option.value = alumno.idAlumno;
@@ -71,7 +80,6 @@ async function rellenarSelectsConAlumnos(idClase) {
 					select.appendChild(option);
 				});
 		});
-
 		// Añadir eventos de cambio
 		[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 			anteriores.set(select, ""); // valor inicial vacío
@@ -81,7 +89,7 @@ async function rellenarSelectsConAlumnos(idClase) {
 				const anterior = anteriores.get(select);
 				const esTipoC = select.name === "C";
 
-				// Eliminar anterior si existía
+				// Eliminar el valor anterior si existía
 				if (anterior) {
 					if (esTipoC) {
 						seleccionadosTipoC.delete(anterior);
@@ -90,7 +98,7 @@ async function rellenarSelectsConAlumnos(idClase) {
 					}
 				}
 
-				// Añadir actual si es válido
+				// Añadir el valor actual si es válido
 				if (actual) {
 					if (esTipoC) {
 						seleccionadosTipoC.add(actual);
@@ -99,8 +107,8 @@ async function rellenarSelectsConAlumnos(idClase) {
 					}
 				}
 
-				anteriores.set(select, actual); // Actualizar el valor anterior
-				actualizarSelects();
+				anteriores.set(select, actual); // Actualizamos el valor anterior
+				actualizarSelects(); // Actualizamos la vista de los selects
 			});
 		});
 
@@ -144,6 +152,7 @@ async function rellenarSelectsConSeleccionados(idClase) {
 		const seleccionadosTipoC = new Set();
 		const anteriores = new Map();
 
+		// Función para actualizar los selects
 		function actualizarSelects() {
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
@@ -153,14 +162,19 @@ async function rellenarSelectsConSeleccionados(idClase) {
 					const alumnoId = option.value;
 					if (!alumnoId) return;
 
+					// Ocultar las opciones de alumnos seleccionados
 					if (esTipoC) {
-						option.disabled =
+						option.style.display =
 							seleccionadosTipoC.has(alumnoId) &&
-							anteriores.get(select) !== alumnoId;
+							anteriores.get(select) !== alumnoId
+								? "none"
+								: "";
 					} else {
-						option.disabled =
+						option.style.display =
 							seleccionadosGenerales.has(alumnoId) &&
-							anteriores.get(select) !== alumnoId;
+							anteriores.get(select) !== alumnoId
+								? "none"
+								: "";
 					}
 				});
 			});
@@ -250,9 +264,9 @@ async function rellenarSelectsConSeleccionados(idClase) {
 								option.value = alumno.idAlumno;
 								option.textContent = alumno.nombre;
 
-								// Si el alumno ya está usado en otro select, deshabilitar
+								// Si el alumno ya está usado en otro select, no lo mostramos
 								if (usados.has(alumno.idAlumno.toString())) {
-									option.disabled = true;
+									option.style.display = "none"; // Ocultamos la opción
 								}
 
 								select.appendChild(option);
@@ -289,7 +303,7 @@ async function rellenarSelectsConSeleccionados(idClase) {
 				}
 
 				anteriores.set(select, actual);
-				actualizarSelects();
+				actualizarSelects(); // Actualizamos la vista de los selects
 			});
 		});
 
@@ -299,7 +313,6 @@ async function rellenarSelectsConSeleccionados(idClase) {
 		console.error("Error al inicializar los selects:", error);
 	}
 }
-
 async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 	const modelo = new M_obtenerAlumnos();
 	const excels = await modelo.obtenerAlumnosInscripcionesTO(

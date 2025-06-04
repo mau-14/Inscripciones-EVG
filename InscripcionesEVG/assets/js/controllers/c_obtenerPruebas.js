@@ -165,11 +165,8 @@ async function cargarPruebasConDescarga() {
 			// Fecha y hora
 			// Fecha y hora (formateada)
 			const fechaHora = document.createElement("p");
-			const fechaFormateada = pruebaM.fecha
-				? formatearFecha(pruebaM.fecha)
-				: "Sin fecha";
 			const hora = pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Sin hora";
-			fechaHora.textContent = `Fecha: ${fechaFormateada} | Hora: ${hora}`;
+			fechaHora.textContent = `Hora: ${hora}`;
 			div.appendChild(fechaHora);
 			// Inputs hidden para idPrueba masculino y femenino
 			const inputMasculino = document.createElement("input");
