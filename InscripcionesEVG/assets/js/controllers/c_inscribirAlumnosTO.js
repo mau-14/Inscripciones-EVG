@@ -83,6 +83,16 @@ function obtenerInscripcion() {
 		errorDialog.show("4*100 son mínimo 4 participantes");
 		return null;
 	}
+	const hayInscripciones = Object.values(resultado).some((genero) =>
+		Object.values(genero).some((tipo) =>
+			Object.values(tipo).some((alumnos) => alumnos.length > 0),
+		),
+	);
+
+	if (!hayInscripciones) {
+		errorDialog.show("Inscripción vacía");
+		return null;
+	}
 
 	resultado = JSON.stringify(resultado, null, 2);
 	return resultado;

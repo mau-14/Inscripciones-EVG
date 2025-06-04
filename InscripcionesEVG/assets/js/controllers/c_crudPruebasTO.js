@@ -46,7 +46,15 @@ btnAceptar?.addEventListener("click", async function (event) {
 				errorDialog.show("Faltan campos por rellenar.");
 				return;
 			}
-
+			if (
+				contieneCaracteresPeligrosos(nombrePrueba) ||
+				contieneTagsHTML(nombrePrueba) ||
+				contieneCaracteresPeligrosos(bases) ||
+				contieneTagsHTML(bases)
+			) {
+				errorDialog.show("No se permiten caracteres o etiquetas HTML.");
+				return;
+			}
 			/**
 			 * Objeto que representa una prueba.
 			 * @type {{ idPruebaM: string, idPruebaF: string, nombre: string, bases: string, tipo: string, maxParticipantes: string, fecha: string, hora: string }}
@@ -181,7 +189,14 @@ function ocultarLoaderModal() {
 function cerrarModal() {
 	document.getElementById("modal").style.display = "none";
 }
-
+function contieneCaracteresPeligrosos(texto) {
+	const regex = /[<>{}"'`´\\]/;
+	return regex.test(texto);
+}
+function contieneTagsHTML(texto) {
+	const tagRegex = /<\/?[a-z][\s\S]*>/i; // detecta <algo> o </algo>
+	return tagRegex.test(texto);
+}
 /**
  * Cierra el modal de confirmación.
  * @function
