@@ -37,6 +37,13 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
+.prueba-item p {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  user-select: none;
+}
+
 .prueba-item h3 {
   color: #336699;
   font-weight: 700;
@@ -52,11 +59,11 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  padding: 10px;
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
+  width: 50%;
   height: 50px;
   transition:
     background-color 0.3s ease,
@@ -74,7 +81,35 @@
   height: 32px;
   pointer-events: none;
   user-select: none;
-} /* Responsive para pantallas pequeñas */
+}
+.btn-descargar-pdf {
+  background-color: #c0392b; /* rojo estilo PDF */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.btn-descargar-pdf:hover {
+  background-color: #922b21;
+  box-shadow: 0 6px 18px rgba(192, 57, 43, 0.5);
+  transform: scale(1.05);
+}
+
+.btn-descargar-pdf img {
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  user-select: none;
+}
 @media (max-width: 600px) {
   .pruebasExcel {
     padding: 1.2rem;

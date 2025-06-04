@@ -157,10 +157,20 @@ async function cargarPruebasConDescarga() {
 			div.classList.add("prueba-item");
 
 			// Título con nombre prueba
+			// Título con nombre prueba
 			const titulo = document.createElement("h3");
 			titulo.textContent = pruebaM.nombre;
 			div.appendChild(titulo);
 
+			// Fecha y hora
+			// Fecha y hora (formateada)
+			const fechaHora = document.createElement("p");
+			const fechaFormateada = pruebaM.fecha
+				? formatearFecha(pruebaM.fecha)
+				: "Sin fecha";
+			const hora = pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Sin hora";
+			fechaHora.textContent = `Fecha: ${fechaFormateada} | Hora: ${hora}`;
+			div.appendChild(fechaHora);
 			// Inputs hidden para idPrueba masculino y femenino
 			const inputMasculino = document.createElement("input");
 			inputMasculino.type = "hidden";
@@ -176,18 +186,25 @@ async function cargarPruebasConDescarga() {
 
 			// Botón para descargar Excel
 			// Botón para descargar Excel
+			// Botón para descargar Excel
 			const btnDescargar = document.createElement("button");
-			const imgExcel = document.createElement("img");
-			imgExcel.src = "/InscripcionesEVG/assets/img/excel.png"; // Cambia por la ruta real del icono
-			imgExcel.alt = "Descargar Excel";
-			imgExcel.style.width = "20px"; // Ajusta el tamaño según convenga
-			imgExcel.style.height = "20px";
-
-			btnDescargar.appendChild(imgExcel);
 			btnDescargar.classList.add("btn-descargar-excel");
 
+			const textoExcel = document.createElement("span");
+			textoExcel.textContent = "Descargar ";
+			textoExcel.style.marginRight = "6px";
+			textoExcel.style.color = "white";
+
+			const imgExcel = document.createElement("img");
+			imgExcel.src = "/InscripcionesEVG/assets/img/excel.png";
+			imgExcel.alt = "Descargar Excel";
+			imgExcel.style.width = "20px";
+			imgExcel.style.height = "20px";
+
+			btnDescargar.appendChild(textoExcel);
+			btnDescargar.appendChild(imgExcel);
+
 			btnDescargar.addEventListener("click", async () => {
-				// Descarga para masculino y femenino
 				const loader = new Loader("Generando excel...");
 				try {
 					const idPruebaM = inputMasculino.value;
@@ -201,6 +218,40 @@ async function cargarPruebasConDescarga() {
 			});
 
 			div.appendChild(btnDescargar);
+
+			// Botón para descargar PDF
+			const btnPDF = document.createElement("button");
+			btnPDF.classList.add("btn-descargar-pdf");
+
+			const textoPDF = document.createElement("span");
+			textoPDF.textContent = "Descargar ";
+			textoPDF.style.marginRight = "6px";
+			textoPDF.style.color = "white";
+
+			const imgPDF = document.createElement("img");
+			imgPDF.src = "/InscripcionesEVG/assets/img/pdf.png";
+			imgPDF.alt = "Descargar PDF";
+			imgPDF.style.width = "20px";
+			imgPDF.style.height = "20px";
+
+			btnPDF.appendChild(textoPDF);
+			btnPDF.appendChild(imgPDF);
+
+			btnPDF.addEventListener("click", async () => {
+				const loader = new Loader("Generando PDF...");
+				try {
+					const idPruebaM = inputMasculino.value;
+					const idPruebaF = inputFemenino.value;
+					console.log("Descargar PDF para:", idPruebaM, idPruebaF);
+					// Aquí iría la lógica de generación
+				} catch (error) {
+					console.error("Error al generar PDF:", error);
+				} finally {
+					loader.ocultar();
+				}
+			});
+
+			div.appendChild(btnPDF);
 
 			contenedor.appendChild(div);
 		}

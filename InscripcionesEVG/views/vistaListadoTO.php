@@ -27,6 +27,7 @@ require_once $navBar;
     <h2>Panel de descargas de las pruebas del Torneo Olímpico</h2>
     <section class="pruebasExcel">
     </section>
+
   </main>
 
   <script type="module">
@@ -48,6 +49,8 @@ require_once $navBar;
       }
     });
   </script>
+
+  <a href="/InscripcionesEVG/index.php" class="boton-volver">Volver</a>
 </body>
 
 </html>
