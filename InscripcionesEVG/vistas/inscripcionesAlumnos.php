@@ -6,38 +6,6 @@
     <title>Inscripción de Actividad</title>
     <link rel="stylesheet" href="<?php echo CSS; ?>nav.css">
     <link rel="stylesheet" href="<?php echo CSS; ?>estilo.css">
-    <style>
-        .form-container {
-            display: flex;
-            gap: 2rem;
-            align-items: flex-start;
-        }
-        .selects-grid {
-            flex: 1;
-        }
-        .alumnos-inscritos {
-            flex: 1;
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
-        }
-        .alumnos-inscritos h3 {
-            margin-top: 0;
-            color: #333;
-        }
-        .alumnos-inscritos ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .alumnos-inscritos li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-        .alumnos-inscritos li:last-child {
-            border-bottom: none;
-        }
-    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
@@ -47,6 +15,9 @@
         <form action="index.php?controlador=inscripcionesActividades&accion=cInscribirAlumnos" method="POST" class="form-container">
             <div class="selects-grid">
                 <input type="hidden" name="idActividad" value="<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>">
+                <?php if (isset($dataToView["data"]['alumnos'])): ?>
+                <input type="hidden" name="alumnos_data" value='<?php echo htmlspecialchars(json_encode($dataToView["data"]['alumnos']), ENT_QUOTES, 'UTF-8'); ?>'>
+                <?php endif; ?>
                 
                 <?php if (isset($dataToView["data"]['alumnos'])): ?>
                     <?php 
@@ -62,19 +33,26 @@
                                 }
                             ));
                             ?>
-                            <div class="form-group">
-                                <label for="alumno_<?php echo $index; ?>">
-                                    <span class="badge"><?php echo ($index + 1); ?></span>
-                                    Alumno
-                                </label>
-                                <select id="alumno_<?php echo $index; ?>" name="alumnos[]" class="form-control">
-                                    <?php foreach ($dataToView["data"]['alumnos'] as $alumno): ?>
-                                        <option value="<?php echo $alumno['idAlumno']; ?>" 
-                                            <?php echo ($alumno['nombre'] === $nombreInscrito) ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($alumno['nombre']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="form-group select-container" id="container_<?php echo $index; ?>">
+                                <div class="select-wrapper">
+                                    <label for="alumno_<?php echo $index; ?>">
+                                        <span class="badge"><?php echo ($index + 1); ?></span>
+                                        Alumno
+                                    </label>
+                                    <select id="alumno_<?php echo $index; ?>" name="alumnos[]" class="form-control">
+                                        <?php foreach ($dataToView["data"]['alumnos'] as $alumno): ?>
+                                            <option value="<?php echo $alumno['idAlumno']; ?>" 
+                                                <?php echo ($alumno['nombre'] === $nombreInscrito) ? 'selected' : ''; ?>>
+                                                <?php echo htmlspecialchars($alumno['nombre']); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php if ($index > -1): ?>
+                                        <button type="button" class="btn-remove" onclick="removeSelect(this)" title="Eliminar alumno">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         <?php endforeach; 
                     } 

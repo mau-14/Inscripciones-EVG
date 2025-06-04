@@ -48,59 +48,110 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Función para obtener las opciones de alumnos desde el primer select o desde el formulario oculto
+    function getAlumnosOptions() {
+        // Primero intentamos obtener las opciones del primer select
+        let firstSelect = document.querySelector('select[name="alumnos[]"]');
+        
+        if (firstSelect) {
+            // Si encontramos un select, devolvemos sus opciones
+            return Array.from(firstSelect.querySelectorAll('option[value]')).filter(opt => opt.value !== '');
+        } else {
+            // Si no hay select, buscamos un input oculto con los datos de los alumnos
+            const alumnosData = document.querySelector('input[name="alumnos_data"]');
+            if (alumnosData && alumnosData.value) {
+                try {
+                    const alumnos = JSON.parse(alumnosData.value);
+                    return alumnos.map(alumno => ({
+                        value: alumno.idAlumno,
+                        textContent: alumno.nombre
+                    }));
+                } catch (e) {
+                    console.error('Error al parsear los datos de alumnos:', e);
+                }
+            }
+        }
+        return [];
+    }
+
     // Función para crear un nuevo select
     function createNewSelect() {
         counter++;
-        const firstSelect = document.getElementById('alumno_0');
         
-        if (!firstSelect) {
-            console.error('No se encontró el select de referencia (alumno_0)');
+        // Obtener opciones de alumnos
+        const options = getAlumnosOptions();
+        
+        if (options.length === 0) {
+            console.error('No se encontraron opciones de alumnos disponibles');
+            alert('No se encontraron alumnos disponibles para inscribir.');
             return;
         }
-        
-        // Obtener solo las opciones de alumnos (excluyendo la opción por defecto)
-        const options = Array.from(firstSelect.querySelectorAll('option[value]')).filter(opt => opt.value !== '');
         
         // Crear opciones para el nuevo select
         let optionsHTML = '<option value="" disabled selected>Seleccione un alumno</option>';
         
         // Agregar opciones de alumnos
         options.forEach(option => {
-            optionsHTML += `<option value="${option.value}">${option.textContent}</option>`;
+            optionsHTML += `<option value="${option.value}">${option.textContent || option.nombre}</option>`;
         });
         
-        // Crear el nuevo select con opción por defecto
-        const newSelect = `
-            <div class="form-group">
-                <label for="alumno_${counter}">
-                    <span class="badge">${counter + 1}</span>
-                    Alumno
-                </label>
-                <select id="alumno_${counter}" name="alumnos[]" class="form-control">
-                    ${optionsHTML}
-                </select>
+        // Crear el nuevo select con opción por defecto y botón de eliminar
+        const newSelectHTML = `
+            <div class="form-group select-container" id="container_${counter}">
+                <div class="select-wrapper">
+                    <label for="alumno_${counter}">
+                        <span class="badge">${counter + 1}</span>
+                        Alumno
+                    </label>
+                    <select id="alumno_${counter}" name="alumnos[]" class="form-control">
+                        ${optionsHTML}
+                    </select>
+                    <button type="button" class="btn-remove" title="Eliminar alumno">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
         `;
         
-        container.insertAdjacentHTML('beforeend', newSelect);
+        // Crear un elemento temporal para manipular el HTML
+        const temp = document.createElement('div');
+        temp.innerHTML = newSelectHTML.trim();
+        const newSelect = temp.firstChild;
+        
+        // Agregar el nuevo select al contenedor
+        container.appendChild(newSelect);
+        
+        // Agregar evento al botón de eliminar
+        const removeButton = newSelect.querySelector('.btn-remove');
+        removeButton.addEventListener('click', function() {
+            removeSelect(this);
+        });
+        
+        // Agregar evento al select
+        const newSelectElement = newSelect.querySelector('select');
+        newSelectElement.addEventListener('change', updateSelects);
         
         // Actualizar los números de los badges
         updateBadgeNumbers();
         
         // Actualizar el estado de los selects
         updateSelects();
-        
-        // Agregar evento al nuevo select
-        const newSelectElement = document.getElementById(`alumno_${counter}`);
-        newSelectElement.addEventListener('change', updateSelects);
     }
 
     // Función para actualizar los números de los badges
     function updateBadgeNumbers() {
-        const badges = container.querySelectorAll('.badge');
+        const badges = document.querySelectorAll('.select-container .badge');
         badges.forEach((badge, index) => {
             badge.textContent = index + 1;
         });
+    }
+    
+    // Función para eliminar un select
+    function removeSelect(button) {
+        const container = button.closest('.select-container');
+        container.remove();
+        updateBadgeNumbers();
+        updateSelects();
     }
 
     // Evento para el botón de añadir
@@ -142,4 +193,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar la validación de selects
     updateSelects();
+    
+    // Hacer las funciones disponibles globalmente
+    window.removeSelect = removeSelect;
+    window.updateBadgeNumbers = updateBadgeNumbers;
 });

@@ -85,37 +85,58 @@
             return $resultado;
         }
         public function mInscribirAlumnos($alumnos, $idActividad){
-            $SQL = "INSERT INTO Participan (idAlumno, idActividad, fecha_inscripcion) VALUES (?, ?, NOW())";
-            $stmt = $this->conexion->prepare($SQL);
-            $stmt->bind_param("ii", $alumno, $idActividad);
-            foreach ($alumnos as $alumno) {
-                $stmt->execute();
+            // Iniciamos transacción
+            $this->conexion->begin_transaction();
+            
+            try {
+                // Primero eliminamos las inscripciones existentes para esta actividad
+                $deleteSQL = "DELETE FROM Participan WHERE idActividad = ?";
+                $deleteStmt = $this->conexion->prepare($deleteSQL);
+                $deleteStmt->bind_param("i", $idActividad);
+                $deleteStmt->execute();
+                
+                // Luego insertamos las nuevas inscripciones
+                $SQL = "INSERT INTO Participan (idAlumno, idActividad, fecha_inscripcion) VALUES (?, ?, NOW())";
+                $stmt = $this->conexion->prepare($SQL);
+                $stmt->bind_param("ii", $alumno, $idActividad);
+                
+                foreach ($alumnos as $alumno) {
+                    $stmt->execute();
+                }
+                
+                // Si todo va bien, confirmamos la transacción
+                $this->conexion->commit();
+                return true;
+                
+            } catch (Exception $e) {
+                // Si hay algún error, hacemos rollback y devolvemos false
+                $this->conexion->rollback();
+                return false;
             }
+        }
+        public function mMostrarClases(){
+            $SQL = "SELECT * from Clases";
+            $stmt = $this->conexion->prepare($SQL);
+            $stmt->execute();
+            $datos = $stmt->get_result();
+
+            $resultado = [];
+            while ($fila = $datos->fetch_assoc()) {
+                $resultado[] = [
+                    "idClase" => $fila['idClase'],
+                    "nombre" => $fila['nombre'],
+                    "idEtapa" => $fila['idEtapa'],
+                    "idTutor" => $fila['idTutor']
+                ];
+            }
+            return $resultado;
+        }
+        public function mInscribirClase($idClase, $idActividad){
+            $SQL = "INSERT INTO Se_inscriben (idActividad, idClase, fecha_inscripcion) VALUES (?, ?, NOW())";
+            $stmt = $this->conexion->prepare($SQL);
+            $stmt->bind_param("ii", $idActividad, $idClase);
+            $stmt->execute();
             return true;
         }
-    public function mMostrarClases(){
-        $SQL = "SELECT * from Clases";
-        $stmt = $this->conexion->prepare($SQL);
-        $stmt->execute();
-        $datos = $stmt->get_result();
-
-        $resultado = [];
-        while ($fila = $datos->fetch_assoc()) {
-            $resultado[] = [
-                "idClase" => $fila['idClase'],
-                "nombre" => $fila['nombre'],
-                "idEtapa" => $fila['idEtapa'],
-                "idTutor" => $fila['idTutor']
-            ];
-        }
-        return $resultado;
-    }
-    public function mInscribirClase($idClase, $idActividad){
-        $SQL = "INSERT INTO Se_inscriben (idActividad, idClase, fecha_inscripcion) VALUES (?, ?, NOW())";
-        $stmt = $this->conexion->prepare($SQL);
-        $stmt->bind_param("ii", $idActividad, $idClase);
-        $stmt->execute();
-        return true;
-    }
 }
 ?>
