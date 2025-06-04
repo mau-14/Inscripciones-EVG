@@ -49,7 +49,7 @@
             <?php endif; ?>
             
             <?php 
-            // Mostrar actividades de Voluntariado (V)
+            // Mostrar actividades de Alumnos (V)
             if (!empty($actividadesV)): ?>
                 <div class="seccion-actividades">
                     <h2 class="seccion-titulo">Actividades de Alumnos</h2>

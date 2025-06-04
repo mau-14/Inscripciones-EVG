@@ -2,12 +2,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.selects-grid');
     const form = document.querySelector('form');
     const addButton = document.createElement('button');
-    let counter = 1;
+    
+    // Contador basado en los selects existentes
+    const existingSelects = document.querySelectorAll('select[name="alumnos[]"]');
+    let counter = existingSelects.length;
 
     // Estilos para el botón de añadir
     addButton.type = 'button';
     addButton.className = 'btn btn-primary';
     addButton.style.marginTop = '15px';
+    addButton.style.marginBottom = '15px';
     addButton.innerHTML = '<i class="fas fa-plus"></i> Añadir otro alumno';
     
     // Insertar el botón después del contenedor de selects
@@ -29,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const options = select.querySelectorAll('option');
             
             options.forEach(option => {
-                if (option.value === '') return; // No deshabilitar la opción por defecto
+                if (option.value === '') return; // No modificar la opción por defecto
                 
                 // Habilitar todas las opciones primero
                 option.disabled = false;
@@ -44,23 +48,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     // Función para crear un nuevo select
     function createNewSelect() {
         counter++;
+        const firstSelect = document.getElementById('alumno_0');
+        
+        if (!firstSelect) {
+            console.error('No se encontró el select de referencia (alumno_0)');
+            return;
+        }
+        
+        // Obtener solo las opciones de alumnos (excluyendo la opción por defecto)
+        const options = Array.from(firstSelect.querySelectorAll('option[value]')).filter(opt => opt.value !== '');
+        
+        // Crear opciones para el nuevo select
+        let optionsHTML = '<option value="" disabled selected>Seleccione un alumno</option>';
+        
+        // Agregar opciones de alumnos
+        options.forEach(option => {
+            optionsHTML += `<option value="${option.value}">${option.textContent}</option>`;
+        });
+        
+        // Crear el nuevo select con opción por defecto
         const newSelect = `
             <div class="form-group">
                 <label for="alumno_${counter}">
-                    <span class="badge">${counter}</span>
-                    Seleccionar alumno
+                    <span class="badge">${counter + 1}</span>
+                    Alumno
                 </label>
                 <select id="alumno_${counter}" name="alumnos[]" class="form-control">
-                    ${document.getElementById('alumno_1').querySelectorAll('option:not([value=""])')[0].parentNode.innerHTML}
+                    ${optionsHTML}
                 </select>
             </div>
         `;
         
         container.insertAdjacentHTML('beforeend', newSelect);
+        
+        // Actualizar los números de los badges
+        updateBadgeNumbers();
+        
+        // Actualizar el estado de los selects
         updateSelects();
         
         // Agregar evento al nuevo select
@@ -68,16 +95,26 @@ document.addEventListener('DOMContentLoaded', function() {
         newSelectElement.addEventListener('change', updateSelects);
     }
 
+    // Función para actualizar los números de los badges
+    function updateBadgeNumbers() {
+        const badges = container.querySelectorAll('.badge');
+        badges.forEach((badge, index) => {
+            badge.textContent = index + 1;
+        });
+    }
+
     // Evento para el botón de añadir
     addButton.addEventListener('click', function() {
         createNewSelect();
     });
 
-    // Agregar evento a los selects existentes
-    const existingSelects = container.querySelectorAll('select[name="alumnos[]"]');
-    existingSelects.forEach(select => {
+    // Inicializar eventos para los selects existentes
+    document.querySelectorAll('select[name="alumnos[]"]').forEach(select => {
         select.addEventListener('change', updateSelects);
     });
+
+    // Inicializar el estado de los selects
+    updateSelects();
 
     // Validación para evitar envíos vacíos
     form.addEventListener('submit', function(e) {

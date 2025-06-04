@@ -48,23 +48,40 @@
         }
         return $resultado;
         }
-        public function mMostrarAlumnosaInscribir(){
-            $SQL = "SELECT * from Alumnos where idClase = ?";
+        public function mMostrarAlumnosaInscribir($idActividad) {
+            // Primera consulta: Obtener todos los alumnos de la clase 1
+            $SQL = "SELECT * FROM Alumnos WHERE idClase = ?";
             $stmt = $this->conexion->prepare($SQL);
+            $idClase = 1; // Mantenemos el idClase fijo en 1
             $stmt->bind_param("i", $idClase);
-            $idClase = 1;
             $stmt->execute();
             $datos = $stmt->get_result();
 
             $resultado = [];
             while ($fila = $datos->fetch_assoc()) {
-                $resultado[] = [
+                $resultado['alumnos'][] = [
                     "idAlumno" => $fila['idAlumno'],
                     "nombre" => $fila['nombre'],
                     "sexo" => $fila['sexo'],
                     "idClase" => $fila['idClase']
                 ];
             }
+
+            // Segunda consulta: Obtener nombres de alumnos ya inscritos en la actividad
+            $SQL2 = "SELECT a.nombre 
+                    FROM Alumnos a 
+                    INNER JOIN Participan p ON a.idAlumno = p.idAlumno 
+                    WHERE p.idActividad = ?";
+            $stmt2 = $this->conexion->prepare($SQL2);
+            $stmt2->bind_param("i", $idActividad);
+            $stmt2->execute();
+            $datos2 = $stmt2->get_result();
+
+            $resultado['inscritos'] = [];
+            while ($fila = $datos2->fetch_assoc()) {
+                $resultado['inscritos'][] = $fila['nombre'];
+            }
+
             return $resultado;
         }
         public function mInscribirAlumnos($alumnos, $idActividad){

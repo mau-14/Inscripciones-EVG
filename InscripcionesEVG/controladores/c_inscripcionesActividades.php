@@ -19,7 +19,8 @@
 
         public function cInscripcionesAlumnos(){
             $this->vista = 'inscripcionesAlumnos';
-            $resultado = $this->objinscripcionesActividades->mMostrarAlumnosaInscribir();
+            $idActividad = $_GET['id'];
+            $resultado = $this->objinscripcionesActividades->mMostrarAlumnosaInscribir($idActividad);
             if (is_array($resultado)) {
                 return $resultado;
             }
