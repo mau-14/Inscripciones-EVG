@@ -95,13 +95,21 @@ btnAceptar?.addEventListener("click", async function (event) {
 			// Validación de duplicados por hora (independientemente de la fecha)
 			const modeloPruebas = new M_obtenerPruebas();
 			const pruebas = await modeloPruebas.obtenerPruebas();
+			const existeMismaHora = pruebas.some((p) => {
+				console.log(p);
+				if (p.categoria !== "M") {
+					return false;
+				}
 
-			const existeMismaHora = pruebas.some(
-				(p) =>
-					p.hora === horaPrueba &&
-					(tipoAccion === "editar" ? p.idPruebaM !== idPruebaM : true),
-			);
+				if (
+					tipoAccion === "editar" &&
+					String(p.idPrueba) === String(idPruebaM)
+				) {
+					return false; // Ignorar la prueba que estamos editando
+				}
 
+				return p.hora === horaPrueba;
+			});
 			if (existeMismaHora) {
 				errorDialog.show("Ya existe una prueba programada a esa hora.");
 				loader.ocultar();
