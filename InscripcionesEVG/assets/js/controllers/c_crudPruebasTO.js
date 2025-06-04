@@ -83,39 +83,41 @@ btnAceptar?.addEventListener("click", async function (event) {
 			const loader = new Loader("Cargando...");
 
 			// Validación de hora: debe estar entre 09:00 y 15:00
-			const horaMinima = "09:00";
-			const horaMaxima = "15:00";
+			if (horaPrueba) {
+				const horaMinima = "09:00";
+				const horaMaxima = "15:00";
 
-			if (!horaPrueba || horaPrueba < horaMinima || horaPrueba > horaMaxima) {
-				errorDialog.show("La hora debe estar entre las 09:00 y las 15:00.");
-				loader.ocultar();
-				return;
-			}
-
-			// Validación de duplicados por hora (independientemente de la fecha)
-			const modeloPruebas = new M_obtenerPruebas();
-			const pruebas = await modeloPruebas.obtenerPruebas();
-			const existeMismaHora = pruebas.some((p) => {
-				console.log(p);
-				if (p.categoria !== "M") {
-					return false;
+				if (horaPrueba < horaMinima || horaPrueba > horaMaxima) {
+					errorDialog.show("La hora debe estar entre las 09:00 y las 15:00.");
+					loader.ocultar();
+					return;
 				}
 
-				if (
-					tipoAccion === "editar" &&
-					String(p.idPrueba) === String(idPruebaM)
-				) {
-					return false; // Ignorar la prueba que estamos editando
+				// Validación de duplicados por hora (independientemente de la fecha)
+				const modeloPruebas = new M_obtenerPruebas();
+				const pruebas = await modeloPruebas.obtenerPruebas();
+
+				const existeMismaHora = pruebas.some((p) => {
+					if (p.categoria !== "M") {
+						return false;
+					}
+
+					if (
+						tipoAccion === "editar" &&
+						String(p.idPrueba) === String(idPruebaM)
+					) {
+						return false; // Ignorar la prueba que estamos editando
+					}
+
+					return p.hora === horaPrueba;
+				});
+
+				if (existeMismaHora) {
+					errorDialog.show("Ya existe una prueba programada a esa hora.");
+					loader.ocultar();
+					return;
 				}
-
-				return p.hora === horaPrueba;
-			});
-			if (existeMismaHora) {
-				errorDialog.show("Ya existe una prueba programada a esa hora.");
-				loader.ocultar();
-				return;
 			}
-
 			try {
 				if (tipoAccion === "añadir") {
 					const resultado = await modelo.insertPrueba(JSON.stringify(prueba));
