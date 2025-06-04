@@ -13,6 +13,9 @@
   transition: none;
   transform: none;
 }
+.pruebasExcel:hover {
+  transform: none;
+}
 
 .prueba-item {
   background-color: #fafafa;

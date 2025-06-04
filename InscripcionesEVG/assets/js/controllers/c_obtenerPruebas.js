@@ -198,8 +198,8 @@ async function cargarPruebasConDescarga() {
 			const imgExcel = document.createElement("img");
 			imgExcel.src = "/InscripcionesEVG/assets/img/excel.png";
 			imgExcel.alt = "Descargar Excel";
-			imgExcel.style.width = "20px";
-			imgExcel.style.height = "20px";
+			imgExcel.style.width = "25px";
+			imgExcel.style.height = "25px";
 
 			btnDescargar.appendChild(textoExcel);
 			btnDescargar.appendChild(imgExcel);
@@ -231,8 +231,8 @@ async function cargarPruebasConDescarga() {
 			const imgPDF = document.createElement("img");
 			imgPDF.src = "/InscripcionesEVG/assets/img/pdf.png";
 			imgPDF.alt = "Descargar PDF";
-			imgPDF.style.width = "20px";
-			imgPDF.style.height = "20px";
+			imgPDF.style.width = "25px";
+			imgPDF.style.height = "25px";
 
 			btnPDF.appendChild(textoPDF);
 			btnPDF.appendChild(imgPDF);
