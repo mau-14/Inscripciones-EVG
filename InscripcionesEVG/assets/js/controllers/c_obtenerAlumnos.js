@@ -1,4 +1,5 @@
 import M_obtenerAlumnos from "/InscripcionesEVG/assets/js/models/m_obtenerAlumnos.js";
+import { ModalConfirmacion } from "/InscripcionesEVG/assets/js/utils/modalConfirmacion.js";
 
 async function rellenarSelectsConAlumnos(idClase) {
 	try {
@@ -320,6 +321,19 @@ async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 		idPruebaF,
 	);
 
+	if (
+		!excels ||
+		(Array.isArray(excels) && excels.length === 0) || // si es un array
+		(typeof excels === "object" && Object.keys(excels).length === 0) // si es objeto sin propiedades
+	) {
+		new ModalConfirmacion({
+			titulo: "No disponible",
+			mensaje: "Esta prueba no tiene inscripciones",
+			onAceptar: () => {},
+			onCancelar: () => {},
+		});
+		return; // no continuar
+	}
 	const response = await fetch(
 		"/InscripcionesEVG/controllers/generar_excel.php",
 		{
