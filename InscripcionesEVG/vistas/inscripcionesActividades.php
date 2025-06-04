@@ -11,6 +11,14 @@
     <main>
         <h1>Inscripción Actividades</h1>
         
+        <div class="modal error-modal" id="modalError" style="display:none;">
+            <div class="modal-contenido">
+                <span class="cerrar" id="btnCerrarError">&times;</span>
+                <h2>Error</h2>
+                <p id="errorMsgText"></p>
+            </div>
+        </div>
+        
         <div class="reglas-container">
             <h2>NORMAS DEL PROCESO DE INSCRIPCIONES</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nunc, vitae aliquam nisl nunc vitae nisl. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nunc, vitae aliquam nisl nunc vitae nisl.</p>
@@ -73,5 +81,40 @@
             ?>
         </div>
     </main>
+    
+    <script>
+    // Mostrar modal si hay un mensaje de error
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modalError');
+        const btnCerrar = document.getElementById('btnCerrarError');
+        
+        // Verificar si hay un mensaje de error en la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        if (urlParams.has('error')) {
+            const mensajeError = decodeURIComponent(urlParams.get('error'));
+            const contenido = document.getElementById('errorMsgText');
+            
+            contenido.textContent = mensajeError;
+            modal.style.display = 'block';
+            
+            // Limpiar el parámetro de error de la URL sin recargar la página
+            const nuevaURL = window.location.pathname;
+            window.history.replaceState({}, document.title, nuevaURL);
+        }
+
+        // Cerrar el modal al hacer clic en la X
+        btnCerrar.onclick = function() {
+            modal.style.display = 'none';
+        };
+
+        // Cerrar el modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    });
+    </script>
 </body>
 </html>

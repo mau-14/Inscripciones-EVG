@@ -180,15 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 hasSelection = true;
             }
         });
-
-        if (emptySelects === selects.length) {
-            e.preventDefault();
-            alert('Por favor, seleccione al menos un alumno.');
-        } else if (emptySelects > 0) {
-            if (!confirm('Hay alumnos sin seleccionar. ¿Desea continuar de todos modos?')) {
-                e.preventDefault();
-            }
-        }
     });
 
     // Inicializar la validación de selects
