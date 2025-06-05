@@ -10,6 +10,7 @@ import {
 const errorDialog = new ErrorDialog();
 
 export async function setUpInscripciones() {
+	const loader = new Loader("Cargando...");
 	const obj = new M_obtenerEtapasYClases();
 	const datos = await obj.obtenerEtapasYClases();
 
@@ -19,8 +20,8 @@ export async function setUpInscripciones() {
 				`<option value="${etapa.idEtapa}">${etapa.nombreEtapa}</option>`,
 		)
 		.join("");
-
-	const modal = new ModalConfirmacion({
+	loader.ocultar();
+	new ModalConfirmacion({
 		titulo: "Selecciona Etapa y Clase",
 		contenidoPersonalizado: `
     <label>Etapa:
