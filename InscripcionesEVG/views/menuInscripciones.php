@@ -62,7 +62,7 @@ function fechaAFrase($fechaStr)
       echo fechaAFrase($momentoActual['fecha_inicio']) . " a " . fechaAFrase($momentoActual['fecha_fin']);
       ?>
     </p>
-    <h2>Seleccione una inscripcion</h2>
+    <h2>Seleccione una inscripción</h2>
     <section class="grid">
       <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>

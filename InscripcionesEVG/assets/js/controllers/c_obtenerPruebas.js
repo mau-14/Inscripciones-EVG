@@ -216,39 +216,39 @@ async function cargarPruebasConDescarga() {
 
 			div.appendChild(btnDescargar);
 
-			// Botón para descargar PDF
-			const btnPDF = document.createElement("button");
-			btnPDF.classList.add("btn-descargar-pdf");
+			// // Botón para descargar PDF
+			// const btnPDF = document.createElement("button");
+			// btnPDF.classList.add("btn-descargar-pdf");
 
-			const textoPDF = document.createElement("span");
-			textoPDF.textContent = "Descargar ";
-			textoPDF.style.marginRight = "6px";
-			textoPDF.style.color = "white";
+			// const textoPDF = document.createElement("span");
+			// textoPDF.textContent = "Descargar ";
+			// textoPDF.style.marginRight = "6px";
+			// textoPDF.style.color = "white";
 
-			const imgPDF = document.createElement("img");
-			imgPDF.src = "/InscripcionesEVG/assets/img/pdf.png";
-			imgPDF.alt = "Descargar PDF";
-			imgPDF.style.width = "25px";
-			imgPDF.style.height = "25px";
+			// const imgPDF = document.createElement("img");
+			// imgPDF.src = "/InscripcionesEVG/assets/img/pdf.png";
+			// imgPDF.alt = "Descargar PDF";
+			// imgPDF.style.width = "25px";
+			// imgPDF.style.height = "25px";
 
-			btnPDF.appendChild(textoPDF);
-			btnPDF.appendChild(imgPDF);
+			// btnPDF.appendChild(textoPDF);
+			// btnPDF.appendChild(imgPDF);
 
-			btnPDF.addEventListener("click", async () => {
-				const loader = new Loader("Generando PDF...");
-				try {
-					const idPruebaM = inputMasculino.value;
-					const idPruebaF = inputFemenino.value;
-					console.log("Descargar PDF para:", idPruebaM, idPruebaF);
-					// Aquí iría la lógica de generación
-				} catch (error) {
-					console.error("Error al generar PDF:", error);
-				} finally {
-					loader.ocultar();
-				}
-			});
+			// btnPDF.addEventListener("click", async () => {
+			// 	const loader = new Loader("Generando PDF...");
+			// 	try {
+			// 		const idPruebaM = inputMasculino.value;
+			// 		const idPruebaF = inputFemenino.value;
+			// 		console.log("Descargar PDF para:", idPruebaM, idPruebaF);
+			// 		// Aquí iría la lógica de generación
+			// 	} catch (error) {
+			// 		console.error("Error al generar PDF:", error);
+			// 	} finally {
+			// 		loader.ocultar();
+			// 	}
+			// });
 
-			div.appendChild(btnPDF);
+			// div.appendChild(btnPDF);
 
 			contenedor.appendChild(div);
 		}

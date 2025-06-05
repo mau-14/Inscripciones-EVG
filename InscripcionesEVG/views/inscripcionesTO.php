@@ -11,10 +11,10 @@ if (!$isCoordinador && !$isTutor) {
   exit();
 }
 
-if ($momentoActual['idMomento'] != $MOMENTO_TORNEO_ID) {
-  header("Location: /InscripcionesEVG/views/menuInscripciones.php");
-  exit();
-}
+// if ($momentoActual['idMomento'] != $MOMENTO_TORNEO_ID) {
+//   header("Location: /InscripcionesEVG/views/menuInscripciones.php");
+//   exit();
+// }
 ?>
 <!doctype html>
 <html lang="es">

@@ -24,7 +24,6 @@ async function rellenarSelectsConAlumnos(idClase) {
 		const anteriores = new Map(); // Guardamos el valor anterior de cada select
 
 		// Función para actualizar los selects
-		// Función para actualizar los selects
 		function actualizarSelects() {
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
@@ -41,9 +40,11 @@ async function rellenarSelectsConAlumnos(idClase) {
 						: seleccionadosGenerales.has(alumnoId) && anterior !== alumnoId;
 
 					if (noMostrar) {
-						option.style.display = "none"; // Ocultamos la opción
+						option.disabled = true;
+						option.hidden = true;
 					} else {
-						option.style.display = ""; // Aseguramos que la opción esté visible
+						option.disabled = false;
+						option.hidden = false;
 					}
 				});
 			});
