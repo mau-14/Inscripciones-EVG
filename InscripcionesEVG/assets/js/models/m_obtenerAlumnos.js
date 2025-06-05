@@ -32,6 +32,7 @@ class M_obtenerAlumnos {
 				},
 			);
 			const data = await response.json();
+
 			console.log("ALUMNOS", data);
 			return data;
 		} catch (error) {

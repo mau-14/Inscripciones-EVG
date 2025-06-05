@@ -186,9 +186,9 @@
   </div>
 
   <a href="/InscripcionesEVG/index.php?controlador=momentos&accion=cMostrarMomentosActividades" class="boton-volver">Volver</a>
-  <script src="<?php echo JS_MODELO ?>actividadesModel.js"></script>
-  <script src="<?php echo JS_CONTROLADOR ?>actividadesController.js"></script>
-  <script src="<?php echo JS ?>gestionActividades.js"></script>
+  <script src="js/models/actividadesModel.js"></script>
+  <script src="js/controllers/actividadesController.js"></script>
+  <script src="js/gestionActividades.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       new ActividadesController();

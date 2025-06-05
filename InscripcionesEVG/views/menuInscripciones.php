@@ -39,7 +39,7 @@ function fechaAFrase($fechaStr)
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inscripciones - Panel de <?php echo $momentoActual; ?></title>
+  <title>Inscripciones - Panel de <?php echo $momentoActual['nombre']; ?></title>
 
   <base href="/InscripcionesEVG/assets/">
   <link href="css/navbar.css" rel="stylesheet" />
@@ -68,7 +68,7 @@ function fechaAFrase($fechaStr)
         <i class="fa-solid fa-trophy"></i>
         Inscripción Torneo Olímpico
       </a>
-      <a href="/InscripcionesEVG/actividades/inscripcion.php" class="menu-option" aria-label="Inscripción Actividades">
+      <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cMostrarActividades" class="menu-option" aria-label="Inscripción Actividades">
         <i class="fa-solid fa-calendar-check"></i>
         Inscripción Actividades
       </a>
