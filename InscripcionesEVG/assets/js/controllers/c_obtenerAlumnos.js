@@ -20,11 +20,12 @@ async function rellenarSelectsConAlumnos(idClase) {
 		const selectsFemeninos = contenedorFemenino.querySelectorAll("select");
 
 		const seleccionadosGenerales = new Set(); // Para selects normales
-		const seleccionadosTipoC = new Set(); // Para selects con "-C"
+		const seleccionadosTipoC = new Set(); // Para selects con name "C"
 		const anteriores = new Map(); // Guardamos el valor anterior de cada select
 
-		// Función para actualizar los selects
+		// Función para actualizar los selects con depuración
 		function actualizarSelects() {
+			console.log("Actualizando selects...");
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
 				const esTipoC = select.name === "C";
@@ -34,14 +35,27 @@ async function rellenarSelectsConAlumnos(idClase) {
 					if (!alumnoId) return;
 
 					const anterior = anteriores.get(select) || "";
-					// Si el alumno ya está seleccionado, no lo mostramos en otros selects
-					const noMostrar = esTipoC
-						? seleccionadosTipoC.has(alumnoId) && anterior !== alumnoId
-						: seleccionadosGenerales.has(alumnoId) && anterior !== alumnoId;
+
+					let noMostrar = false;
+
+					if (esTipoC) {
+						// Bloquear opciones que están seleccionadas en selects normales (generales), excepto si es el mismo select
+						noMostrar =
+							seleccionadosGenerales.has(alumnoId) && anterior !== alumnoId;
+					} else {
+						// Bloquear opciones seleccionadas en cualquiera (generales o tipo C), excepto si es el mismo select
+						noMostrar =
+							(seleccionadosGenerales.has(alumnoId) ||
+								seleccionadosTipoC.has(alumnoId)) &&
+							anterior !== alumnoId;
+					}
 
 					if (noMostrar) {
 						option.disabled = true;
 						option.hidden = true;
+						console.log(
+							`Deshabilitado alumnoId=${alumnoId} en select name="${select.name}"`,
+						);
 					} else {
 						option.disabled = false;
 						option.hidden = false;
@@ -49,15 +63,18 @@ async function rellenarSelectsConAlumnos(idClase) {
 				});
 			});
 		}
+
 		// Rellenar selects masculinos
 		selectsMasculinos.forEach((select) => {
+			const esTipoC = select.name === "C";
 			select.innerHTML = `<option value="">Selecciona</option>`;
 			alumnos
-				.filter(
-					(a) =>
-						a.sexo === "M" &&
-						!seleccionadosGenerales.has(a.idAlumno.toString()),
-				)
+				.filter((a) => {
+					if (a.sexo !== "M") return false;
+					if (!esTipoC && seleccionadosGenerales.has(a.idAlumno.toString()))
+						return false;
+					return true;
+				})
 				.forEach((alumno) => {
 					const option = document.createElement("option");
 					option.value = alumno.idAlumno;
@@ -68,13 +85,15 @@ async function rellenarSelectsConAlumnos(idClase) {
 
 		// Rellenar selects femeninos
 		selectsFemeninos.forEach((select) => {
+			const esTipoC = select.name === "C";
 			select.innerHTML = `<option value="">Selecciona</option>`;
 			alumnos
-				.filter(
-					(a) =>
-						a.sexo === "F" &&
-						!seleccionadosGenerales.has(a.idAlumno.toString()),
-				)
+				.filter((a) => {
+					if (a.sexo !== "F") return false;
+					if (!esTipoC && seleccionadosGenerales.has(a.idAlumno.toString()))
+						return false;
+					return true;
+				})
 				.forEach((alumno) => {
 					const option = document.createElement("option");
 					option.value = alumno.idAlumno;
@@ -82,7 +101,8 @@ async function rellenarSelectsConAlumnos(idClase) {
 					select.appendChild(option);
 				});
 		});
-		// Añadir eventos de cambio
+
+		// Añadir eventos de cambio a todos los selects
 		[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 			anteriores.set(select, ""); // valor inicial vacío
 
@@ -91,12 +111,18 @@ async function rellenarSelectsConAlumnos(idClase) {
 				const anterior = anteriores.get(select);
 				const esTipoC = select.name === "C";
 
+				console.log(
+					`Cambio en select name="${select.name}": anterior="${anterior}" -> actual="${actual}"`,
+				);
+
 				// Eliminar el valor anterior si existía
 				if (anterior) {
 					if (esTipoC) {
 						seleccionadosTipoC.delete(anterior);
+						console.log(`Quitado de seleccionadosTipoC: ${anterior}`);
 					} else {
 						seleccionadosGenerales.delete(anterior);
+						console.log(`Quitado de seleccionadosGenerales: ${anterior}`);
 					}
 				}
 
@@ -104,8 +130,10 @@ async function rellenarSelectsConAlumnos(idClase) {
 				if (actual) {
 					if (esTipoC) {
 						seleccionadosTipoC.add(actual);
+						console.log(`Añadido a seleccionadosTipoC: ${actual}`);
 					} else {
 						seleccionadosGenerales.add(actual);
+						console.log(`Añadido a seleccionadosGenerales: ${actual}`);
 					}
 				}
 
@@ -114,12 +142,11 @@ async function rellenarSelectsConAlumnos(idClase) {
 			});
 		});
 
-		actualizarSelects(); // Inicial
+		actualizarSelects(); // Inicializar estados
 	} catch (error) {
 		console.error("Error al rellenar los selects con alumnos:", error);
 	}
 }
-
 async function rellenarSelectsConSeleccionados(idClase) {
 	try {
 		const modelo = new M_obtenerAlumnos();
@@ -315,6 +342,7 @@ async function rellenarSelectsConSeleccionados(idClase) {
 		console.error("Error al inicializar los selects:", error);
 	}
 }
+
 async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 	const modelo = new M_obtenerAlumnos();
 	const excels = await modelo.obtenerAlumnosInscripcionesTO(
