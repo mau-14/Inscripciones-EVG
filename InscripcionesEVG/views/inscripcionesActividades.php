@@ -23,11 +23,6 @@
       </div>
     </div>
 
-    <div class="reglas-container">
-      <h2>NORMAS DEL PROCESO DE INSCRIPCIONES</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nunc, vitae aliquam nisl nunc vitae nisl. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nunc, vitae aliquam nisl nunc vitae nisl.</p>
-    </div>
-
     <div class="contenedor-actividades">
       <?php
       $actividadesC = [];

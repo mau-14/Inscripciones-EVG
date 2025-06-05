@@ -61,7 +61,9 @@
         </div>
         <div class="carta-acciones">
           <button class="editar" data-id="<?php echo $momento['idMomento']; ?>" data-nombre="<?php echo htmlspecialchars($momento['nombre']); ?>" data-fecha-inicio="<?php echo $momento['fecha_inicio']; ?>" data-fecha-fin="<?php echo $momento['fecha_fin']; ?>"><i class="fas fa-pen"></i></button>
-          <button class="eliminar" data-id="<?php echo $momento['idMomento']; ?>"><i class="fas fa-trash"></i></button>
+          <?php if ($momento['idMomento'] !==0) { ?>
+            <button class="eliminar" data-id="<?php echo $momento['idMomento']; ?>"><i class="fas fa-trash"></i></button>
+          <?php } ?>
         </div>
       </div>
     <?php } ?>

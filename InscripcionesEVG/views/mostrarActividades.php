@@ -20,11 +20,10 @@
       <p id="errorMsgText"></p>
     </div>
   </div>
-  <h1>Gestión <?php echo htmlspecialchars($dataToView['data'][0]['nombre_momento']); ?></h1>
-  <h2>Seleccione una Actividad</h2>
-  <!-- Leyenda de iconos explicativos -->
-  <div class="leyenda-iconos">
-    <strong>Leyenda de iconos:</strong>
+    <h1>Seleccione una Actividad</h1>
+    <!-- Leyenda de iconos explicativos -->
+    <div class="leyenda-iconos">
+      <strong>Leyenda de iconos:</strong>
     <span><i class="fas fa-user-graduate"></i> Actividad de alumnos</span>
     <span><i class="fas fa-school"></i> Actividad de clase</span>
     <span><i class="fas fa-users"></i> Numero Maximo de Participantes</span>
@@ -35,7 +34,10 @@
   <div class="contenedor-momentos">
     <!--Lista de Actividades-->
     <?php
-    foreach ($dataToView["data"] as $actividad) { ?>
+    if (empty($dataToView["data"])) {
+      echo '<div class="no-actividades">No hay actividades disponibles en este momento.</div>';
+    } else {
+      foreach ($dataToView["data"] as $actividad) { ?>
       <div class="carta">
         <div class="carta-header">
           <h3><?php echo htmlspecialchars($actividad['nombre']); ?></h3>
@@ -104,7 +106,7 @@
           </button>
         </div>
       </div>
-    <?php } ?>
+    <?php } } ?>
 
     <!-- Botón para abrir el formulario -->
     <div class="momento añadir" id="btnAbrirModal">
