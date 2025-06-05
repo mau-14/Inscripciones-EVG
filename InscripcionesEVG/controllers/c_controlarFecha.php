@@ -18,16 +18,21 @@ class C_controlarFecha
     echo $resultado;
   }
 
-  public function guardarMomentoActivo()
+  public function guardarMomentosActivos()
   {
     session_start();
 
-    // Leer el JSON enviado desde JS
     $json = file_get_contents('php://input');
-    $momento = json_decode($json, true);
+    $datos = json_decode($json, true);
 
-    if ($momento) {
-      $_SESSION['momento_actual'] = $momento;
+    if ($datos) {
+      if (isset($datos['momentoActual'])) {
+        $_SESSION['momento_actual'] = $datos['momentoActual'];
+      }
+
+      if (isset($datos['momentoTorneoOlimpico'])) {
+        $_SESSION['momento_torneo'] = $datos['momentoTorneoOlimpico'];
+      }
 
       header('Content-Type: application/json');
       echo json_encode(['ok' => true]);

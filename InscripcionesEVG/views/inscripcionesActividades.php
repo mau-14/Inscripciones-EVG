@@ -13,7 +13,7 @@
 
 <body>
   <main>
-    <h1>Inscripción Actividades</h1>
+    <h1>Inscripción Actividades </br><?php echo $momentoActual['nombre']; ?></h1>
 
     <div class="modal error-modal" id="modalError" style="display:none;">
       <div class="modal-contenido">
@@ -84,6 +84,8 @@
       }
       ?>
     </div>
+
+    <a href="/InscripcionesEVG/views/menuInscripciones.php" class="boton-volver">Volver</a>
   </main>
 
   <script>
@@ -120,6 +122,7 @@
       };
     });
   </script>
+
 </body>
 
 </html>

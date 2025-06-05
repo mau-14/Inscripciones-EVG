@@ -31,7 +31,19 @@ function fechaAFrase($fechaStr)
   window.MOMENTO_ACTUAL = <?= json_encode($momentoActual) ?>;
 </script>
 
-<script type="module" src="/InscripcionesEVG/assets/js/momentos/verificarMomentoTorneo.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const grid = document.querySelector('.grid');
+    const items = grid.querySelectorAll('.menu-option');
+    if (items.length === 1) {
+      grid.style.maxWidth = '800px';
+      grid.style.margin = '0 auto';
+      items[0].style.maxWidth = '600px';
+      items[0].style.margin = '0 auto';
+      items[0].style.fontSize = '3em';
+    }
+  });
+</script>
 
 <!doctype html>
 <html lang="es">
@@ -55,22 +67,22 @@ function fechaAFrase($fechaStr)
 
 <body>
   <main>
-    <h1>Inscripciones de <?php echo $momentoActual['nombre']; ?></h1>
-    <p class="subtitle-strong">
+    <h1>
       Periodo activo:
       <?php
       echo fechaAFrase($momentoActual['fecha_inicio']) . " a " . fechaAFrase($momentoActual['fecha_fin']);
       ?>
-    </p>
-    <h2>Seleccione una inscripción</h2>
+    </h1>
     <section class="grid">
-      <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
-        <i class="fa-solid fa-trophy"></i>
-        Inscripción Torneo Olímpico
-      </a>
+      <?php if ($momentoTorneo): ?>
+        <a href="/InscripcionesEVG/views/inscripcionesTO.php" class="menu-option" aria-label="Inscripción Torneo Olímpico">
+          <i class="fa-solid fa-trophy"></i>
+          Inscripción Torneo Olímpico
+        </a>
+      <?php endif; ?>
       <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cMostrarActividades" class="menu-option" aria-label="Inscripción Actividades">
         <i class="fa-solid fa-calendar-check"></i>
-        Inscripción Actividades
+        Inscripción Actividades </br><?php echo $momentoActual['nombre']; ?>
       </a>
 
     </section>

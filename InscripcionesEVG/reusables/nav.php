@@ -2,13 +2,16 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
 session_start();
 
+// Si no hay usuario en sesión, redirigir al login
 if (!isset($_SESSION['usuario'])) {
   header("Location: /InscripcionesEVG/index.php?controlador=auth&accion=login");
   exit;
 }
+
+// Recuperar datos de sesión
 $usuarioTipo = $_SESSION['usuario'] ?? '';
 $momentoActual = $_SESSION['momento_actual'] ?? null;
-
+$momentoTorneo = $_SESSION['momento_torneo'] ?? null;
 ?>
 
 <script type="module" src="/InscripcionesEVG/assets/js/controllers/c_controlarFecha.js">

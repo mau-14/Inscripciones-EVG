@@ -1,18 +1,5 @@
 import M_obtenerMomentos from "/InscripcionesEVG/assets/js/models/m_obtenerMomentos.js";
 
-function obtenerMomentoActual(momentos) {
-	const hoy = new Date();
-	const hoyStr = hoy.toISOString().split("T")[0]; // Formato "YYYY-MM-DD"
-
-	for (const momento of momentos) {
-		if (hoyStr >= momento.fecha_inicio && hoyStr <= momento.fecha_fin) {
-			return momento;
-		}
-	}
-
-	return null;
-}
-
 async function controlarFecha() {
 	try {
 		const gestorMomentos = new M_obtenerMomentos();
@@ -20,26 +7,41 @@ async function controlarFecha() {
 
 		const hoy = new Date();
 
-		// Buscar el momento que contiene la fecha actual
-		const momentoActual = momentos.find((m) => {
+		// Filtra los momentos activos hoy
+		const momentosActuales = momentos.filter((m) => {
 			const inicio = new Date(m.fecha_inicio);
 			const fin = new Date(m.fecha_fin);
 			return hoy >= inicio && hoy <= fin;
 		});
 
-		if (momentoActual) {
-			console.log("Momento actual:", momentoActual);
+		// Separa el momento torneo y los demás
+		let momentoTorneoOlimpico = null;
+		let momentoActual = null;
+		console.log(momentosActuales);
 
-			// Enviar momento actual al backend para guardarlo en sesión
-			await fetch(
-				"/InscripcionesEVG/index.php?controlador=controlarFecha&accion=guardarMomentoActivo&j=1",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(momentoActual),
-				},
-			);
+		for (const momento of momentosActuales) {
+			if (momento.idMomento == 0) {
+				momentoTorneoOlimpico = momento;
+			} else {
+				momentoActual = momento;
+			}
 		}
+
+		console.log("Momento actual:", momentoActual);
+		console.log("Momento Torneo Olímpico:", momentoTorneoOlimpico);
+
+		// Puedes enviar ambos al backend si lo necesitas
+		await fetch(
+			"/InscripcionesEVG/index.php?controlador=controlarFecha&accion=guardarMomentosActivos&j=1",
+			{
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					momentoActual,
+					momentoTorneoOlimpico,
+				}),
+			},
+		);
 	} catch (error) {
 		console.error("Error al controlar fecha:", error);
 	}

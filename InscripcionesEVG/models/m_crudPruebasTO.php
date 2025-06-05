@@ -35,10 +35,6 @@ class M_crudPruebasTO
       $datos['fecha'] = empty($datos['fecha']) ? null : $datos['fecha'];
       $datos['hora'] = empty($datos['hora']) ? null : $datos['hora'];
 
-      $validacion = $this->validarDatosPrueba($datos);
-      if ($validacion !== true) {
-        return json_encode($validacion);
-      }
 
       // Insertar en la tabla Torneo_Olimpico
       $sql = "INSERT INTO Torneo_Olimpico (nombre, bases, maxParticipantes, fecha, hora, categoria, tipo)
@@ -146,65 +142,5 @@ class M_crudPruebasTO
       error_log("Error al modificar: " . $e->getMessage());
       return json_encode(["error" => "Error al modificar prueba."]);
     }
-  }
-
-  private function validarDatosPrueba(array $datos)
-  {
-    // Validar nombre
-    if (empty($datos['nombre']) || !is_string($datos['nombre'])) {
-      return ["error" => "El nombre es obligatorio y debe ser texto."];
-    }
-
-    // Validar bases
-    if (empty($datos['bases']) || !is_string($datos['bases'])) {
-      return ["error" => "Las bases son obligatorias y deben ser texto."];
-    }
-
-    // Validar maxParticipantes: entero positivo entre 1 y 1000 (por ejemplo)
-    if (
-      !isset($datos['maxParticipantes'])
-      || !filter_var($datos['maxParticipantes'], FILTER_VALIDATE_INT, ["options" => ["min_range" => 1, "max_range" => 1000]])
-    ) {
-      return ["error" => "maxParticipantes debe ser un entero positivo entre 1 y 1000."];
-    }
-
-    // Validar fecha si existe
-    if (!empty($datos['fecha'])) {
-      // Validar formato YYYY-MM-DD
-      $fecha = $datos['fecha'];
-      $d = DateTime::createFromFormat('Y-m-d', $fecha);
-      if (!($d && $d->format('Y-m-d') === $fecha)) {
-        return ["error" => "La fecha debe tener el formato YYYY-MM-DD."];
-      }
-      // Validar que no sea una fecha pasada
-      // $hoy = new DateTime('today');
-      // if ($d < $hoy) {
-      //   return ["error" => "La fecha no puede ser anterior a hoy."];
-      // }
-    }
-
-    // Validar hora si existe
-    if (!empty($datos['hora'])) {
-      // Validar formato HH:MM (24h)
-      $hora = $datos['hora'];
-      if (!preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $hora)) {
-        return ["error" => "La hora debe tener formato HH:MM en 24 horas."];
-      }
-      // Validar hora dentro de rango permitido 09:00 - 15:00
-      if ($hora < "09:00" || $hora > "15:00") {
-        return ["error" => "La hora debe estar entre las 09:00 y las 15:00."];
-      }
-    }
-
-    if (isset($datos['categoria'])) {
-      $categoriasPermitidas = ['M', 'F'];
-      if (!in_array($datos['categoria'], $categoriasPermitidas)) {
-        return ["error" => "La categoría no es válida. Debe ser 'M' o 'F'."];
-      }
-    }
-
-
-    // Si todo está bien
-    return true;
   }
 }

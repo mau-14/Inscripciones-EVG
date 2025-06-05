@@ -88,6 +88,14 @@ if (!$isCoordinador && !$isTutor) {
       console.error("Error al cargar los campos o alumnos:", error);
     }
   })();
+  document.addEventListener("DOMContentLoaded", function() {
+    const grid = document.querySelector('.grid');
+    const items = grid.querySelectorAll('.menu-option');
+    if (items.length === 1) {
+      items[0].style.maxWidth = '50%';
+      items[0].style.margin = '0 auto';
+    }
+  });
 </script>
 
 <script type="module" src="js/controllers/c_inscribirAlumnosTO.js" defer></script>

@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	const momentoActual = window.MOMENTO_ACTUAL;
 
 	// el id del Momento es 41
-	const esMomentoTorneo = momentoActual.idMomento == 41; // ajusta según tu lógica
+	const esMomentoTorneo = momentoActual.idMomento == 0; // ajusta según tu lógica
 
 	const enlaceTorneo = document.querySelector(
 		'a[href="/InscripcionesEVG/views/inscripcionesTO.php"]',

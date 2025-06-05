@@ -25,45 +25,31 @@ async function rellenarSelectsConAlumnos(idClase) {
 
 		// Función para actualizar los selects con depuración
 		function actualizarSelects() {
-			console.log("Actualizando selects...");
 			[...selectsMasculinos, ...selectsFemeninos].forEach((select) => {
 				const options = select.querySelectorAll("option");
 				const esTipoC = select.name === "C";
 
 				options.forEach((option) => {
-					const alumnoId = option.value.toString();
+					const alumnoId = option.value;
 					if (!alumnoId) return;
 
-					const anterior = anteriores.get(select) || "";
-
-					let noMostrar = false;
-
+					// Ocultar las opciones de alumnos seleccionados
 					if (esTipoC) {
-						// Bloquear opciones que están seleccionadas en selects normales (generales), excepto si es el mismo select
-						noMostrar =
-							seleccionadosGenerales.has(alumnoId) && anterior !== alumnoId;
+						option.style.display =
+							seleccionadosTipoC.has(alumnoId) &&
+							anteriores.get(select) !== alumnoId
+								? "none"
+								: "";
 					} else {
-						// Bloquear opciones seleccionadas en cualquiera (generales o tipo C), excepto si es el mismo select
-						noMostrar =
-							(seleccionadosGenerales.has(alumnoId) ||
-								seleccionadosTipoC.has(alumnoId)) &&
-							anterior !== alumnoId;
-					}
-
-					if (noMostrar) {
-						option.disabled = true;
-						option.hidden = true;
-						console.log(
-							`Deshabilitado alumnoId=${alumnoId} en select name="${select.name}"`,
-						);
-					} else {
-						option.disabled = false;
-						option.hidden = false;
+						option.style.display =
+							seleccionadosGenerales.has(alumnoId) &&
+							anteriores.get(select) !== alumnoId
+								? "none"
+								: "";
 					}
 				});
 			});
 		}
-
 		// Rellenar selects masculinos
 		selectsMasculinos.forEach((select) => {
 			const esTipoC = select.name === "C";
