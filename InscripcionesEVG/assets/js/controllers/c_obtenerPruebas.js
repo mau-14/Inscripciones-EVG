@@ -31,27 +31,27 @@ async function renderizarPruebas() {
 			div.classList.add("prueba");
 
 			div.innerHTML = `
-		<h3>${pruebaM.nombre}</h3>
-		<p><strong>Fecha:</strong> ${pruebaM.fecha ? formatearFecha(pruebaM.fecha) : "Sin fecha"}</p>
-    <p><strong>Hora:</strong> ${pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Sin hora"}</p>
-		<p><strong>Descripción:</strong> ${pruebaM.bases}</p>
-		<div class="acciones">
-			<button class="btn-editar">✏️</button>
-			${pruebaM.tipo !== "C" ? '<button class="btn-borrar">🗑️</button>' : ""}
-		</div>
-	`;
-
-			div
-				.querySelector(".btn-editar")
-				.addEventListener("click", () =>
-					abrirModal("editar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
-				);
+  <h3>${pruebaM.nombre}</h3>
+  <p><strong>Fecha:</strong> ${pruebaM.fecha ? formatearFecha(pruebaM.fecha) : "Sin fecha"}</p>
+  <p><strong>Hora:</strong> ${pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Sin hora"}</p>
+  <p><strong>Descripción:</strong> ${pruebaM.bases}</p>
+  <div class="acciones">
+    ${pruebaM.tipo !== "C" ? '<button class="btn-editar">✏️</button>' : ""}
+    ${pruebaM.tipo !== "C" ? '<button class="btn-borrar">🗑️</button>' : ""}
+  </div>
+`;
 
 			if (pruebaM.tipo !== "C") {
 				div
 					.querySelector(".btn-borrar")
 					.addEventListener("click", () =>
 						abrirModal("borrar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
+					);
+
+				div
+					.querySelector(".btn-editar")
+					.addEventListener("click", () =>
+						abrirModal("editar", pruebaM.idPrueba, pruebaM, pruebaF?.idPrueba),
 					);
 			}
 

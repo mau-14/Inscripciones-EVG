@@ -117,7 +117,8 @@ class M_crudPruebasTO
     }
     try {
       $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
-
+      error_log($datos['tipo']);
+      error_log(var_dump($datos));
       $tipo = 'P';
       $datos['fecha'] = empty($datos['fecha']) ? null : $datos['fecha'];
       $datos['hora'] = empty($datos['hora']) ? null : $datos['hora'];
