@@ -1,5 +1,6 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.php';
+include $navBar;
 ?>
 
 <!doctype html>
@@ -40,7 +41,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
         <i class="fa-solid fa-trophy"></i>
         Descargas Torneo Olímpico
       </a>
-      <a href="/InscripcionesEVG/views/listadoActividades.php" class="menu-option" aria-label="Descargas Actividades">
+      <a href="/InscripcionesEVG/views/vistaDescargaActividades.php" class="menu-option" aria-label="Descargas Actividades">
         <i class="fa-solid fa-calendar-check"></i>
         Descargas Actividades
       </a>

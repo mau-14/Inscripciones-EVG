@@ -9,12 +9,12 @@ require_once $navBar;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Listado de pruebas - Torneo Olímpico</title>
+  <title>Torneo Olímpico</title>
 
   <base href="/InscripcionesEVG/assets/">
   <link rel="stylesheet" href="css/navbar.css" />
   <link rel="stylesheet" href="css/general.css" />
-  <link rel="stylesheet" href="css/vistaListadoTO.css" />
+  <link rel="stylesheet" href="css/descargas.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
@@ -23,6 +23,7 @@ require_once $navBar;
     <header>
       <h1>Descargas Torneo Olímpico</h1>
     </header>
+
     <section class="pruebasExcel">
       <table class="tabla-pruebas">
         <thead>
@@ -60,7 +61,7 @@ require_once $navBar;
     });
   </script>
 
-  <a href="/InscripcionesEVG/index.php" class="boton-volver">Volver</a>
+  <a href="/InscripcionesEVG/views/menuDescargas.php" class="boton-volver">Volver</a>
 </body>
 
 </html>

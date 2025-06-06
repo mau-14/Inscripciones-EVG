@@ -96,7 +96,7 @@ $momentoTorneo = $_SESSION['momento_torneo'] ?? null;
         </li>
       <?php endif; ?>
       <li class="has-submenu">
-        <a href="/InscripcionesEVG/index.php">Descargas</a>
+        <a href="/InscripcionesEVG/views/menuDescargas.php">Descargas</a>
         <!-- <ul class="submenu"> -->
         <!--   <li><a href="<?= $consultaPruebasHref ?>">Consulta Torneo Olímpico</a></li> -->
         <!--   <li><a href="<?= $consultaActividadesHref ?>">Consulta de Actividades</a></li> -->

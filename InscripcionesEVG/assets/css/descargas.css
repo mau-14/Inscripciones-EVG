@@ -1,11 +1,11 @@
 section {
   width: 70%;
   box-shadow: transparent;
-  margin: 1% auto;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 0;
   padding: 2rem;
   background-color: transparent;
   border-radius: 0;
@@ -20,7 +20,7 @@ section:hover {
 }
 .tabla-pruebas {
   width: 60%;
-  margin: 2rem auto;
+  margin: 0 auto;
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid black;
@@ -131,6 +131,37 @@ section:hover {
 .btn-descargar-todos:hover {
   background-color: #0056b3;
   transform: scale(1.03);
+}
+
+.select-momento-container {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-momento-container label {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+#select-momento {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: border-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+#select-momento:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
 }
 /* Responsive */
 @media (max-width: 600px) {
