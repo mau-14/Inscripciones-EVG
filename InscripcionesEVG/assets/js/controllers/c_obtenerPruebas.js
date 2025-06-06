@@ -221,7 +221,7 @@ async function cargarPruebasConDescarga() {
 		btnDescargarTodos.classList.add("btn-descargar-todos");
 
 		btnDescargarTodos.addEventListener("click", async () => {
-			const loader = new Loader("Generando todos los Excel...");
+			const loader = new Loader("Generando zip...");
 			try {
 				await obtenerZipDePruebas(paresDePruebas);
 			} catch (error) {

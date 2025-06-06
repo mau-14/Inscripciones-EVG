@@ -120,8 +120,12 @@ async function cargarActividadesConDescarga(idMomento) {
 		btnDescargarTodos.classList.add("btn-descargar-todos");
 
 		btnDescargarTodos.addEventListener("click", async () => {
-			const loader = new Loader("Generando todos los Excel...");
+			const loader = new Loader("Generando zip...");
 			try {
+				const idsActividades = actividadesFiltradas.map(
+					(act) => act.idActividad,
+				);
+				await obtenerZipActividades(idsActividades);
 			} catch (error) {
 				console.error("Error al generar todos los Excel:", error);
 			} finally {
@@ -183,6 +187,56 @@ async function obtenerExceldeActividades(idActividad) {
 	const a = document.createElement("a");
 	a.href = url;
 	a.download = filename;
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+	window.URL.revokeObjectURL(url);
+}
+
+async function obtenerZipActividades(idsActividades) {
+	const modelo = new M_obtenerInscripcionesActividad();
+	const datosParaExcel = [];
+
+	for (const idActividad of idsActividades) {
+		const excels =
+			await modelo.obtenerAlumnosInscripcionesActividad(idActividad);
+
+		if (excels && Array.isArray(excels) && excels.length > 0) {
+			datosParaExcel.push(excels);
+		}
+	}
+
+	if (datosParaExcel.length === 0) {
+		new ModalConfirmacion({
+			titulo: "No disponible",
+			mensaje: "Ninguna de las pruebas tiene inscripciones",
+			onAceptar: () => {},
+			onCancelar: () => {},
+		});
+		return;
+	}
+
+	const response = await fetch(
+		"/InscripcionesEVG/controllers/generar_zipActividades.php",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(datosParaExcel), // ENVIAMOS ARRAY DE ARRAYS
+		},
+	);
+
+	if (!response.ok) {
+		alert("Error al generar el ZIP");
+		return;
+	}
+
+	const blob = await response.blob();
+	const url = window.URL.createObjectURL(blob);
+	const a = document.createElement("a");
+	a.href = url;
+	a.download = "actividades_excel.zip";
 	document.body.appendChild(a);
 	a.click();
 	document.body.removeChild(a);

@@ -38,12 +38,6 @@ function generarExcelActividades(array $datos, string $nombreArchivo = null)
     if (empty($filas)) continue;
 
     $nombreHoja = substr(preg_replace('/[\\\\\/\?\*\[\]:]/', '_', $categoria), 0, 31);
-    if (in_array($nombreHoja, $nombresUsados)) {
-      $sufijo = 1;
-      do {
-        $nombreHoja = substr($nombreHoja, 0, 28) . '_' . $sufijo++;
-      } while (in_array($nombreHoja, $nombresUsados));
-    }
     $nombresUsados[] = $nombreHoja;
 
     $sheet = $primerHoja ? $spreadsheet->getActiveSheet() : $spreadsheet->createSheet();
