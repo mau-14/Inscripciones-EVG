@@ -21,13 +21,23 @@ require_once $navBar;
 <body>
   <main>
     <header>
-      <h1>Listado de pruebas - Torneo Olímpico</h1>
+      <h1>Descargas Torneo Olímpico</h1>
     </header>
-
-    <h2>Panel de descargas de las pruebas del Torneo Olímpico</h2>
     <section class="pruebasExcel">
-    </section>
+      <table class="tabla-pruebas">
+        <thead>
+          <tr>
+            <th>Prueba</th>
+            <th>Descarga</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
 
+      <!-- Contenedor para el botón Descargar todos -->
+      <div class="descargar-todos-container" style="margin-top: 1rem;"></div>
+    </section>
   </main>
 
   <script type="module">

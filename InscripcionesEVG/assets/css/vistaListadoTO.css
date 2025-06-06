@@ -1,136 +1,151 @@
-.pruebasExcel {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+section {
+  width: 70%;
+  box-shadow: transparent;
+  margin: 1% auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
   padding: 2rem;
-  width: 60%;
-  max-width: 1000px;
-  margin: 2rem auto;
-  border-radius: 16px;
-  box-shadow: none;
-  font-family: Arial, Helvetica, sans-serif;
   background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  align-items: stretch;
   transition: none;
   transform: none;
 }
-.pruebasExcel:hover {
+
+section:hover {
   transform: none;
 }
-
-.prueba-item {
-  background-color: #fafafa;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  display: flex;
-  border: 1px solid #ddd;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  cursor: default;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  position: relative;
+.tabla-pruebas {
+  width: 60%;
+  margin: 2rem auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid black;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   overflow: hidden;
 }
 
-.prueba-item:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+.tabla-pruebas thead {
+  background: #003366;
 }
 
-.prueba-item p {
-  margin: 0;
-  font-size: 1rem;
+.tabla-pruebas th,
+.tabla-pruebas td {
+  border: 1px solid black;
+  padding: 16px;
   text-align: center;
-  user-select: none;
 }
 
-.prueba-item h3 {
-  color: #336699;
-  font-weight: 700;
-  font-size: 1.75rem;
-  text-align: center;
-  letter-spacing: 0.5px;
-  margin: 0;
-  user-select: none;
+.tabla-pruebas th {
+  color: white;
+  font-size: 3rem;
+  font-weight: 600;
+  border-bottom: 2px solid #ccc;
 }
 
+.tabla-pruebas td {
+  background-color: #ffffff;
+  font-size: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Fila al pasar el cursor */
+.tabla-pruebas tr:hover td {
+  background-color: #f7fbff;
+}
+
+/* Nombre de la prueba en texto grande */
+.tabla-pruebas td:first-child {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Estilo más discreto del botón */
 .btn-descargar-excel {
-  background-color: #27ae60;
-  border: none;
-  border-radius: 10px;
+  background-color: green;
+  border: 1px solid #27ae60;
+  border-radius: 8px;
   cursor: pointer;
-  padding: 5px;
-  display: flex;
+  padding: 6px 12px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 50px;
+  width: auto;
+  height: 40px;
   transition:
     background-color 0.3s ease,
     transform 0.2s ease;
+  color: #2e7d32;
+  font-weight: 500;
+  gap: 6px;
 }
 
 .btn-descargar-excel:hover {
-  background-color: #1e8449;
-  box-shadow: 0 6px 18px rgba(30, 132, 73, 0.5);
-  transform: scale(1.05);
+  background-color: green;
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.2);
 }
 
 .btn-descargar-excel img {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   pointer-events: none;
   user-select: none;
 }
-.btn-descargar-pdf {
-  background-color: #c0392b; /* rojo estilo PDF */
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  padding: 5px;
+
+/* Centrar el botón en su celda */
+.tabla-pruebas td:last-child {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 50%;
-  height: 50px;
+  align-items: center;
+}
+
+.descargar-todos-container {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-descargar-todos {
+  background-color: #0077cc;
+  color: white;
+  padding: 10px 18px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
   transition:
     background-color 0.3s ease,
     transform 0.2s ease;
 }
 
-.btn-descargar-pdf:hover {
-  background-color: #922b21;
-  box-shadow: 0 6px 18px rgba(192, 57, 43, 0.5);
-  transform: scale(1.05);
+.btn-descargar-todos:hover {
+  background-color: #0056b3;
+  transform: scale(1.03);
 }
-
-.btn-descargar-pdf img {
-  width: 32px;
-  height: 32px;
-  pointer-events: none;
-  user-select: none;
-}
+/* Responsive */
 @media (max-width: 600px) {
-  .pruebasExcel {
-    padding: 1.2rem;
-    max-width: 95%;
+  .tabla-pruebas th,
+  .tabla-pruebas td {
+    padding: 12px;
+    font-size: 0.95rem;
   }
 
-  .prueba-item {
-    padding: 1.6rem;
-    border-radius: 12px;
-  }
-
-  .prueba-item h3 {
-    font-size: 1.5rem;
+  .tabla-pruebas td:first-child {
+    font-size: 1.25rem;
   }
 
   .btn-descargar-excel {
-    padding: 14px;
-    font-size: 1.05rem;
-    max-width: 100%;
+    width: 100%;
+    font-size: 0.95rem;
   }
 }

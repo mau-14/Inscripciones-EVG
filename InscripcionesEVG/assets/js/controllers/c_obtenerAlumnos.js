@@ -385,8 +385,61 @@ async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 	document.body.removeChild(a);
 	window.URL.revokeObjectURL(url);
 }
+
+async function obtenerZipDePruebas(pares) {
+	const modelo = new M_obtenerAlumnos();
+	const datosParaExcel = [];
+
+	for (const par of pares) {
+		const alumnos = await modelo.obtenerAlumnosInscripcionesTO(
+			par.inputM,
+			par.inputF,
+		);
+
+		if (alumnos && Array.isArray(alumnos) && alumnos.length > 0) {
+			datosParaExcel.push(alumnos);
+		}
+	}
+
+	if (datosParaExcel.length === 0) {
+		new ModalConfirmacion({
+			titulo: "No disponible",
+			mensaje: "Ninguna de las pruebas tiene inscripciones",
+			onAceptar: () => {},
+			onCancelar: () => {},
+		});
+		return;
+	}
+
+	const response = await fetch(
+		"/InscripcionesEVG/controllers/generar_zip.php",
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(datosParaExcel), // ENVIAMOS ARRAY DE ARRAYS
+		},
+	);
+
+	if (!response.ok) {
+		alert("Error al generar el ZIP");
+		return;
+	}
+
+	const blob = await response.blob();
+	const url = window.URL.createObjectURL(blob);
+	const a = document.createElement("a");
+	a.href = url;
+	a.download = "pruebas_excel.zip";
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+	window.URL.revokeObjectURL(url);
+}
 export {
 	rellenarSelectsConAlumnos,
 	rellenarSelectsConSeleccionados,
 	obtenerExceldePruebas,
+	obtenerZipDePruebas,
 };

@@ -22,7 +22,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
 <body>
   <main>
 
-    <h1>Listados</h1>
+    <h1>Descargas</h1>
     <!-- <div class="bienvenida-card"> -->
     <!--   <h3 class="subtitle-strong">Bienvenido, <?= $usuarioTipo ?></h3> -->
 

@@ -1,6 +1,9 @@
 import M_obtenerPruebas from "/InscripcionesEVG/assets/js/models/m_obtenerPruebas.js";
 import { Loader } from "/InscripcionesEVG/assets/js/utils/loader.js";
-import { obtenerExceldePruebas } from "/InscripcionesEVG/assets/js/controllers/c_obtenerAlumnos.js";
+import {
+	obtenerExceldePruebas,
+	obtenerZipDePruebas,
+} from "/InscripcionesEVG/assets/js/controllers/c_obtenerAlumnos.js";
 
 /**
  * Controlador que obtiene las pruebas desde el modelo y las renderiza en la vista.
@@ -142,48 +145,28 @@ async function cargarPruebasConDescarga() {
 	try {
 		const modelo = new M_obtenerPruebas();
 		const pruebas = await modelo.obtenerPruebas();
-
 		const pruebasMasculinas = pruebas.filter((p) => p.categoria === "M");
-		const contenedor = document.querySelector("section.pruebasExcel");
-		contenedor.innerHTML = "";
+
+		const tbody = document.querySelector(".tabla-pruebas tbody");
+		tbody.innerHTML = "";
+
+		// Almacenar pares de IDs (M y F)
+		const paresDePruebas = [];
 
 		for (const pruebaM of pruebasMasculinas) {
 			const pruebaF = pruebas.find(
 				(p) => p.nombre === pruebaM.nombre && p.categoria === "F",
 			);
 
-			// Crear div contenedor
-			const div = document.createElement("div");
-			div.classList.add("prueba-item");
+			const tr = document.createElement("tr");
 
-			// Título con nombre prueba
-			// Título con nombre prueba
-			const titulo = document.createElement("h3");
-			titulo.textContent = pruebaM.nombre;
-			div.appendChild(titulo);
+			// Columna: Nombre
+			const tdNombre = document.createElement("td");
+			tdNombre.textContent = pruebaM.nombre;
+			tr.appendChild(tdNombre);
 
-			// Fecha y hora
-			// Fecha y hora (formateada)
-			const fechaHora = document.createElement("p");
-			const hora = pruebaM.hora ? pruebaM.hora.slice(0, 5) : "Sin hora";
-			fechaHora.textContent = `Hora: ${hora}`;
-			div.appendChild(fechaHora);
-			// Inputs hidden para idPrueba masculino y femenino
-			const inputMasculino = document.createElement("input");
-			inputMasculino.type = "hidden";
-			inputMasculino.name = "idPruebaMasculino";
-			inputMasculino.value = pruebaM.idPrueba;
-			div.appendChild(inputMasculino);
-
-			const inputFemenino = document.createElement("input");
-			inputFemenino.type = "hidden";
-			inputFemenino.name = "idPruebaFemenino";
-			inputFemenino.value = pruebaF ? pruebaF.idPrueba : "";
-			div.appendChild(inputFemenino);
-
-			// Botón para descargar Excel
-			// Botón para descargar Excel
-			// Botón para descargar Excel
+			// Columna: Botón de descarga individual
+			const tdDescargar = document.createElement("td");
 			const btnDescargar = document.createElement("button");
 			btnDescargar.classList.add("btn-descargar-excel");
 
@@ -201,57 +184,54 @@ async function cargarPruebasConDescarga() {
 			btnDescargar.appendChild(textoExcel);
 			btnDescargar.appendChild(imgExcel);
 
+			const inputM = pruebaM.idPrueba;
+			const inputF = pruebaF ? pruebaF.idPrueba : "";
+
+			// Guardar en lista para el botón global
+			paresDePruebas.push({ inputM, inputF });
+
 			btnDescargar.addEventListener("click", async () => {
 				const loader = new Loader("Generando excel...");
 				try {
-					const idPruebaM = inputMasculino.value;
-					const idPruebaF = inputFemenino.value;
-					await obtenerExceldePruebas(idPruebaM, idPruebaF);
+					await obtenerExceldePruebas(inputM, inputF);
 				} catch (error) {
-					console.error("Error al cargar los campos o alumnos:", error);
+					console.error("Error al generar Excel:", error);
 				} finally {
 					loader.ocultar();
 				}
 			});
 
-			div.appendChild(btnDescargar);
-
-			// // Botón para descargar PDF
-			// const btnPDF = document.createElement("button");
-			// btnPDF.classList.add("btn-descargar-pdf");
-
-			// const textoPDF = document.createElement("span");
-			// textoPDF.textContent = "Descargar ";
-			// textoPDF.style.marginRight = "6px";
-			// textoPDF.style.color = "white";
-
-			// const imgPDF = document.createElement("img");
-			// imgPDF.src = "/InscripcionesEVG/assets/img/pdf.png";
-			// imgPDF.alt = "Descargar PDF";
-			// imgPDF.style.width = "25px";
-			// imgPDF.style.height = "25px";
-
-			// btnPDF.appendChild(textoPDF);
-			// btnPDF.appendChild(imgPDF);
-
-			// btnPDF.addEventListener("click", async () => {
-			// 	const loader = new Loader("Generando PDF...");
-			// 	try {
-			// 		const idPruebaM = inputMasculino.value;
-			// 		const idPruebaF = inputFemenino.value;
-			// 		console.log("Descargar PDF para:", idPruebaM, idPruebaF);
-			// 		// Aquí iría la lógica de generación
-			// 	} catch (error) {
-			// 		console.error("Error al generar PDF:", error);
-			// 	} finally {
-			// 		loader.ocultar();
-			// 	}
-			// });
-
-			// div.appendChild(btnPDF);
-
-			contenedor.appendChild(div);
+			tdDescargar.appendChild(btnDescargar);
+			tr.appendChild(tdDescargar);
+			tbody.appendChild(tr);
 		}
+
+		// Botón "Descargar todos"
+		let contenedor = document.querySelector(".descargar-todos-container");
+		if (!contenedor) {
+			contenedor = document.createElement("div");
+			contenedor.classList.add("descargar-todos-container");
+			document.querySelector(".tabla-pruebas").after(contenedor);
+		} else {
+			contenedor.innerHTML = "";
+		}
+
+		const btnDescargarTodos = document.createElement("button");
+		btnDescargarTodos.innerHTML = "Descargar carpeta comprimida <i>.zip</i>";
+		btnDescargarTodos.classList.add("btn-descargar-todos");
+
+		btnDescargarTodos.addEventListener("click", async () => {
+			const loader = new Loader("Generando todos los Excel...");
+			try {
+				await obtenerZipDePruebas(paresDePruebas);
+			} catch (error) {
+				console.error("Error al generar todos los Excel:", error);
+			} finally {
+				loader.ocultar();
+			}
+		});
+
+		contenedor.appendChild(btnDescargarTodos);
 	} catch (error) {
 		console.error("Error al cargar las pruebas con descarga:", error);
 	}
