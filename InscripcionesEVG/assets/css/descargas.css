@@ -19,7 +19,7 @@ section:hover {
   transform: none;
 }
 .tabla-pruebas {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   border-collapse: separate;
   border-spacing: 0;
@@ -165,7 +165,7 @@ section:hover {
 }
 
 /* Responsive para tablets (601px a 1024px) */
-@media (min-width: 601px) and (max-width: 1024px) {
+@media (min-width: 601px) and (max-width: 1080px) {
   section {
     width: 90%; /* Más ancho para tablet */
     padding: 1.5rem;

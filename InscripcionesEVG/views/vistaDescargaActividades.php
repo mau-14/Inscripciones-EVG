@@ -70,15 +70,16 @@ require_once $navBar;
         defaultOption.textContent = "Todos los momentos";
         select.appendChild(defaultOption);
 
+        // Filtrar momentos para excluir los que tengan idMomento === 0
+        const momentosFiltrados = momentos.filter(m => m.idMomento !== 0);
+
         // Agregar momentos al select
-        momentos.forEach(momento => {
+        momentosFiltrados.forEach(momento => {
           const option = document.createElement("option");
           option.value = momento.idMomento;
           option.textContent = momento.nombre;
           select.appendChild(option);
-        });
-
-        // Mostrar todas las actividades por defecto
+        }); // Mostrar todas las actividades por defecto
         await cargarActividadesConDescarga();
 
         // Escuchar cambios en el select

@@ -52,7 +52,7 @@ $momentoTorneo = $_SESSION['momento_torneo'] ?? null;
   window.addEventListener('DOMContentLoaded', () => {
     const btnCerrarSesion = document.getElementById('cerrar-sesion');
     if (btnCerrarSesion) {
-      btnCerrarSesion.addEventListener('click', cerrarSesion);
+      btnCerrarSesion.addEventListener('click', manejarClick);
     }
   });
   document.addEventListener('DOMContentLoaded', () => {
