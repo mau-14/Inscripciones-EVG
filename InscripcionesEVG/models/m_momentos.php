@@ -49,8 +49,12 @@ class Mmomentos
     $SQL = "DELETE FROM Momentos WHERE idMomento = ?";
     $stmt = $this->conexion->prepare($SQL);
     $stmt->bind_param("i", $idMomento);
-    $stmt->execute();
-    return true;
+    try {
+      $stmt->execute();
+      return true;
+    } catch (Exception $e) {
+      return false;
+    }
   }
   public function mEditarMomento($idMomento, $nombre, $fecha_inicio, $fecha_fin)
   {

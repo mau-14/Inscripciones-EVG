@@ -79,7 +79,7 @@ class C_momentos
     $idMomento = $_GET['idMomento'];
     $resultado = $this->objmomentos->mEliminarMomento($idMomento);
     if (!$resultado) {
-      $msg = urlencode("Error al eliminar el momento.");
+      $msg = urlencode("Momento con actividades asociadas.");
       header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
       exit();
     }

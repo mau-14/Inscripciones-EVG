@@ -122,7 +122,6 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
       <h2>¿Estás seguro?</h2>
-      <h3> (Se eliminarán todas las actividades asociadas a este momento)</h3>
       <div class="botones-confirmacion">
         <a id="btnConfirmarEliminar" class="btn-confirmar">Sí</a>
         <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
