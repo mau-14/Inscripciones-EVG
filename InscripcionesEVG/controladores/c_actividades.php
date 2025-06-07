@@ -12,23 +12,32 @@ Class Cactividades {
 
     public function cMostrarActividadesporIdMomento() {
         $this->vista = 'mostrarActividades';
+    
         if (isset($_POST['momento'])) {
-            $_SESSION['idMomento'] = $_POST['momento'];
+            // Separar el string en partes
+            list($idMomento, $fechaInicio, $fechaFin) = explode('|', $_POST['momento']);
+    
+            // Guardar en sesión si quieres usarlas después
+            $_SESSION['idMomento'] = $idMomento;
+            $_SESSION['fechaInicioMomento'] = $fechaInicio;
+            $_SESSION['fechaFinMomento'] = $fechaFin;
+    
         } else if (isset($_GET['momento'])) {
             $_SESSION['idMomento'] = $_GET['momento'];
         }
-        
+    
         if (!isset($_SESSION['idMomento'])) {
             $msg = urlencode("No se ha especificado el momento.");
             header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
             exit();
         }
-
+    
         $resultado = $this->objactividades->mMostrarActividadesporIdMomento($_SESSION['idMomento']);
         if (is_array($resultado)) {
             return $resultado;
         }
     }
+    
 
     public function cInsertarActividad() {
         ob_clean(); // Limpia cualquier salida anterior
@@ -51,6 +60,21 @@ Class Cactividades {
         if (!is_numeric($_POST['maxParticipantes']) || $_POST['maxParticipantes'] <= 0) {
             echo json_encode(['success' => false, 'error' => 'El número máximo de participantes debe ser un número positivo.']);
             exit();
+        }
+        
+        // Validación de fechas
+        if (!empty($_POST['fecha'])) {
+            $fechaActividad = new DateTime($_POST['fecha']);
+            $fechaInicio = new DateTime($_SESSION['fechaInicioMomento']);
+            $fechaFin = new DateTime($_SESSION['fechaFinMomento']);
+            
+            if ($fechaActividad < $fechaInicio || $fechaActividad > $fechaFin) {
+                echo json_encode([
+                    'success' => false, 
+                    'error' => 'La fecha de la actividad debe estar entre ' . $fechaInicio->format('d/m/Y') . ' y ' . $fechaFin->format('d/m/Y')
+                ]);
+                exit();
+            }
         }
     
         // El resto de campos pueden ser null (fecha, hora, bases)
@@ -123,6 +147,21 @@ Class Cactividades {
         if (!is_numeric($maxParticipantes) || $maxParticipantes <= 0) {
             echo json_encode(['success' => false, 'error' => 'El número máximo de participantes debe ser un número positivo.']);
             exit();
+        }
+        
+        // Validación de fechas
+        if (!empty($_POST['editarFecha'])) {
+            $fechaActividad = new DateTime($_POST['editarFecha']);
+            $fechaInicio = new DateTime($_SESSION['fechaInicioMomento']);
+            $fechaFin = new DateTime($_SESSION['fechaFinMomento']);
+            
+            if ($fechaActividad < $fechaInicio || $fechaActividad > $fechaFin) {
+                echo json_encode([
+                    'success' => false, 
+                    'error' => 'La fecha de la actividad debe estar entre ' . $fechaInicio->format('d/m/Y') . ' y ' . $fechaFin->format('d/m/Y')
+                ]);
+                exit();
+            }
         }
 
         $fecha = $_POST['editarFecha'];
