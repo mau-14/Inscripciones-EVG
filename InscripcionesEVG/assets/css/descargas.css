@@ -163,20 +163,58 @@ section:hover {
   outline: none;
   background-color: #fff;
 }
-/* Responsive */
-@media (max-width: 600px) {
+
+/* Responsive para tablets (601px a 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  section {
+    width: 90%; /* Más ancho para tablet */
+    padding: 1.5rem;
+  }
+
+  .tabla-pruebas {
+    width: 90%; /* Ocupa más espacio en tablet */
+  }
+
   .tabla-pruebas th,
   .tabla-pruebas td {
-    padding: 12px;
-    font-size: 0.95rem;
+    padding: 12px 10px;
+    font-size: 1.6rem; /* Reducir tamaño de fuente para tablet */
+  }
+
+  .tabla-pruebas th {
+    font-size: 2rem;
   }
 
   .tabla-pruebas td:first-child {
-    font-size: 1.25rem;
+    font-size: 1.6rem;
   }
 
   .btn-descargar-excel {
-    width: 100%;
-    font-size: 0.95rem;
+    height: 36px;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+  }
+
+  .descargar-todos-container {
+    width: 90%;
+    margin-top: 1.5rem;
+  }
+
+  .btn-descargar-todos {
+    font-size: 1.5rem;
+    padding: 8px 14px;
+  }
+
+  .select-momento-container {
+    width: 90%;
+  }
+
+  .select-momento-container label {
+    font-size: 1.1rem;
+  }
+
+  #select-momento {
+    font-size: 1.1rem;
+    padding: 0.45rem 0.7rem;
   }
 }

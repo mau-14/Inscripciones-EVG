@@ -55,9 +55,18 @@ $momentoTorneo = $_SESSION['momento_torneo'] ?? null;
       btnCerrarSesion.addEventListener('click', cerrarSesion);
     }
   });
+  document.addEventListener('DOMContentLoaded', () => {
+    const btnHamburger = document.querySelector('.hamburger');
+    const menu = document.querySelector('nav ul.main-menu');
+
+    btnHamburger.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  });
 </script>
 <nav>
   <div class="navdiv">
+    <button class="hamburger" aria-label="Menu">&#9776;</button>
     <ul class="main-menu">
       <div class="logo">
         <img src="/InscripcionesEVG/assets/img/logotipo.png" alt="Logo" />
@@ -106,7 +115,7 @@ $momentoTorneo = $_SESSION['momento_torneo'] ?? null;
 
     <button id="cerrar-sesion">
       <i class="fas fa-user"></i>
-      <?= htmlspecialchars($usuarioTipo) ?> - Cerrar sesión
+      <?= htmlspecialchars($usuarioTipo) ?>
     </button>
   </div>
 </nav>

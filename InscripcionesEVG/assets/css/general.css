@@ -266,3 +266,102 @@ section h1 {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 1024px) {
+  section {
+    padding: 1.5em;
+  }
+
+  section h1 {
+    font-size: 3em;
+  }
+
+  .modalUniversal-content {
+    max-width: 90%;
+    padding: 2em;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2em;
+  }
+
+  h2 {
+    font-size: 1.6em;
+  }
+
+  main {
+    padding: 1.5em;
+  }
+
+  #sec2 {
+    width: 85%;
+  }
+
+  .error-dialog-content {
+    font-size: 1.2em;
+    padding: 20px;
+  }
+
+  .modalUniversal-content {
+    padding: 1.5em;
+  }
+
+  .modalUniversal-content h3 {
+    font-size: 1.5em;
+  }
+
+  .modalUniversal-content p {
+    font-size: 1.1em;
+  }
+
+  .modalUniversal .botones {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  .modalUniversal .botones button {
+    width: 100%;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  .boton-volver {
+    padding: 6px 12px;
+    font-size: 0.9em;
+  }
+
+  .error-dialog-content {
+    font-size: 1em;
+    padding: 15px;
+  }
+
+  .spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 3px;
+  }
+
+  .spinner-text {
+    font-size: 14px;
+  }
+
+  .modalUniversal-content {
+    padding: 1em;
+  }
+
+  .modalUniversal select {
+    min-width: 100%;
+    font-size: 0.95em;
+  }
+}

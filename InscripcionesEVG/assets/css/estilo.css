@@ -1147,3 +1147,61 @@ select.form-control {
 .alumnos-inscritos li:last-child {
   border-bottom: none;
 }
+
+/* Media Query para tablets */
+@media (max-width: 900px) and (min-width: 600px) {
+  body {
+    font-size: 16px; /* Ajusta tamaño de fuente si quieres */
+  }
+
+  .contenedor-momentos {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .momento {
+    width: 80%; /* Que los "momentos" ocupen más ancho en tablet */
+    max-width: 400px;
+  }
+
+  form input,
+  .formulario-momentos select,
+  form textarea {
+    width: 100%; /* Que los inputs y selects ocupen todo el ancho del formulario */
+    max-width: none;
+  }
+
+  .formulario-momentos form {
+    width: 90%;
+    max-width: 400px;
+    padding: 1.5rem;
+  }
+
+  section {
+    max-width: 100%;
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .actividades-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .actividad-card {
+    height: auto; /* para que se adapte al contenido */
+    padding: 15px;
+  }
+
+  main {
+    padding: 30px 15px;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 350px;
+    padding: 20px 15px;
+  }
+}

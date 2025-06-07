@@ -113,3 +113,101 @@ nav button:hover {
 .has-submenu:hover .submenu {
   display: block;
 }
+
+@media (max-width: 1024px) {
+  .navdiv {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 20px;
+  }
+
+  .main-menu {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .main-menu li a {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  nav button {
+    align-self: stretch;
+    width: 30%;
+    font-size: 16px;
+    padding: 12px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .logo {
+    margin: 10px 0;
+    align-self: center;
+  }
+
+  .logo img {
+    max-width: 120px;
+    height: auto;
+  }
+
+  .submenu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .submenu li a {
+    padding: 10px 15px;
+  }
+}
+/* Oculta el menú y muestra hamburguesa en tablet y móvil */
+@media (max-width: 1024px) {
+  /* Oculta la lista de navegación */
+  nav ul.main-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #003366;
+    position: absolute;
+    top: 60px; /* altura del nav */
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  /* Cuando el menú está activo, lo mostramos */
+  nav ul.main-menu.active {
+    display: flex;
+  }
+
+  /* Botón hamburguesa */
+  .hamburger {
+    display: block;
+    cursor: pointer;
+    font-size: 28px;
+    color: white;
+    background: none;
+    border: none;
+    margin-left: 15px;
+  }
+
+  /* Ajustes para la navdiv */
+  .navdiv {
+    position: relative;
+  }
+}
+
+/* Ocultar el botón hamburguesa en escritorio */
+@media (min-width: 1025px) {
+  .hamburger {
+    display: none;
+  }
+}
