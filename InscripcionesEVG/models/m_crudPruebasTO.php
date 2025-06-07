@@ -59,6 +59,11 @@ class M_crudPruebasTO
         $stmt_pruebas = $this->conexion->prepare($sql_pruebas);
         $stmt_pruebas->bindParam(':idPrueba', $idTorneo);
         $stmt_pruebas->execute();
+
+        $sql_momento = "INSERT INTO Momentos_torneo (idPrueba, idMomento) VALUES (:idTorneo, 0)";
+        $stmt_momento = $this->conexion->prepare($sql_momento);
+        $stmt_momento->bindParam(':idTorneo', $idTorneo);
+        $stmt_momento->execute();
       }
 
       $this->conexion->commit(); // FIN TRANSACCIÓN EXITOSA
