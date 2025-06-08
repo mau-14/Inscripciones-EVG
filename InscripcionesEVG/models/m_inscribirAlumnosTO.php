@@ -31,11 +31,13 @@ class M_inscribirAlumnosTO
       $this->conexion->beginTransaction(); // INICIO TRANSACCIÓN
 
       $alumnosP = [];
+      $alumnosC_por_prueba = [];
 
-      // PRIMERA PASADA: recolectamos todos los alumnos que van a participar en pruebas tipo 'P'
+      // PRIMERA PASADA: recolectamos alumnos por tipo
       foreach (['M', 'F'] as $categoria) {
         if (!isset($datosJSON[$categoria])) continue;
 
+        // Tipo P: individuales
         if (isset($datosJSON[$categoria]['P'])) {
           foreach ($datosJSON[$categoria]['P'] as $idPrueba => $alumnos) {
             foreach ($alumnos as $idAlumno) {
@@ -43,9 +45,19 @@ class M_inscribirAlumnosTO
             }
           }
         }
+
+        // Tipo C: relevos 4x100
+        if (isset($datosJSON[$categoria]['C'])) {
+          foreach ($datosJSON[$categoria]['C'] as $idPrueba => $alumnos) {
+            if (!isset($alumnosC_por_prueba[$idPrueba])) {
+              $alumnosC_por_prueba[$idPrueba] = [];
+            }
+            $alumnosC_por_prueba[$idPrueba] = array_merge($alumnosC_por_prueba[$idPrueba], $alumnos);
+          }
+        }
       }
 
-      // ELIMINAMOS inscripciones anteriores de estos alumnos en pruebas individuales
+      // ELIMINAMOS inscripciones anteriores en pruebas individuales
       if (!empty($alumnosP)) {
         $placeholders = implode(',', array_fill(0, count($alumnosP), '?'));
         $sqlDeletePrevias = "DELETE FROM Pruebas_olimpicas_alumnos WHERE idAlumno IN ($placeholders)";
@@ -53,7 +65,25 @@ class M_inscribirAlumnosTO
         $stmt->execute($alumnosP);
       }
 
-      // SEGUNDA PASADA: procesamos todos los datos por categoría y tipo
+      // ELIMINAMOS inscripciones anteriores en pruebas de relevos, por prueba y alumnos
+      foreach ($alumnosC_por_prueba as $idPrueba => $alumnosC) {
+        if (!empty($alumnosC)) {
+          $placeholders = implode(',', array_fill(0, count($alumnosC), '?'));
+          $sql = "DELETE FROM 4x100_Alumnos
+                WHERE idPrueba = ?
+                  AND (
+                    idAlumno1 IN ($placeholders) OR
+                    idAlumno2 IN ($placeholders) OR
+                    idAlumno3 IN ($placeholders) OR
+                    idAlumno4 IN ($placeholders)
+                  )";
+          $stmt = $this->conexion->prepare($sql);
+          $params = array_merge([$idPrueba], $alumnosC, $alumnosC, $alumnosC, $alumnosC);
+          $stmt->execute($params);
+        }
+      }
+
+      // SEGUNDA PASADA: INSERTAMOS nuevos datos
       foreach (['M', 'F'] as $categoria) {
         if (!isset($datosJSON[$categoria])) continue;
 
@@ -63,37 +93,28 @@ class M_inscribirAlumnosTO
           foreach ($datosJSON[$categoria][$tipo] as $idPrueba => $alumnos) {
 
             if ($tipo === 'P') {
-              // INSERTAMOS nuevas inscripciones para pruebas individuales
               $sqlInsert = "INSERT INTO Pruebas_olimpicas_alumnos (idAlumno, idPrueba) VALUES (:idAlumno, :idPrueba)";
               $stmt = $this->conexion->prepare($sqlInsert);
               foreach ($alumnos as $idAlumno) {
-                $stmt->bindParam(':idAlumno', $idAlumno, PDO::PARAM_INT);
-                $stmt->bindParam(':idPrueba', $idPrueba, PDO::PARAM_INT);
+                $stmt->bindValue(':idAlumno', $idAlumno, PDO::PARAM_INT);
+                $stmt->bindValue(':idPrueba', $idPrueba, PDO::PARAM_INT);
                 $stmt->execute();
               }
             } elseif ($tipo === 'C') {
-              // ELIMINAMOS inscripciones previas en pruebas de relevos (4x100)
-              $sqlDelete = "DELETE FROM 4x100_Alumnos WHERE idPrueba = :idPrueba";
-              $stmt = $this->conexion->prepare($sqlDelete);
-              $stmt->bindParam(':idPrueba', $idPrueba, PDO::PARAM_INT);
-              $stmt->execute();
-
-              // VALIDAMOS que el número de alumnos sea múltiplo de 4
               if (count($alumnos) % 4 !== 0) {
                 throw new Exception("Número inválido de alumnos en la prueba 4x100 ID $idPrueba. Debe ser múltiplo de 4.");
               }
 
-              // INSERTAMOS en grupos de 4
               $sqlInsert = "INSERT INTO 4x100_Alumnos (idAlumno1, idAlumno2, idAlumno3, idAlumno4, idPrueba)
                           VALUES (:id1, :id2, :id3, :id4, :idPrueba)";
               $stmt = $this->conexion->prepare($sqlInsert);
 
               for ($i = 0; $i < count($alumnos); $i += 4) {
-                $stmt->bindParam(':id1', $alumnos[$i], PDO::PARAM_INT);
-                $stmt->bindParam(':id2', $alumnos[$i + 1], PDO::PARAM_INT);
-                $stmt->bindParam(':id3', $alumnos[$i + 2], PDO::PARAM_INT);
-                $stmt->bindParam(':id4', $alumnos[$i + 3], PDO::PARAM_INT);
-                $stmt->bindParam(':idPrueba', $idPrueba, PDO::PARAM_INT);
+                $stmt->bindValue(':id1', $alumnos[$i], PDO::PARAM_INT);
+                $stmt->bindValue(':id2', $alumnos[$i + 1], PDO::PARAM_INT);
+                $stmt->bindValue(':id3', $alumnos[$i + 2], PDO::PARAM_INT);
+                $stmt->bindValue(':id4', $alumnos[$i + 3], PDO::PARAM_INT);
+                $stmt->bindValue(':idPrueba', $idPrueba, PDO::PARAM_INT);
                 $stmt->execute();
               }
             }

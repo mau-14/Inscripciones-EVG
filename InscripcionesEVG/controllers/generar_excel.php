@@ -13,7 +13,6 @@ if (!is_array($datos)) {
 
 
 $nombreArchivo = generarExcelPorEtapaYCategoria($datos);
-error_log($nombreArchivo);
 $rutaArchivo = __DIR__ . '/' . $nombreArchivo;
 error_log($rutaArchivo);
 if (!file_exists($rutaArchivo)) {

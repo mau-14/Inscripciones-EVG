@@ -335,6 +335,7 @@ async function obtenerExceldePruebas(idPruebaM, idPruebaF) {
 		idPruebaM,
 		idPruebaF,
 	);
+	console.log("EXCELS", excels);
 
 	if (
 		!excels ||
