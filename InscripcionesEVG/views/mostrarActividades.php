@@ -20,8 +20,7 @@
       <p id="errorMsgText"></p>
     </div>
   </div>
-  <h1>Gestión <?php echo htmlspecialchars($dataToView['data'][0]['nombre_momento']); ?></h1>
-  <h2>Seleccione una Actividad</h2>
+  <h1>Seleccione una Actividad</h1>
   <!-- Leyenda de iconos explicativos -->
   <div class="leyenda-iconos">
     <strong>Leyenda de iconos:</strong>

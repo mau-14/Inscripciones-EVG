@@ -92,12 +92,15 @@ class MinscripcionesActividades
   {
     // Iniciamos transacción
     $this->conexion->begin_transaction();
-
     try {
       // Primero eliminamos las inscripciones existentes para esta actividad
-      $deleteSQL = "DELETE FROM Participan WHERE idActividad = ?";
+      $deleteSQL = "DELETE p
+      FROM Participan p
+      JOIN Alumnos a ON p.idAlumno = a.idAlumno
+      WHERE a.idClase = ? AND p.idActividad = ?;";
+      $idClase = 1;
       $deleteStmt = $this->conexion->prepare($deleteSQL);
-      $deleteStmt->bind_param("i", $idActividad);
+      $deleteStmt->bind_param("ii", $idClase, $idActividad);
       $deleteStmt->execute();
 
       // Luego insertamos las nuevas inscripciones
@@ -120,7 +123,9 @@ class MinscripcionesActividades
   }
   public function mMostrarClases()
   {
-    $SQL = "SELECT * from Clases";
+    $SQL = "SELECT DISTINCT c.*
+          FROM Clases c
+          JOIN Alumnos a ON c.idClase = a.idClase;";
     $stmt = $this->conexion->prepare($SQL);
     $stmt->execute();
     $datos = $stmt->get_result();
@@ -141,7 +146,59 @@ class MinscripcionesActividades
     $SQL = "INSERT INTO Se_inscriben (idActividad, idClase, fecha_inscripcion) VALUES (?, ?, NOW())";
     $stmt = $this->conexion->prepare($SQL);
     $stmt->bind_param("ii", $idActividad, $idClase);
-    $stmt->execute();
+    try {
+      $stmt->execute();
+    } catch (Exception $e) {
+      return false;
+    }
     return true;
+  }
+  public function mCancelarInscripcionClase($idClase, $idActividad)
+  {
+    $SQL = "DELETE FROM Se_inscriben WHERE idActividad = ? AND idClase = ?";
+    $stmt = $this->conexion->prepare($SQL);
+    $stmt->bind_param("ii", $idActividad, $idClase);
+    try {
+      $stmt->execute();
+    } catch (Exception $e) {
+      return false;
+    }
+    return true;
+  }
+  public function mMostrarAlumnosaInscribirCoordinador($idActividad,$idClase)
+  {
+    // Primera consulta: Obtener todos los alumnos de la clase 1
+    $SQL = "SELECT * FROM Alumnos WHERE idClase = ?";
+    $stmt = $this->conexion->prepare($SQL);
+    $stmt->bind_param("i", $idClase);
+    $stmt->execute();
+    $datos = $stmt->get_result();
+
+    $resultado = [];
+    while ($fila = $datos->fetch_assoc()) {
+      $resultado['alumnos'][] = [
+        "idAlumno" => $fila['idAlumno'],
+        "nombre" => $fila['nombre'],
+        "sexo" => $fila['sexo'],
+        "idClase" => $fila['idClase']
+      ];
+    }
+
+    // Segunda consulta: Obtener nombres de alumnos ya inscritos en la actividad
+    $SQL2 = "SELECT a.nombre 
+                    FROM Alumnos a 
+                    INNER JOIN Participan p ON a.idAlumno = p.idAlumno 
+                    WHERE p.idActividad = ?";
+    $stmt2 = $this->conexion->prepare($SQL2);
+    $stmt2->bind_param("i", $idActividad);
+    $stmt2->execute();
+    $datos2 = $stmt2->get_result();
+
+    $resultado['inscritos'] = [];
+    while ($fila = $datos2->fetch_assoc()) {
+      $resultado['inscritos'][] = $fila['nombre'];
+    }
+
+    return $resultado;
   }
 }

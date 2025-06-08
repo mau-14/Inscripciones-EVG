@@ -13,7 +13,7 @@
 
 <body>
   <main>
-    <h1>Inscripción Actividades </br><?php echo $momentoActual['nombre']; ?></h1>
+    <h1>Inscripción Actividades</h1>
 
     <div class="modal error-modal" id="modalError" style="display:none;">
       <div class="modal-contenido">
@@ -21,11 +21,6 @@
         <h2>Error</h2>
         <p id="errorMsgText"></p>
       </div>
-    </div>
-
-    <div class="reglas-container">
-      <h2>NORMAS DEL PROCESO DE INSCRIPCIONES</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nunc, vitae aliquam nisl nunc vitae nisl. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nunc, vitae aliquam nisl nunc vitae nisl.</p>
     </div>
 
     <div class="contenedor-actividades">
@@ -47,7 +42,7 @@
         <div class="seccion-actividades">
           <h2 class="seccion-titulo">Actividades de Clase</h2>
           <div class="actividades-grid">
-            <?php foreach ($actividadesC as $actividad): ?>
+            <?php foreach ($actividadesC as $actividad): ?> 
               <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscripcionesClase&id=<?php echo $actividad['idActividad'] ?>" class="actividad-enlace">
                 <div class="actividad-card">
                   <div class="actividad-contenido">
@@ -67,7 +62,13 @@
           <h2 class="seccion-titulo">Actividades de Alumnos</h2>
           <div class="actividades-grid">
             <?php foreach ($actividadesV as $actividad): ?>
-              <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscripcionesAlumnos&id=<?php echo $actividad['idActividad'] ?>" class="actividad-enlace">
+              <?php if ($_SESSION['usuario'] === 'Coordinador'){
+                echo '<a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cMostrarClasesElegir&id='.$actividad['idActividad'].'" class="actividad-enlace">';
+              }
+              if ($_SESSION['usuario'] === 'Tutor'){
+                echo '<a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscripcionesAlumnos&id='.$actividad['idActividad'].'" class="actividad-enlace">';
+              }
+              ?>
                 <div class="actividad-card">
                   <div class="actividad-contenido">
                     <div class="actividad-nombre"><?php echo htmlspecialchars($actividad['nombre']); ?></div>
@@ -84,8 +85,6 @@
       }
       ?>
     </div>
-
-    <a href="/InscripcionesEVG/views/menuInscripciones.php" class="boton-volver">Volver</a>
   </main>
 
   <script>
@@ -122,7 +121,5 @@
       };
     });
   </script>
-
 </body>
-
 </html>

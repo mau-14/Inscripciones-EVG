@@ -15,6 +15,7 @@
 <body>
   <main>
     <h1>Inscripción de Clase</h1>
+    <?php if ($_SESSION['usuario'] === 'Coordinador') { ?>
     <form action="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscribirClase" method="POST" class="form-container">
       <div class="selects-grid">
         <div class="form-group">
@@ -42,6 +43,25 @@
         </button>
       </div>
     </form>
+    <?php } ?>
+    <?php if ($_SESSION['usuario'] === 'Tutor') { ?>
+
+    <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscribirClaseTutor&idActividad=<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>&idClase=1" class="actividad-enlace">
+      <button type="button" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Inscribir Clase
+      </button>
+    </a>
+    <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cCancelarInscripcionClaseTutor&idActividad=<?php echo isset($_GET['id']) ? htmlspecialchars($_GET['id']) : ''; ?>&idClase=1" class="actividad-enlace">
+      <button type="button" class="btn btn-primary">
+        <i class="fas fa-times"></i> Cancelar Inscripción Clase
+      </button>
+    </a>
+    <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cMostrarActividades" class="actividad-enlace">
+      <button type="button" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Volver
+      </button>
+    </a>
+    <?php } ?>
   </main>
 </body>
 
