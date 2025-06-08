@@ -27,7 +27,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
     const grid = document.querySelector('.grid');
     const items = grid.querySelectorAll('.menu-option');
     if (items.length === 1) {
-      grid.style.maxWidth = '800px';
+      grid.style.maxWidth = '300px';
       grid.style.margin = '0 auto';
       items[0].style.maxWidth = '600px';
       items[0].style.margin = '0 auto';
@@ -41,14 +41,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
 
     <h1>Listados</h1>
 
-    <section class="grid">
-      <a href="/InscripcionesEVG/views/vistaDescargaTO.php" class="menu-option" aria-label="Descargas Torneo Olímpico">
-        <i class="fa-solid fa-trophy"></i>
-      </a>
-
-      <a href="/InscripcionesEVG/views/listadoActividades.php" class="menu-option" aria-label="Descargas Actividades">
-        <i class="fa-solid fa-calendar-check"></i>
-      </a>
+    <a href="/InscripcionesEVG/index.php?controlador=actividades&accion=cMostrarActividades" class="menu-option" aria-label="Descargas Actividades">
+      <i class="fa-solid fa-calendar-check"></i>
+      Listado de Actividades
+    </a>
     </section>
   </main>
 

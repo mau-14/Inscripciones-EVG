@@ -1,14 +1,12 @@
-// Modal de añadir momento
+// Modal de añadir actividad
 document.getElementById("btnAbrirModal").addEventListener("click", function () {
 	document.getElementById("modal").style.display = "block";
 });
-
 document
 	.getElementById("btnCerrarModal")
 	.addEventListener("click", function () {
 		document.getElementById("modal").style.display = "none";
 	});
-
 // Modal de editar momento
 const modalEditar = document.getElementById("modalEditar");
 const btnCerrarEditar = document.getElementById("btnCerrarEditar");
@@ -46,13 +44,6 @@ const btnConfirmarEliminar = document.getElementById("btnConfirmarEliminar");
 // Mostrar el modal de confirmación al hacer clic en el botón de eliminar
 document.querySelectorAll(".eliminar").forEach((boton) => {
 	boton.addEventListener("click", () => {
-		const idMomento = boton.dataset.id;
-		const modalConfirmar = document.getElementById("modalConfirmar");
-		const confirmarBtn = document.getElementById("btnConfirmarEliminar");
-
-		// Establece el enlace de confirmación con el ID correspondiente
-		confirmarBtn.href = `../index.php?controlador=momentos&accion=cEliminarMomento&idMomento=${idMomento}`;
-
 		// Muestra el modal
 		modalConfirmar.style.display = "block";
 	});
@@ -85,7 +76,6 @@ btnCancelarEliminar.addEventListener("click", () => {
 });
 
 btnConfirmarEliminar.addEventListener("click", () => {
-	// Aquí podrías eliminar el momento en el futuro
 	modalConfirmar.style.display = "none";
 });
 

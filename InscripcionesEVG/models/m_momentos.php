@@ -6,6 +6,7 @@ class Mmomentos
   public function __construct()
   {
     require_once("config/configDB.php");
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $this->conexion = new mysqli(SERVIDOR, USUARIO, PASSWORD, BBDD);
 
     // Verifica la conexión
@@ -44,20 +45,30 @@ class Mmomentos
       return false;
     }
   }
+
   public function mEliminarMomento($idMomento)
   {
     $SQL = "DELETE FROM Momentos WHERE idMomento = ?";
     $stmt = $this->conexion->prepare($SQL);
     $stmt->bind_param("i", $idMomento);
-    $stmt->execute();
-    return true;
+    try {
+      $stmt->execute();
+      return true;
+    } catch (mysqli_sql_exception $e) {
+      return false;
+    }
   }
+
   public function mEditarMomento($idMomento, $nombre, $fecha_inicio, $fecha_fin)
   {
     $SQL = "UPDATE Momentos SET nombre = ?, fecha_inicio = ?, fecha_fin = ? WHERE idMomento = ?";
     $stmt = $this->conexion->prepare($SQL);
     $stmt->bind_param("sssi", $nombre, $fecha_inicio, $fecha_fin, $idMomento);
-    $stmt->execute();
-    return true;
+    try {
+      $stmt->execute();
+      return true;
+    } catch (Exception $e) {
+      return false;
+    }
   }
 }

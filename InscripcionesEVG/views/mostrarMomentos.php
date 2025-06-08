@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="es">
 
 <head>
@@ -7,8 +6,8 @@
   <title>Gestión Momentos</title>
   <link rel="stylesheet" href="<?php echo CSS ?>estilo.css">
   <base href="/InscripcionesEVG/assets/">
-  <link href="css/navbar.css" rel="stylesheet" />
   <link href="css/general.css" rel="stylesheet" />
+  <link href="css/navbar.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -61,7 +60,9 @@
         </div>
         <div class="carta-acciones">
           <button class="editar" data-id="<?php echo $momento['idMomento']; ?>" data-nombre="<?php echo htmlspecialchars($momento['nombre']); ?>" data-fecha-inicio="<?php echo $momento['fecha_inicio']; ?>" data-fecha-fin="<?php echo $momento['fecha_fin']; ?>"><i class="fas fa-pen"></i></button>
-          <button class="eliminar" data-id="<?php echo $momento['idMomento']; ?>"><i class="fas fa-trash"></i></button>
+          <?php if ($momento['idMomento'] != 0) { ?>
+            <button class="eliminar" data-id="<?php echo $momento['idMomento']; ?>"><i class="fas fa-trash"></i></button>
+          <?php } ?>
         </div>
       </div>
     <?php } ?>
@@ -77,7 +78,7 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarModal">&times;</span>
       <h2>Nuevo Momento</h2>
-      <form id="formMomento" action="/InscripcionesEVG/index.php?controlador=momentos&accion=cInsertarMomento" method="POST">
+      <form id="formMomento">
         <label for="nombre">Nombre del momento:</label>
         <input type="text" id="nombre" name="nombre">
 
@@ -87,7 +88,7 @@
         <label for="fechaFin">Fecha de fin:</label>
         <input type="date" id="fechaFin" name="fechaFin" />
 
-        <input type="submit" value="Enviar">
+        <button type="submit">Guardar</button>
       </form>
     </div>
   </div>
@@ -97,8 +98,8 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarEditar">&times;</span>
       <h2>Editar Momento</h2>
-      <form id="formEditarMomento" action="/InscripcionesEVG/index.php?controlador=momentos&accion=cEditarMomento" method="POST">
-        <input type="hidden" id="editarId" name="idMomento"> <!-- ID oculto -->
+      <form id="formEditarMomento">
+        <input type="hidden" id="editarId" name="idMomento">
 
         <label for="editarNombre">Nombre del momento:</label>
         <input type="text" id="editarNombre" name="nombre">
@@ -120,7 +121,6 @@
     <div class="modal-contenido">
       <span class="cerrar" id="btnCerrarConfirmar">&times;</span>
       <h2>¿Estás seguro?</h2>
-      <h3> (Se eliminarán todas las actividades asociadas a este momento)</h3>
       <div class="botones-confirmacion">
         <a id="btnConfirmarEliminar" class="btn-confirmar">Sí</a>
         <button id="btnCancelarEliminar" class="btn-cancelar">No</button>
@@ -129,8 +129,16 @@
   </div>
 
 
-  <a href="/InscripcionesEVG/views/menuGestiones.php" class="boton-volver">Volver</a>
+  <script src="<?php echo JS ?>models/momentosModel.js"></script>
+  <script src="<?php echo JS ?>controllers/momentosController.js"></script>
   <script src="<?php echo JS ?>gestionMomentos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      new MomentosController();
+    });
+  </script>
+
+  <a href="/InscripcionesEVG/views/menuGestiones.php" class="boton-volver">Volver</a>
 </body>
 
 </html>

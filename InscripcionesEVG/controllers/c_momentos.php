@@ -6,7 +6,8 @@ class C_momentos
 
   public function __construct()
   {
-    require_once("models/m_momentos.php");
+
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/models/m_momentos.php';
     $this->objmomentos = new Mmomentos();
   }
 
@@ -18,6 +19,7 @@ class C_momentos
       return $resultado;
     }
   }
+
   public function cMostrarMomentosActividades()
   {
     $this->vista = 'elegirMomento';
@@ -26,30 +28,28 @@ class C_momentos
       return $resultado;
     }
   }
+
   public function cInsertarMomento()
   {
+    ob_clean(); // Limpia cualquier salida anterior
+    header('Content-Type: application/json');
     $this->vista = 'mostrarMomentos';
 
-    // Validación de campos obligatorios
     if (empty($_POST['nombre']) || empty($_POST['fechaInicio']) || empty($_POST['fechaFin'])) {
-      $msg = urlencode("Faltan campos obligatorios para crear el momento.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'Faltan campos obligatorios para crear el momento.']);
       exit();
     }
 
-    // Validación de fechas
     $fechaInicio = strtotime($_POST['fechaInicio']);
     $fechaFin = strtotime($_POST['fechaFin']);
 
     if ($fechaInicio === false || $fechaFin === false) {
-      $msg = urlencode("El formato de las fechas no es válido.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'El formato de las fechas no es válido.']);
       exit();
     }
 
     if ($fechaInicio >= $fechaFin) {
-      $msg = urlencode("La fecha de inicio debe ser anterior a la fecha de fin.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'La fecha de inicio debe ser anterior a la fecha de fin.']);
       exit();
     }
 
@@ -58,57 +58,56 @@ class C_momentos
     $fechaFin = $_POST['fechaFin'];
 
     $resultado = $this->objmomentos->mInsertarMomento($nombre, $fechaInicio, $fechaFin);
-    if (!$resultado) {
-      $msg = urlencode("Error al insertar el momento.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
-      exit();
+    if ($resultado) {
+      echo json_encode(['success' => true]);
+    } else {
+      echo json_encode(['success' => false, 'error' => 'Error al insertar el momento.']);
     }
-
-    return $this->objmomentos->mMostrarMomentos();
+    exit();
   }
+
   public function cEliminarMomento()
   {
+    ob_clean(); // Limpia cualquier salida anterior
+    header('Content-Type: application/json');
     $this->vista = 'mostrarMomentos';
 
     if (!isset($_GET['idMomento']) || empty($_GET['idMomento'])) {
-      $msg = urlencode("No se ha podido identificar el momento a eliminar.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'No se ha podido identificar el momento a eliminar.']);
       exit();
     }
 
     $idMomento = $_GET['idMomento'];
     $resultado = $this->objmomentos->mEliminarMomento($idMomento);
-    if (!$resultado) {
-      $msg = urlencode("Error al eliminar el momento.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
-      exit();
+    if ($resultado) {
+      echo json_encode(['success' => true]);
+    } else {
+      echo json_encode(['success' => false, 'error' => 'No se puede eliminar el momento tiene actividades asociadas.']);
     }
-    return $this->objmomentos->mMostrarMomentos();
+    exit();
   }
+
   public function cEditarMomento()
   {
+    ob_clean(); // Limpia cualquier salida anterior
+    header('Content-Type: application/json');
     $this->vista = 'mostrarMomentos';
 
-    // Validación de campos obligatorios
     if (empty($_POST['idMomento']) || empty($_POST['nombre']) || empty($_POST['fechaInicio']) || empty($_POST['fechaFin'])) {
-      $msg = urlencode("Faltan campos obligatorios para editar el momento.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'Faltan campos obligatorios para editar el momento.']);
       exit();
     }
 
-    // Validación de fechas
     $fechaInicio = strtotime($_POST['fechaInicio']);
     $fechaFin = strtotime($_POST['fechaFin']);
 
     if ($fechaInicio === false || $fechaFin === false) {
-      $msg = urlencode("El formato de las fechas no es válido.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'El formato de las fechas no es válido.']);
       exit();
     }
 
     if ($fechaInicio >= $fechaFin) {
-      $msg = urlencode("La fecha de inicio debe ser anterior a la fecha de fin.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
+      echo json_encode(['success' => false, 'error' => 'La fecha de inicio debe ser anterior a la fecha de fin.']);
       exit();
     }
 
@@ -118,11 +117,11 @@ class C_momentos
     $fechaFin = $_POST['fechaFin'];
 
     $resultado = $this->objmomentos->mEditarMomento($idMomento, $nombre, $fechaInicio, $fechaFin);
-    if (!$resultado) {
-      $msg = urlencode("Error al editar el momento.");
-      header("Location: ./index.php?controlador=momentos&accion=cMostrarMomentos&errorMsg=" . $msg);
-      exit();
+    if ($resultado) {
+      echo json_encode(['success' => true]);
+    } else {
+      echo json_encode(['success' => false, 'error' => 'Error al editar el momento.']);
     }
-    return $this->objmomentos->mMostrarMomentos();
+    exit();
   }
 }
