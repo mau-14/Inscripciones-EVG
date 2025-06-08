@@ -116,6 +116,7 @@ if (!$isCoordinador && !$isTutor) {
             <div class="grid-pruebas" id="camposPruebasMasculina">
             </div>
           </div>
+
           <div class="linea-separadora"></div>
           <!-- Categoría Femenina -->
           <div class="categoria">
