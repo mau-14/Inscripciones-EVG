@@ -18,19 +18,29 @@
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Tipo</th>
+                <th>Momento</th>
                 <th>Bases</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($dataToView["data"] as $actividad): ?>
-            <tr>
-                <td><?= $actividad['nombre'] ?></td>
-                <td><?= $actividad['fecha'] ?></td>
-                <td><?= $actividad['hora'] ?></td>
-                <td><?= $actividad['tipo'] === 'V' ? 'Alumnos' : 'Clase' ?></td>
-                <td><?= $actividad['bases'] ?></td>
-            </tr>
-            <?php endforeach; ?>
+            <?php if (empty($dataToView["data"])): ?>
+                <tr>
+                    <td colspan="6" style="text-align: center; padding: 20px; font-style: italic; color: #666;">
+                        No hay actividades disponibles en este momento.
+                    </td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($dataToView["data"] as $actividad): ?>
+                <tr>
+                    <td><?= htmlspecialchars($actividad['nombre']) ?></td>
+                    <td><?= htmlspecialchars($actividad['fecha']) ?></td>
+                    <td><?= htmlspecialchars($actividad['hora']) ?></td>
+                    <td><?= $actividad['tipo'] === 'V' ? 'Alumnos' : 'Clase' ?></td>
+                    <td><?= htmlspecialchars($actividad['nombre_momento']) ?></td>
+                    <td><?= htmlspecialchars($actividad['bases']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </body>
