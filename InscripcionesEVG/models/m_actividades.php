@@ -59,7 +59,7 @@ class M_actividades
     $SQL = "INSERT INTO Actividades (nombre, maxParticipantes, fecha, hora, bases, idMomento, tipo) 
                 VALUES (?, ?, NULLIF(?, ''), NULLIF(?, ''), ?, ?, ?)";
     $stmt = $this->conexion->prepare($SQL);
-    $stmt->bind_param("sisssis", $nombre, $maxParticipantes, $fecha, $hora, $bases, $idMomento, $tipo);
+    $stmt->bind_param("sississ", $nombre, $maxParticipantes, $fecha, $hora, $bases, $idMomento, $tipo);
     $stmt->execute();
 
     // 2. Obtener el idActividad insertado
@@ -110,5 +110,41 @@ class M_actividades
     $stmt->execute();
 
     return true;
+  }
+  public function mMostrarActividades()
+  {
+    $SQL = "SELECT 
+                a.idActividad,
+                a.nombre,
+                a.maxParticipantes,
+                a.fecha,
+                a.hora,
+                m.nombre as nombre_momento,
+                a.idMomento,
+                a.tipo,
+                a.bases
+                FROM Actividades a
+                LEFT JOIN Actividades_Alumnos aa ON a.idActividad = aa.idActividad
+                LEFT JOIN Actividades_clase ac ON a.idActividad = ac.idActividad
+                INNER JOIN Momentos m ON a.idMomento = m.idMomento";
+    $stmt = $this->conexion->prepare($SQL);
+    $stmt->execute();
+    $datos = $stmt->get_result();
+
+    $resultado = [];
+    while ($fila = $datos->fetch_assoc()) {
+      $resultado[] = [
+        "idActividad" => $fila['idActividad'],
+        "nombre" => $fila['nombre'],
+        "nombre_momento" => $fila['nombre_momento'],
+        "maxParticipantes" => $fila['maxParticipantes'],
+        "fecha" => $fila['fecha'],
+        "hora" => $fila['hora'],
+        "idMomento" => $fila['idMomento'],
+        "tipo" => $fila['tipo'],
+        "bases" => $fila['bases']
+      ];
+    }
+    return $resultado;
   }
 }

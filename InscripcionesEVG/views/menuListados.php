@@ -39,7 +39,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/InscripcionesEVG/config/entorno/variables.
       <a href="/InscripcionesEVG/views/vistaDescargaTO.php" class="menu-option" aria-label="Descargas Torneo Olímpico">
         <i class="fa-solid fa-trophy"></i>
       </a>
-      <a href="/InscripcionesEVG/views/listadoActividades.php" class="menu-option" aria-label="Descargas Actividades">
+      <a href="/InscripcionesEVG/index.php?controlador=actividades&accion=cMostrarActividades" class="menu-option" aria-label="Descargas Actividades">
         <i class="fa-solid fa-calendar-check"></i>
       </a>
     </section>

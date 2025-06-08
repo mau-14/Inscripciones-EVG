@@ -282,6 +282,95 @@ section h1 {
   }
 }
 
+/* Estilos para tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+table thead tr {
+  background-color: #336699;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  transition: all 0.2s ease;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f8f9fa;
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #336699;
+}
+
+table tbody tr:hover {
+  background-color: #e9ecef;
+  transform: translateX(5px);
+}
+
+/* Estilos para tablas responsivas */
+.table-responsive {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para celdas de acción */
+.acciones-celda {
+  white-space: nowrap;
+}
+
+.acciones-celda a, 
+.acciones-celda button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  margin: 0 2px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  font-size: 0.85em;
+  transition: all 0.2s ease;
+}
+
+.acciones-celda a.editar {
+  background-color: #17a2b8;
+}
+
+.acciones-celda a.eliminar {
+  background-color: #dc3545;
+}
+
+.acciones-celda a.ver {
+  background-color: #28a745;
+}
+
+.acciones-celda a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Estilos para tablas en móviles */
 @media (max-width: 768px) {
   h1 {
     font-size: 2.2em;

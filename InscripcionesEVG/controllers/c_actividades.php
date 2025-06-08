@@ -1,6 +1,4 @@
 <?php
-
-session_start();
 class C_actividades
 {
   private $objactividades;
@@ -142,5 +140,13 @@ class C_actividades
       echo json_encode(['success' => false, 'error' => 'Error al editar la actividad.']);
     }
     exit();
+  }
+  public function CMostrarActividades()
+  {
+    $this->vista = 'listadoActividades';
+    $resultado = $this->objactividades->mMostrarActividades();
+    if (is_array($resultado)) {
+      return $resultado;
+    }
   }
 }
