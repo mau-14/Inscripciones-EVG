@@ -42,7 +42,7 @@
         <div class="seccion-actividades">
           <h2 class="seccion-titulo">Actividades de Clase</h2>
           <div class="actividades-grid">
-            <?php foreach ($actividadesC as $actividad): ?> 
+            <?php foreach ($actividadesC as $actividad): ?>
               <a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscripcionesClase&id=<?php echo $actividad['idActividad'] ?>" class="actividad-enlace">
                 <div class="actividad-card">
                   <div class="actividad-contenido">
@@ -62,18 +62,18 @@
           <h2 class="seccion-titulo">Actividades de Alumnos</h2>
           <div class="actividades-grid">
             <?php foreach ($actividadesV as $actividad): ?>
-              <?php if ($_SESSION['usuario'] === 'Coordinador'){
-                echo '<a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cMostrarClasesElegir&id='.$actividad['idActividad'].'" class="actividad-enlace">';
+              <?php if ($_SESSION['usuario'] === 'Coordinador') {
+                echo '<a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cMostrarClasesElegir&id=' . $actividad['idActividad'] . '" class="actividad-enlace">';
               }
-              if ($_SESSION['usuario'] === 'Tutor'){
-                echo '<a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscripcionesAlumnos&id='.$actividad['idActividad'].'" class="actividad-enlace">';
+              if ($_SESSION['usuario'] === 'Tutor') {
+                echo '<a href="/InscripcionesEVG/index.php?controlador=inscripcionesActividades&accion=cInscripcionesAlumnos&id=' . $actividad['idActividad'] . '" class="actividad-enlace">';
               }
               ?>
-                <div class="actividad-card">
-                  <div class="actividad-contenido">
-                    <div class="actividad-nombre"><?php echo htmlspecialchars($actividad['nombre']); ?></div>
-                  </div>
+              <div class="actividad-card">
+                <div class="actividad-contenido">
+                  <div class="actividad-nombre"><?php echo htmlspecialchars($actividad['nombre']); ?></div>
                 </div>
+              </div>
               </a>
             <?php endforeach; ?>
           </div>
@@ -121,5 +121,8 @@
       };
     });
   </script>
+
+  <a href="/InscripcionesEVG/views/menuInscripciones.php" class="boton-volver">Volver</a>
 </body>
+
 </html>

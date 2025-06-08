@@ -119,7 +119,7 @@ export async function setUpInscripciones() {
 			// sessionStorage.setItem("claseSeleccionada", clase);
 		},
 		onCancelar: () => {
-			window.location.href = "/InscripcionesEVG/index.php";
+			window.location.href = "/InscripcionesEVG/views/menuInscripciones.php";
 		},
 	});
 }
