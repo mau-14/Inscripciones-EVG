@@ -71,7 +71,6 @@ class C_actividades
       $fechaActividad = new DateTime($_POST['fecha']);
       $fechaInicio = new DateTime($_SESSION['fechaInicioMomento']);
       $fechaFin = new DateTime($_SESSION['fechaFinMomento']);
-
       if ($fechaActividad < $fechaInicio || $fechaActividad > $fechaFin) {
         echo json_encode([
           'success' => false,

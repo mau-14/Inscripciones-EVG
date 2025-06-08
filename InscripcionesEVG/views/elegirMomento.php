@@ -19,7 +19,9 @@
       <label for="momento">Elige Momento :</label>
       <select name="momento" id="momento">
         <?php foreach ($dataToView["data"] as $momento) { ?>
-          <option value="<?php echo $momento['idMomento']; ?>"><?php echo $momento['nombre']; ?></option>
+          <option value="<?php echo $momento['idMomento'] . '|' . $momento['fecha_inicio'] . '|' . $momento['fecha_fin']; ?>">
+            <?php echo $momento['nombre']; ?>
+          </option>
         <?php } ?>
       </select>
       <button type="submit">Enviar</button>
