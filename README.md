@@ -5,6 +5,7 @@ El proyecto Inscripciones tiene como finalidad desarrollar una aplicación web p
 Actualmente la gestión se realiza de forma manual, presentando las siguientes dificultades:
 - Pérdida de tiempo en tareas repetitivas.
 - Errores humanos al inscribir.
+  
 Todo esto fue motivo suficiente para que el centro decidiera desarrollar este proyecto. Esta aplicación permite:
 - Automatizar y centralizar la gestión.
 - Asegurar el control y seguimiento del proceso.
